@@ -1713,6 +1713,389 @@ guardar_figura("08_red_bipartita")
 print("Figura 08 generada.")
 
 # %% [markdown]
+# ## 5. Proyecciones de la red
+#
+# ### 5.1 – 5.2 Proyección autor–autor y proyección video–video
+#
+# - **Autor–autor**: dos autores se conectan si comentaron en el **mismo video**. El peso es el
+#   **número de videos que comparten**.
+# - **Video–video**: dos videos se conectan si comparten **al menos un autor**. El peso es el
+#   **número de autores compartidos**.
+#
+# Ambas se calculan sobre la subred observada. Advertencia estructural: una proyección convierte cada
+# video en una **camarilla** (*clique*) entre todos sus comentaristas, de modo que el número de
+# aristas crece con el cuadrado del número de comentaristas y **no** representa interacción real.
+
+# %%
+from networkx.algorithms import bipartite
+
+def proyectar(G: nx.Graph, lado: list[str]) -> nx.Graph:
+    """Proyección ponderada con orden canónico.
+
+    networkx recorre conjuntos para construir la proyección, y el orden de iteración de conjuntos
+    de cadenas varía entre procesos por la aleatorización del hash. Eso no cambia el grafo, pero sí
+    el orden de nodos y aristas, y con él las tablas exportadas y los diseños de fuerzas. Se
+    reconstruye el grafo insertando nodos y aristas ordenados para que el análisis sea reproducible
+    bit a bit.
+    """
+    bruta = bipartite.weighted_projected_graph(G, lado)
+    canonica = nx.Graph()
+    canonica.add_nodes_from(sorted(bruta.nodes(data=True)), )
+    for u, v, datos in sorted(bruta.edges(data=True), key=lambda e: (e[0], e[1])):
+        canonica.add_edge(u, v, **datos)
+    return canonica
+
+
+P_autores = proyectar(G_obs, sorted(AUTORES_OBS))
+P_videos = proyectar(G_obs, sorted(VIDEOS_OBS))
+
+aristas_pa = pd.DataFrame(
+    [{"autor_a": G_obs.nodes[u]["etiqueta"], "autor_b": G_obs.nodes[v]["etiqueta"],
+      "videos_compartidos": d["weight"], "nodo_a": u, "nodo_b": v}
+     for u, v, d in P_autores.edges(data=True)]
+).sort_values(["videos_compartidos", "nodo_a", "nodo_b"], ascending=[False, True, True])
+
+aristas_pv = pd.DataFrame(
+    [{"video_a": G_obs.nodes[u]["etiqueta"], "video_b": G_obs.nodes[v]["etiqueta"],
+      "autores_compartidos": d["weight"], "nodo_a": u, "nodo_b": v}
+     for u, v, d in P_videos.edges(data=True)]
+).sort_values(["autores_compartidos", "nodo_a", "nodo_b"], ascending=[False, True, True])
+
+guardar_tabla(aristas_pa, "43_aristas_proyeccion_autor_autor")
+guardar_tabla(aristas_pv, "44_aristas_proyeccion_video_video")
+nx.write_graphml(P_autores, GRAFOS / "proyeccion_autor_autor.graphml")
+nx.write_graphml(P_videos, GRAFOS / "proyeccion_video_video.graphml")
+
+registrar("pa_nodos", P_autores.number_of_nodes())
+registrar("pa_aristas", P_autores.number_of_edges())
+registrar("pv_nodos", P_videos.number_of_nodes())
+registrar("pv_aristas", P_videos.number_of_edges())
+registrar("pv_aristas_top", aristas_pv.head(6)[["video_a", "video_b", "autores_compartidos"]].to_dict("records"))
+print(aristas_pv.head(8)[["video_a", "video_b", "autores_compartidos"]].to_string(index=False))
+
+# %% [markdown]
+# ### 5.3 Comparación: ¿qué fenómeno representa cada proyección?
+
+# %%
+comparacion = pd.DataFrame([
+    ["Nodos", P_autores.number_of_nodes(), P_videos.number_of_nodes()],
+    ["Aristas", P_autores.number_of_edges(), P_videos.number_of_edges()],
+    ["Densidad", round(nx.density(P_autores), 4), round(nx.density(P_videos), 4)],
+    ["Grado medio", round(2 * P_autores.number_of_edges() / max(P_autores.number_of_nodes(), 1), 2),
+     round(2 * P_videos.number_of_edges() / max(P_videos.number_of_nodes(), 1), 2)],
+    ["Peso máximo de una arista", int(max((d["weight"] for *_, d in P_autores.edges(data=True)), default=0)),
+     int(max((d["weight"] for *_, d in P_videos.edges(data=True)), default=0))],
+    ["Aristas con peso > 1", int(sum(1 for *_, d in P_autores.edges(data=True) if d["weight"] > 1)),
+     int(sum(1 for *_, d in P_videos.edges(data=True) if d["weight"] > 1))],
+    ["Nodos aislados", len(list(nx.isolates(P_autores))), len(list(nx.isolates(P_videos)))],
+    ["Componentes conexas", nx.number_connected_components(P_autores), nx.number_connected_components(P_videos)],
+    ["Transitividad", round(nx.transitivity(P_autores), 4), round(nx.transitivity(P_videos), 4)],
+], columns=["métrica", "proyección_autor_autor", "proyección_video_video"])
+guardar_tabla(comparacion, "45_comparacion_proyecciones")
+registrar("comparacion_proyecciones", comparacion.to_dict("records"))
+comparacion
+
+# %% [markdown]
+# **Lectura de la comparación.**
+#
+# - La **proyección autor–autor** representa *co-presencia en la misma sección de comentarios*. Su
+#   densidad es artificialmente alta porque cada video crea una camarilla completa: el video con 128
+#   comentaristas aporta por sí solo 8 128 aristas. Casi todas las aristas tienen peso 1, es decir,
+#   la única evidencia es «coincidieron una vez en un video». No es una red de conversación.
+# - La **proyección video–video** representa *solapamiento de audiencia*: cuántas personas
+#   comentaron en ambos videos. Es mucho más informativa porque cada arista corresponde a personas
+#   concretas y verificables, y es la que permite hablar de audiencias compartidas entre canales.
+# - Conclusión metodológica: para *comunidades* y *centralidad* conviene trabajar sobre la red
+#   **bipartita**, no sobre la proyección autor–autor, cuyas camarillas inflan artificialmente la
+#   cohesión y la intermediación.
+
+# %% [markdown]
+# ### 5.4 Visualización de ambas proyecciones
+
+# %%
+def disposicion_con_aislados(G: nx.Graph, semilla: int = RANDOM_SEED, k: float = 1.0) -> dict:
+    """Coloca la parte conectada con un diseño de fuerzas y alinea los nodos aislados abajo.
+
+    Un spring_layout convencional empuja los nodos aislados hacia los bordes y comprime la parte
+    conectada hasta hacerla ilegible; separarlos deja ver la estructura y a la vez conserva
+    los nodos aislados, que son un hallazgo y no deben eliminarse.
+    """
+    aislados = sorted(nx.isolates(G))
+    conectados = [n for n in G if n not in set(aislados)]
+    posicion = {}
+    if conectados:
+        sub = G.subgraph(conectados)
+        base = nx.kamada_kawai_layout(sub) if sub.number_of_nodes() > 2 else nx.spring_layout(sub, seed=semilla)
+        coord = np.array(list(base.values()))
+        rango = np.ptp(coord, axis=0)
+        rango[rango == 0] = 1
+        for nodo, (x, y) in base.items():                       # reescalado a [-1, 1] × [0, 1]
+            posicion[nodo] = (2 * (x - coord[:, 0].min()) / rango[0] - 1,
+                              (y - coord[:, 1].min()) / rango[1] * 0.95 + 0.30)
+    for indice, nodo in enumerate(aislados):
+        posicion[nodo] = (-1 + 2 * indice / max(len(aislados) - 1, 1), -0.12)
+    return posicion
+
+
+intermediacion_pa = nx.betweenness_centrality(G_obs, normalized=True, seed=RANDOM_SEED)
+
+fig, ejes = plt.subplots(1, 2, figsize=(16, 7.5))
+
+# --- Proyección autor-autor: cada video se convierte en una camarilla completa ---
+pos_pa = nx.spring_layout(P_autores, seed=RANDOM_SEED, k=0.85, iterations=250)
+puente_pa = [n for n in P_autores if G_obs.degree(n) > 1]
+aislados_pa = list(nx.isolates(P_autores))
+nx.draw_networkx_edges(P_autores, pos_pa, ax=ejes[0], edge_color=AZUL, alpha=0.035, width=0.35)
+nx.draw_networkx_nodes(P_autores, pos_pa, ax=ejes[0],
+                       nodelist=[n for n in P_autores if n not in set(puente_pa) | set(aislados_pa)],
+                       node_color=AZUL, node_size=22, alpha=0.9, edgecolors="white", linewidths=0.3)
+nx.draw_networkx_nodes(P_autores, pos_pa, nodelist=aislados_pa, ax=ejes[0], node_color="white",
+                       edgecolors=GRIS, linewidths=0.8, node_size=26)
+nx.draw_networkx_nodes(P_autores, pos_pa, nodelist=puente_pa, ax=ejes[0], node_color=ROJO,
+                       node_size=90, edgecolors="black", linewidths=0.8)
+for nodo in sorted(puente_pa, key=lambda n: -intermediacion_pa.get(n, 0))[:5]:
+    x, y = pos_pa[nodo]
+    ejes[0].annotate(acortar(G_obs.nodes[nodo]["etiqueta"], 20), (x, y), fontsize=7.5,
+                     xytext=(6, 5), textcoords="offset points",
+                     bbox=dict(facecolor="white", edgecolor="none", alpha=0.8, pad=0.5))
+ejes[0].set_title(f"Proyección autor–autor · peso = videos compartidos\n"
+                  f"{P_autores.number_of_nodes()} autores · {P_autores.number_of_edges()} aristas · "
+                  f"densidad {nx.density(P_autores):.3f}")
+ejes[0].axis("off")
+ejes[0].legend(handles=[
+    Line2D([], [], marker="o", ls="", color=AZUL, ms=6, label="Autor de un solo video"),
+    Line2D([], [], marker="o", ls="", color=ROJO, ms=9, label=f"Autor en más de un video ({len(puente_pa)})"),
+    Line2D([], [], marker="o", ls="", mfc="white", mec=GRIS, ms=6, label=f"Aislado: nadie más comentó ese video ({len(aislados_pa)})"),
+], loc="lower center", fontsize=8, bbox_to_anchor=(0.5, -0.10), ncol=1)
+
+# --- Proyección video-video: solapamiento real de audiencias ---
+pos_pv = disposicion_con_aislados(P_videos)
+aislados_pv = sorted(nx.isolates(P_videos))
+conectados_pv = [n for n in P_videos if n not in set(aislados_pv)]
+pesos_pv = [P_videos[u][v]["weight"] for u, v in P_videos.edges()]
+nx.draw_networkx_edges(P_videos, pos_pv, ax=ejes[1], edge_color=MORADO, alpha=0.75,
+                       width=[1.4 + 2.2 * (w - 1) for w in pesos_pv])
+nx.draw_networkx_nodes(P_videos, pos_pv, nodelist=conectados_pv, ax=ejes[1], node_color=NARANJA,
+                       node_size=[90 + 3.6 * G_obs.nodes[n]["comentarios_recibidos"] for n in conectados_pv],
+                       edgecolors="white", linewidths=1.2)
+nx.draw_networkx_nodes(P_videos, pos_pv, nodelist=aislados_pv, ax=ejes[1], node_color="white",
+                       edgecolors=NARANJA, linewidths=1.4,
+                       node_size=[70 + 3.6 * G_obs.nodes[n]["comentarios_recibidos"] for n in aislados_pv])
+nx.draw_networkx_edge_labels(P_videos, pos_pv, ax=ejes[1], font_size=8, rotate=False,
+                             bbox=dict(facecolor="white", edgecolor="none", alpha=0.85, pad=0.4),
+                             edge_labels={(u, v): d["weight"] for u, v, d in P_videos.edges(data=True)})
+for nodo in conectados_pv:
+    x, y = pos_pv[nodo]
+    ejes[1].annotate(acortar(G_obs.nodes[nodo]["etiqueta"], 22), (x, y), fontsize=7.2, ha="center",
+                     xytext=(0, 13), textcoords="offset points",
+                     bbox=dict(facecolor="white", edgecolor="none", alpha=0.82, pad=0.4))
+for nodo in aislados_pv:
+    x, y = pos_pv[nodo]
+    ejes[1].annotate(acortar(G_obs.nodes[nodo]["etiqueta"], 20), (x, y), fontsize=6.6, rotation=42,
+                     ha="right", va="top", xytext=(-2, -8), textcoords="offset points")
+ejes[1].axhline(0.10, color=GRIS, ls="--", lw=0.8, xmin=0.02, xmax=0.98)
+ejes[1].text(-1.0, 0.02, f"Sin audiencia compartida con ningún otro video ({len(aislados_pv)})",
+             fontsize=8, color=GRIS, style="italic")
+ejes[1].set_ylim(-0.75, 1.45)
+ejes[1].set_title(f"Proyección video–video · peso = autores compartidos\n"
+                  f"{P_videos.number_of_nodes()} videos · {P_videos.number_of_edges()} aristas · "
+                  f"densidad {nx.density(P_videos):.3f}")
+ejes[1].axis("off")
+
+fig.suptitle("Las dos proyecciones describen fenómenos distintos: co-presencia (izq.) y audiencia compartida (der.)",
+             fontweight="bold")
+fig.tight_layout()
+guardar_figura("09_proyecciones")
+print("Figura 09 generada.")
+
+# %% [markdown]
+# ## 6. Topología y fragmentación
+#
+# ### 6.1 – 6.2 Métricas estructurales de la red bipartita y de las proyecciones
+
+# %%
+def metricas_red(G: nx.Graph, nombre: str, bipartita: bool = False) -> dict:
+    n, m = G.number_of_nodes(), G.number_of_edges()
+    grados = [g for _, g in G.degree()]
+    if n == 0:
+        return {"red": nombre}
+    if bipartita:
+        lado_a = {x for x, d in G.nodes(data=True) if d.get("tipo_nodo") == "autor"}
+        lado_b = set(G) - lado_a
+        densidad = m / (len(lado_a) * len(lado_b)) if lado_a and lado_b else np.nan
+    else:
+        densidad = nx.density(G)
+    componentes = sorted(nx.connected_components(G), key=lambda c: (-len(c), min(c)))
+    mayor = G.subgraph(componentes[0]) if componentes else G
+    return {
+        "red": nombre,
+        "nodos": n,
+        "aristas": m,
+        "densidad": round(float(densidad), 5),
+        "grado_medio": round(float(np.mean(grados)), 3),
+        "grado_mediano": float(np.median(grados)),
+        "grado_max": int(np.max(grados)),
+        "grado_min": int(np.min(grados)),
+        "componentes": len(componentes),
+        "tam_componente_mayor": len(componentes[0]) if componentes else 0,
+        "pct_en_componente_mayor": round(100 * len(componentes[0]) / n, 2) if componentes else 0,
+        "aislados": int(sum(1 for g in grados if g == 0)),
+        "transitividad": round(nx.transitivity(G), 5),
+        "clustering_medio": round(nx.average_clustering(G), 5),
+        "diametro_componente_mayor": nx.diameter(mayor) if mayor.number_of_nodes() > 1 else 0,
+        "camino_medio_componente_mayor": round(nx.average_shortest_path_length(mayor), 3)
+        if mayor.number_of_nodes() > 1 else 0,
+    }
+
+
+topologia = pd.DataFrame([
+    metricas_red(G_completo, "Bipartita completa (293 videos + 332 autores)", bipartita=True),
+    metricas_red(G_obs, "Bipartita observada (19 videos + 332 autores)", bipartita=True),
+    metricas_red(P_autores, "Proyección autor–autor"),
+    metricas_red(P_videos, "Proyección video–video"),
+])
+guardar_tabla(topologia, "46_metricas_topologicas")
+registrar("topologia", topologia.to_dict("records"))
+topologia.T
+
+# %% [markdown]
+# **Cohesión y transitividad: por qué el coeficiente clásico vale exactamente 0.**
+#
+# En una red **bipartita** no pueden existir triángulos: un ciclo cerrado necesita alternar autor y
+# video, de modo que el ciclo más corto tiene longitud 4. Por eso la transitividad y el *clustering*
+# clásicos son 0 **por construcción**, no por falta de cohesión. La medida correcta es el
+# *clustering* bipartito de Latapy, que cuantifica el solapamiento de vecindarios entre nodos del
+# mismo lado, y el coeficiente de redundancia, que mide qué fracción de los vecinos de un nodo
+# seguiría conectada si ese nodo desapareciera.
+
+# %%
+from networkx.algorithms.bipartite import cluster as bcluster
+
+clustering_bip = bcluster.clustering(G_obs, mode="dot")
+# La redundancia sólo está definida para nodos con al menos dos vecinos.
+nodos_con_dos_vecinos = [n for n in G_obs if G_obs.degree(n) >= 2]
+redundancia = nx.bipartite.node_redundancy(G_obs, nodes=nodos_con_dos_vecinos) if nodos_con_dos_vecinos else {}
+
+cohesion = pd.DataFrame([
+    ["Transitividad clásica (bipartita observada)", round(nx.transitivity(G_obs), 5),
+     "Vale 0 por construcción: una red bipartita no admite triángulos."],
+    ["Clustering bipartito de Latapy — autores", round(float(np.mean([clustering_bip[n] for n in AUTORES_OBS])), 5),
+     "Solapamiento medio de vecindarios entre autores."],
+    ["Clustering bipartito de Latapy — videos", round(float(np.mean([clustering_bip[n] for n in VIDEOS_OBS])), 5),
+     "Solapamiento medio de audiencias entre videos."],
+    [f"Redundancia media ({len(nodos_con_dos_vecinos)} nodos con grado ≥ 2)",
+     round(float(np.mean(list(redundancia.values()))), 5) if redundancia else np.nan,
+     "Fracción de pares de vecinos que seguirían conectados por otro camino si el nodo desapareciera."],
+    ["Transitividad — proyección autor–autor", round(nx.transitivity(P_autores), 5),
+     "Cercana a 1 porque cada video genera una camarilla completa; es un artefacto de la proyección."],
+    ["Transitividad — proyección video–video", round(nx.transitivity(P_videos), 5),
+     "Baja: los solapamientos de audiencia rara vez cierran triángulos."],
+    ["Densidad — bipartita observada", round(G_obs.number_of_edges() / (len(AUTORES_OBS) * len(VIDEOS_OBS)), 5),
+     "Se calcula sobre el producto de los dos lados, no sobre n(n-1)/2."],
+], columns=["medida", "valor", "interpretación"])
+guardar_tabla(cohesion, "47_cohesion_y_transitividad")
+registrar("cohesion", cohesion.to_dict("records"))
+cohesion
+
+# %% [markdown]
+# ### 6.1 Distribución de grados: ¿pocas conexiones o concentradas en unos pocos?
+
+# %%
+grados_autor = pd.Series([G_obs.degree(n) for n in AUTORES_OBS])
+grados_video = pd.Series([G_obs.degree(n) for n in VIDEOS_OBS])
+fuerza_autor = pd.Series([G_obs.degree(n, weight="weight") for n in AUTORES_OBS])
+
+distribucion_grados = pd.DataFrame({
+    "grado": sorted(set(grados_autor) | set(grados_video)),
+}).assign(
+    autores=lambda d: d["grado"].map(grados_autor.value_counts()).fillna(0).astype(int),
+    videos=lambda d: d["grado"].map(grados_video.value_counts()).fillna(0).astype(int),
+)
+guardar_tabla(distribucion_grados, "48_distribucion_de_grados")
+
+resumen_grados = pd.DataFrame([
+    ["Autores", len(grados_autor), round(grados_autor.mean(), 3), float(grados_autor.median()),
+     int(grados_autor.max()), round(100 * (grados_autor == 1).mean(), 1)],
+    ["Videos (con cobertura)", len(grados_video), round(grados_video.mean(), 3), float(grados_video.median()),
+     int(grados_video.max()), round(100 * (grados_video == 1).mean(), 1)],
+], columns=["lado", "nodos", "grado_medio", "grado_mediano", "grado_max", "pct_con_grado_1"])
+guardar_tabla(resumen_grados, "49_resumen_grados_por_lado")
+registrar("resumen_grados", resumen_grados.to_dict("records"))
+registrar("pct_autores_grado1", round(100 * (grados_autor == 1).mean(), 1))
+print(resumen_grados.to_string(index=False))
+
+fig, ejes = plt.subplots(1, 3, figsize=(15.5, 4.5))
+conteo_a = grados_autor.value_counts().sort_index()
+ejes[0].bar(conteo_a.index.astype(str), conteo_a.values, color=AZUL)
+ejes[0].set(title="Grado de los autores (videos comentados)", xlabel="Grado", ylabel="Autores")
+ejes[0].set_yscale("log")
+for x, v in enumerate(conteo_a.values):
+    ejes[0].text(x, v, str(v), ha="center", va="bottom", fontsize=8)
+
+ejes[1].bar(range(len(grados_video)), sorted(grados_video, reverse=True), color=NARANJA)
+ejes[1].set(title="Grado de los videos (autores distintos)", xlabel="Videos ordenados", ylabel="Grado")
+ejes[1].set_xticks(range(len(grados_video)))
+ejes[1].set_xticklabels([str(i + 1) for i in range(len(grados_video))], fontsize=7)
+
+tam_componentes = sorted((len(c) for c in nx.connected_components(G_obs)), reverse=True)
+ejes[2].bar(range(1, len(tam_componentes) + 1), tam_componentes, color=VERDE)
+ejes[2].set(title="Tamaño de las componentes conexas (subred observada)",
+            xlabel="Componente", ylabel="Nodos")
+ejes[2].set_yscale("log")
+for x, v in enumerate(tam_componentes, start=1):
+    ejes[2].text(x, v, str(v), ha="center", va="bottom", fontsize=8)
+fig.suptitle("Distribución de grados y fragmentación: muchos nodos con una sola conexión, "
+             "pocos con muchísimas", fontweight="bold")
+fig.tight_layout()
+guardar_figura("10_distribucion_grados_componentes")
+
+# %% [markdown]
+# ### 6.3 Nodos periféricos y aislados: aislamiento observado vs ausencia de datos
+
+# %%
+componentes_obs = sorted(nx.connected_components(G_obs), key=lambda c: (-len(c), min(c)))
+componente_de = {n: i + 1 for i, c in enumerate(componentes_obs) for n in c}
+
+tabla_componentes = pd.DataFrame([{
+    "componente": i + 1,
+    "nodos": len(c),
+    "autores": sum(1 for n in c if G_obs.nodes[n]["tipo_nodo"] == "autor"),
+    "videos": sum(1 for n in c if G_obs.nodes[n]["tipo_nodo"] == "video"),
+    "comentarios": int(sum(d["weight"] for u, v, d in G_obs.edges(c, data=True))),
+    "titulos": " | ".join(sorted(acortar(G_obs.nodes[n]["etiqueta"], 34)
+                                 for n in c if G_obs.nodes[n]["tipo_nodo"] == "video")),
+} for i, c in enumerate(componentes_obs)])
+guardar_tabla(tabla_componentes, "50_componentes_conexas")
+registrar("componentes", tabla_componentes.to_dict("records"))
+print(tabla_componentes[["componente", "nodos", "autores", "videos", "comentarios"]].to_string(index=False))
+
+# %%
+videos_sin_cobertura = nodos[(nodos["tipo_nodo"] == "video") & (~nodos["observado"])]
+periferia = pd.DataFrame([
+    ["Videos sin ninguna arista", len(videos_sin_cobertura),
+     "AUSENCIA DE DATOS. No se recolectaron comentarios para ellos; no puede afirmarse que nadie comentó."],
+    ["Videos con cobertura y grado 1", int((grados_video == 1).sum()),
+     "AISLAMIENTO OBSERVADO PARCIAL. Recibieron un solo comentarista dentro de la muestra."],
+    ["Autores con grado 1 (un solo video)", int((grados_autor == 1).sum()),
+     "PERIFERIA OBSERVADA. Participación de una sola vez en la muestra; pueden ser activos fuera de ella."],
+    ["Autores con grado ≥ 2", int((grados_autor >= 2).sum()),
+     "NÚCLEO CONECTOR. Son los únicos nodos capaces de unir videos distintos."],
+    ["Autores aislados en la proyección autor–autor", len(list(nx.isolates(P_autores))),
+     "Comentaron en un video donde nadie más de la muestra comentó."],
+    ["Videos aislados en la proyección video–video", len(list(nx.isolates(P_videos))),
+     "No comparten ningún comentarista con otro video de la muestra."],
+    ["Componentes conexas de la subred observada", len(componentes_obs),
+     f"La mayor reúne {len(componentes_obs[0])} nodos ({round(100 * len(componentes_obs[0]) / G_obs.number_of_nodes(), 1)} % de la subred)."],
+], columns=["grupo", "conteo", "lectura"])
+guardar_tabla(periferia, "51_periferia_y_aislamiento")
+registrar("periferia", periferia.to_dict("records"))
+registrar("videos_sin_cobertura_n", len(videos_sin_cobertura))
+registrar("n_componentes_obs", len(componentes_obs))
+registrar("tam_componente_mayor", len(componentes_obs[0]))
+registrar("pct_componente_mayor", round(100 * len(componentes_obs[0]) / G_obs.number_of_nodes(), 1))
+periferia
+
+# %% [markdown]
 # ## 11. Exportación de datos procesados y de las métricas del informe
 
 # %%

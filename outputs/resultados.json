@@ -1883,6 +1883,342 @@
   "red_obs_videos": 19,
   "peso_total": 406,
   "peso_max": 6,
+  "pa_nodos": 332,
+  "pa_aristas": 10732,
+  "pv_nodos": 19,
+  "pv_aristas": 11,
+  "pv_aristas_top": [
+    {
+      "video_a": "La cooptación de Walter Mazariegos en la USAC",
+      "video_b": "Qué rico come tu diputado",
+      "autores_compartidos": 2
+    },
+    {
+      "video_a": "Internet: escoger el menos malo",
+      "video_b": "Arroz con pollo a la MONOPOLIO",
+      "autores_compartidos": 2
+    },
+    {
+      "video_a": "Capturan a presuntos delincuentes disfrazados de mujer seña…",
+      "video_b": "Inician los trabajos de recuperación del Puente Belice II.",
+      "autores_compartidos": 1
+    },
+    {
+      "video_a": "Inician los trabajos de recuperación del Puente Belice II.",
+      "video_b": "Conferencia de Prensa del Gobierno de Guatemala. #LaRondaGt",
+      "autores_compartidos": 1
+    },
+    {
+      "video_a": "Conferencia de Prensa del Gobierno de Guatemala. #LaRondaGt",
+      "video_b": "Qué rico come tu diputado",
+      "autores_compartidos": 1
+    },
+    {
+      "video_a": "Caminar en una ciudad hecha para carros",
+      "video_b": "Internet: escoger el menos malo",
+      "autores_compartidos": 1
+    }
+  ],
+  "comparacion_proyecciones": [
+    {
+      "métrica": "Nodos",
+      "proyección_autor_autor": 332.0,
+      "proyección_video_video": 19.0
+    },
+    {
+      "métrica": "Aristas",
+      "proyección_autor_autor": 10732.0,
+      "proyección_video_video": 11.0
+    },
+    {
+      "métrica": "Densidad",
+      "proyección_autor_autor": 0.1953,
+      "proyección_video_video": 0.0643
+    },
+    {
+      "métrica": "Grado medio",
+      "proyección_autor_autor": 64.65,
+      "proyección_video_video": 1.16
+    },
+    {
+      "métrica": "Peso máximo de una arista",
+      "proyección_autor_autor": 2.0,
+      "proyección_video_video": 2.0
+    },
+    {
+      "métrica": "Aristas con peso > 1",
+      "proyección_autor_autor": 2.0,
+      "proyección_video_video": 2.0
+    },
+    {
+      "métrica": "Nodos aislados",
+      "proyección_autor_autor": 4.0,
+      "proyección_video_video": 9.0
+    },
+    {
+      "métrica": "Componentes conexas",
+      "proyección_autor_autor": 10.0,
+      "proyección_video_video": 10.0
+    },
+    {
+      "métrica": "Transitividad",
+      "proyección_autor_autor": 0.984,
+      "proyección_video_video": 0.3158
+    }
+  ],
+  "topologia": [
+    {
+      "red": "Bipartita completa (293 videos + 332 autores)",
+      "nodos": 625,
+      "aristas": 343,
+      "densidad": 0.00353,
+      "grado_medio": 1.098,
+      "grado_mediano": 1.0,
+      "grado_max": 128,
+      "grado_min": 0,
+      "componentes": 284,
+      "tam_componente_mayor": 286,
+      "pct_en_componente_mayor": 45.76,
+      "aislados": 274,
+      "transitividad": 0.0,
+      "clustering_medio": 0.0,
+      "diametro_componente_mayor": 12,
+      "camino_medio_componente_mayor": 4.715
+    },
+    {
+      "red": "Bipartita observada (19 videos + 332 autores)",
+      "nodos": 351,
+      "aristas": 343,
+      "densidad": 0.05438,
+      "grado_medio": 1.954,
+      "grado_mediano": 1.0,
+      "grado_max": 128,
+      "grado_min": 1,
+      "componentes": 10,
+      "tam_componente_mayor": 286,
+      "pct_en_componente_mayor": 81.48,
+      "aislados": 0,
+      "transitividad": 0.0,
+      "clustering_medio": 0.0,
+      "diametro_componente_mayor": 12,
+      "camino_medio_componente_mayor": 4.715
+    },
+    {
+      "red": "Proyección autor–autor",
+      "nodos": 332,
+      "aristas": 10732,
+      "densidad": 0.19532,
+      "grado_medio": 64.651,
+      "grado_mediano": 48.0,
+      "grado_max": 183,
+      "grado_min": 0,
+      "componentes": 10,
+      "tam_componente_mayor": 276,
+      "pct_en_componente_mayor": 83.13,
+      "aislados": 4,
+      "transitividad": 0.98403,
+      "clustering_medio": 0.97205,
+      "diametro_componente_mayor": 6,
+      "camino_medio_componente_mayor": 2.356
+    },
+    {
+      "red": "Proyección video–video",
+      "nodos": 19,
+      "aristas": 11,
+      "densidad": 0.06433,
+      "grado_medio": 1.158,
+      "grado_mediano": 1.0,
+      "grado_max": 4,
+      "grado_min": 0,
+      "componentes": 10,
+      "tam_componente_mayor": 10,
+      "pct_en_componente_mayor": 52.63,
+      "aislados": 9,
+      "transitividad": 0.31579,
+      "clustering_medio": 0.14912,
+      "diametro_componente_mayor": 5,
+      "camino_medio_componente_mayor": 2.489
+    }
+  ],
+  "cohesion": [
+    {
+      "medida": "Transitividad clásica (bipartita observada)",
+      "valor": 0.0,
+      "interpretación": "Vale 0 por construcción: una red bipartita no admite triángulos."
+    },
+    {
+      "medida": "Clustering bipartito de Latapy — autores",
+      "valor": 0.94227,
+      "interpretación": "Solapamiento medio de vecindarios entre autores."
+    },
+    {
+      "medida": "Clustering bipartito de Latapy — videos",
+      "valor": 0.01438,
+      "interpretación": "Solapamiento medio de audiencias entre videos."
+    },
+    {
+      "medida": "Redundancia media (24 nodos con grado ≥ 2)",
+      "valor": 0.11242,
+      "interpretación": "Fracción de pares de vecinos que seguirían conectados por otro camino si el nodo desapareciera."
+    },
+    {
+      "medida": "Transitividad — proyección autor–autor",
+      "valor": 0.98403,
+      "interpretación": "Cercana a 1 porque cada video genera una camarilla completa; es un artefacto de la proyección."
+    },
+    {
+      "medida": "Transitividad — proyección video–video",
+      "valor": 0.31579,
+      "interpretación": "Baja: los solapamientos de audiencia rara vez cierran triángulos."
+    },
+    {
+      "medida": "Densidad — bipartita observada",
+      "valor": 0.05438,
+      "interpretación": "Se calcula sobre el producto de los dos lados, no sobre n(n-1)/2."
+    }
+  ],
+  "resumen_grados": [
+    {
+      "lado": "Autores",
+      "nodos": 332,
+      "grado_medio": 1.033,
+      "grado_mediano": 1.0,
+      "grado_max": 3,
+      "pct_con_grado_1": 97.3
+    },
+    {
+      "lado": "Videos (con cobertura)",
+      "nodos": 19,
+      "grado_medio": 18.053,
+      "grado_mediano": 7.0,
+      "grado_max": 128,
+      "pct_con_grado_1": 21.1
+    }
+  ],
+  "pct_autores_grado1": 97.3,
+  "componentes": [
+    {
+      "componente": 1,
+      "nodos": 286,
+      "autores": 276,
+      "videos": 10,
+      "comentarios": 343,
+      "titulos": "Arroz con pollo a la MONOPOLIO | Bloqueos en Guatemala este 31 de … | Caminar en una ciudad hecha para … | Capturan a ladrón que había queda… | Capturan a presuntos delincuentes… | Conferencia de Prensa del Gobiern… | Inician los trabajos de recuperac… | Internet: escoger el menos malo | La cooptación de Walter Mazariego… | Qué rico come tu diputado"
+    },
+    {
+      "componente": 2,
+      "nodos": 26,
+      "autores": 25,
+      "videos": 1,
+      "comentarios": 25,
+      "titulos": "Plan 2032 Ciudad de Guatemala"
+    },
+    {
+      "componente": 3,
+      "nodos": 19,
+      "autores": 18,
+      "videos": 1,
+      "comentarios": 25,
+      "titulos": "EE.UU. envía a mexicanos deportad…"
+    },
+    {
+      "componente": 4,
+      "nodos": 5,
+      "autores": 4,
+      "videos": 1,
+      "comentarios": 4,
+      "titulos": "I’x K’at: el primer equipo guatem…"
+    },
+    {
+      "componente": 5,
+      "nodos": 4,
+      "autores": 3,
+      "videos": 1,
+      "comentarios": 3,
+      "titulos": "10 Preguntas a un año del Paro Na…"
+    },
+    {
+      "componente": 6,
+      "nodos": 3,
+      "autores": 2,
+      "videos": 1,
+      "comentarios": 2,
+      "titulos": "Noticiero en Directo 1 pm, 28 de …"
+    },
+    {
+      "componente": 7,
+      "nodos": 2,
+      "autores": 1,
+      "videos": 1,
+      "comentarios": 1,
+      "titulos": "¿Quiénes pagan más en Centroaméri…"
+    },
+    {
+      "componente": 8,
+      "nodos": 2,
+      "autores": 1,
+      "videos": 1,
+      "comentarios": 1,
+      "titulos": "Cruzando la ciudad a puro Transme…"
+    },
+    {
+      "componente": 9,
+      "nodos": 2,
+      "autores": 1,
+      "videos": 1,
+      "comentarios": 1,
+      "titulos": "Edén por Salud: empleo inclusivo …"
+    },
+    {
+      "componente": 10,
+      "nodos": 2,
+      "autores": 1,
+      "videos": 1,
+      "comentarios": 1,
+      "titulos": "SHAI WA: la vecina queer de Casa …"
+    }
+  ],
+  "periferia": [
+    {
+      "grupo": "Videos sin ninguna arista",
+      "conteo": 274,
+      "lectura": "AUSENCIA DE DATOS. No se recolectaron comentarios para ellos; no puede afirmarse que nadie comentó."
+    },
+    {
+      "grupo": "Videos con cobertura y grado 1",
+      "conteo": 4,
+      "lectura": "AISLAMIENTO OBSERVADO PARCIAL. Recibieron un solo comentarista dentro de la muestra."
+    },
+    {
+      "grupo": "Autores con grado 1 (un solo video)",
+      "conteo": 323,
+      "lectura": "PERIFERIA OBSERVADA. Participación de una sola vez en la muestra; pueden ser activos fuera de ella."
+    },
+    {
+      "grupo": "Autores con grado ≥ 2",
+      "conteo": 9,
+      "lectura": "NÚCLEO CONECTOR. Son los únicos nodos capaces de unir videos distintos."
+    },
+    {
+      "grupo": "Autores aislados en la proyección autor–autor",
+      "conteo": 4,
+      "lectura": "Comentaron en un video donde nadie más de la muestra comentó."
+    },
+    {
+      "grupo": "Videos aislados en la proyección video–video",
+      "conteo": 9,
+      "lectura": "No comparten ningún comentarista con otro video de la muestra."
+    },
+    {
+      "grupo": "Componentes conexas de la subred observada",
+      "conteo": 10,
+      "lectura": "La mayor reúne 286 nodos (81.5 % de la subred)."
+    }
+  ],
+  "videos_sin_cobertura_n": 274,
+  "n_componentes_obs": 10,
+  "tam_componente_mayor": 286,
+  "pct_componente_mayor": 81.5,
   "figuras": [
     "01_top_participacion.png",
     "02_distribuciones_conteos.png",
@@ -1891,7 +2227,9 @@
     "05_frecuencias_texto.png",
     "06_nube_de_palabras.png",
     "07_categorias_y_fuentes.png",
-    "08_red_bipartita.png"
+    "08_red_bipartita.png",
+    "09_proyecciones.png",
+    "10_distribucion_grados_componentes.png"
   ],
   "tablas": [
     "01_llaves_candidatas.csv",
@@ -1935,9 +2273,20 @@
     "39_extra3_perfil_por_estrategia.csv",
     "40_nodos_red_bipartita.csv",
     "41_aristas_red_bipartita.csv",
-    "42_validacion_red_bipartita.csv"
+    "42_validacion_red_bipartita.csv",
+    "43_aristas_proyeccion_autor_autor.csv",
+    "44_aristas_proyeccion_video_video.csv",
+    "45_comparacion_proyecciones.csv",
+    "46_metricas_topologicas.csv",
+    "47_cohesion_y_transitividad.csv",
+    "48_distribucion_de_grados.csv",
+    "49_resumen_grados_por_lado.csv",
+    "50_componentes_conexas.csv",
+    "51_periferia_y_aislamiento.csv"
   ],
   "grafos": [
+    "proyeccion_autor_autor.graphml",
+    "proyeccion_video_video.graphml",
     "red_bipartita_autor_video.graphml",
     "red_bipartita_observada.graphml"
   ]
