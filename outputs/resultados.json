@@ -2219,6 +2219,889 @@
   "n_componentes_obs": 10,
   "tam_componente_mayor": 286,
   "pct_componente_mayor": 81.5,
+  "comparacion_algoritmos": [
+    {
+      "algoritmo": "Louvain con pesos (python-louvain)",
+      "comunidades": 17,
+      "modularidad": 0.7774,
+      "tamaño_mayor": 126
+    },
+    {
+      "algoritmo": "Louvain sin pesos (python-louvain)",
+      "comunidades": 17,
+      "modularidad": 0.7901,
+      "tamaño_mayor": 125
+    },
+    {
+      "algoritmo": "Louvain (networkx)",
+      "comunidades": 17,
+      "modularidad": 0.7774,
+      "tamaño_mayor": 126
+    },
+    {
+      "algoritmo": "Modularidad voraz (CNM)",
+      "comunidades": 17,
+      "modularidad": 0.7774,
+      "tamaño_mayor": 126
+    },
+    {
+      "algoritmo": "Propagación de etiquetas",
+      "comunidades": 19,
+      "modularidad": 0.7712,
+      "tamaño_mayor": 127
+    }
+  ],
+  "modularidad": 0.7774,
+  "n_comunidades": 17,
+  "perfil_comunidades": [
+    {
+      "comunidad": 1,
+      "nodos": 126,
+      "autores": 125,
+      "videos": 1,
+      "comentarios": 161,
+      "intensidad_comentarios_por_autor": 1.29,
+      "canales": "Quorum",
+      "categorias": "News & Politics",
+      "likes_totales": 358,
+      "respuestas_totales": 3,
+      "sent_medio": -0.671,
+      "pct_negativos": 80.7,
+      "pct_positivos": 5.6,
+      "temas_frecuentes": "pueblo, diputado, pagar, dinero, trabajo, sueldo, almuerzo, trabajar",
+      "videos_titulos": "Qué rico come tu diputado"
+    },
+    {
+      "comunidad": 2,
+      "nodos": 48,
+      "autores": 47,
+      "videos": 1,
+      "comentarios": 50,
+      "intensidad_comentarios_por_autor": 1.06,
+      "canales": "Quorum",
+      "categorias": "News & Politics",
+      "likes_totales": 91,
+      "respuestas_totales": 0,
+      "sent_medio": -0.342,
+      "pct_negativos": 58.0,
+      "pct_positivos": 20.0,
+      "temas_frecuentes": "corrupto, usac, estudiante, universidad, excelente, información, video, universitario",
+      "videos_titulos": "La cooptación de Walter Mazariegos en l…"
+    },
+    {
+      "comunidad": 3,
+      "nodos": 32,
+      "autores": 29,
+      "videos": 3,
+      "comentarios": 34,
+      "intensidad_comentarios_por_autor": 1.17,
+      "canales": "Quorum",
+      "categorias": "News & Politics",
+      "likes_totales": 17,
+      "respuestas_totales": 1,
+      "sent_medio": -0.209,
+      "pct_negativos": 50.0,
+      "pct_positivos": 26.5,
+      "temas_frecuentes": "excelente, empresa, internet, ley, video, información, seguir, servicio",
+      "videos_titulos": "Arroz con pollo a la MONOPOLIO | Internet: escoger el menos malo | Caminar en una ciudad hecha para carros"
+    },
+    {
+      "comunidad": 4,
+      "nodos": 31,
+      "autores": 30,
+      "videos": 1,
+      "comentarios": 45,
+      "intensidad_comentarios_por_autor": 1.5,
+      "canales": "Gobierno de la República de Guatemala",
+      "categorias": "Entertainment",
+      "likes_totales": 90,
+      "respuestas_totales": 11,
+      "sent_medio": -0.109,
+      "pct_negativos": 40.0,
+      "pct_positivos": 28.9,
+      "temas_frecuentes": "presidente, guatemala, proyecto, arévalo, terminar, bernardo, puente, vivir",
+      "videos_titulos": "Inician los trabajos de recuperación de…"
+    },
+    {
+      "comunidad": 5,
+      "nodos": 26,
+      "autores": 25,
+      "videos": 1,
+      "comentarios": 25,
+      "intensidad_comentarios_por_autor": 1.0,
+      "canales": "Municipalidad de Guatemala",
+      "categorias": "News & Politics",
+      "likes_totales": 1697,
+      "respuestas_totales": 16,
+      "sent_medio": 0.609,
+      "pct_negativos": 8.0,
+      "pct_positivos": 80.0,
+      "temas_frecuentes": "guatemala, ciudad, saludo, proyecto, vivir, tiempo, ojalá, cuidad",
+      "videos_titulos": "Plan 2032 Ciudad de Guatemala"
+    },
+    {
+      "comunidad": 6,
+      "nodos": 19,
+      "autores": 18,
+      "videos": 1,
+      "comentarios": 25,
+      "intensidad_comentarios_por_autor": 1.39,
+      "canales": "Noticias Telemundo",
+      "categorias": "News & Politics",
+      "likes_totales": 25,
+      "respuestas_totales": 13,
+      "sent_medio": -0.473,
+      "pct_negativos": 64.0,
+      "pct_positivos": 8.0,
+      "temas_frecuentes": "you, deportar, entrar, méxico, persona, pasar, mexicano, regresar",
+      "videos_titulos": "EE.UU. envía a mexicanos deportados a G…"
+    },
+    {
+      "comunidad": 7,
+      "nodos": 19,
+      "autores": 18,
+      "videos": 1,
+      "comentarios": 25,
+      "intensidad_comentarios_por_autor": 1.39,
+      "canales": "Gobierno de la República de Guatemala",
+      "categorias": "Entertainment",
+      "likes_totales": 20,
+      "respuestas_totales": 4,
+      "sent_medio": -0.422,
+      "pct_negativos": 68.0,
+      "pct_positivos": 16.0,
+      "temas_frecuentes": "guatemala, gobierno, presidente, bla, persona, maya, méxico, señor",
+      "videos_titulos": "Conferencia de Prensa del Gobierno de G…"
+    },
+    {
+      "comunidad": 8,
+      "nodos": 14,
+      "autores": 13,
+      "videos": 1,
+      "comentarios": 14,
+      "intensidad_comentarios_por_autor": 1.08,
+      "canales": "Noti7",
+      "categorias": "News & Politics",
+      "likes_totales": 12,
+      "respuestas_totales": 1,
+      "sent_medio": -0.177,
+      "pct_negativos": 28.6,
+      "pct_positivos": 21.4,
+      "temas_frecuentes": "trabajo, mujer, faltar, cara, joven, buscar, suerte, policía",
+      "videos_titulos": "Capturan a presuntos delincuentes disfr…"
+    },
+    {
+      "comunidad": 9,
+      "nodos": 8,
+      "autores": 7,
+      "videos": 1,
+      "comentarios": 7,
+      "intensidad_comentarios_por_autor": 1.0,
+      "canales": "PrensaLibreOficial",
+      "categorias": "News & Politics",
+      "likes_totales": 1,
+      "respuestas_totales": 1,
+      "sent_medio": -0.759,
+      "pct_negativos": 85.7,
+      "pct_positivos": 0.0,
+      "temas_frecuentes": "asqueroso, galón, entender, gasolina, guerra, guatemala, puro, show",
+      "videos_titulos": "Bloqueos en Guatemala este 31 de agosto…"
+    },
+    {
+      "comunidad": 10,
+      "nodos": 8,
+      "autores": 7,
+      "videos": 1,
+      "comentarios": 7,
+      "intensidad_comentarios_por_autor": 1.0,
+      "canales": "TN23 Guatemala",
+      "categorias": "News & Politics",
+      "likes_totales": 0,
+      "respuestas_totales": 1,
+      "sent_medio": -0.622,
+      "pct_negativos": 85.7,
+      "pct_positivos": 0.0,
+      "temas_frecuentes": "comparator, enjuiciar, obgwto, robado, humano, hechor, consentidor, pena",
+      "videos_titulos": "Capturan a ladrón que había quedado gra…"
+    },
+    {
+      "comunidad": 11,
+      "nodos": 5,
+      "autores": 4,
+      "videos": 1,
+      "comentarios": 4,
+      "intensidad_comentarios_por_autor": 1.0,
+      "canales": "Quorum",
+      "categorias": "News & Politics",
+      "likes_totales": 8,
+      "respuestas_totales": 0,
+      "sent_medio": 0.467,
+      "pct_negativos": 25.0,
+      "pct_positivos": 75.0,
+      "temas_frecuentes": "iniciativa, juego, excelente, deporte, dinamico, entretenido, trasfondo, macabro",
+      "videos_titulos": "I’x K’at: el primer equipo guatemalteco…"
+    },
+    {
+      "comunidad": 12,
+      "nodos": 4,
+      "autores": 3,
+      "videos": 1,
+      "comentarios": 3,
+      "intensidad_comentarios_por_autor": 1.0,
+      "canales": "Quorum",
+      "categorias": "News & Politics",
+      "likes_totales": 4,
+      "respuestas_totales": 0,
+      "sent_medio": 0.157,
+      "pct_negativos": 33.3,
+      "pct_positivos": 66.7,
+      "temas_frecuentes": "guatemala, cambiar, dictadura, semilla, bernardo, arévalo, oportunidad, salir",
+      "videos_titulos": "10 Preguntas a un año del Paro Nacional"
+    },
+    {
+      "comunidad": 13,
+      "nodos": 3,
+      "autores": 2,
+      "videos": 1,
+      "comentarios": 2,
+      "intensidad_comentarios_por_autor": 1.0,
+      "canales": "Noticiero Guatevisión 13 Hrs.",
+      "categorias": "News & Politics",
+      "likes_totales": 0,
+      "respuestas_totales": 0,
+      "sent_medio": -0.519,
+      "pct_negativos": 50.0,
+      "pct_positivos": 0.0,
+      "temas_frecuentes": "persona, encargado, ecosistema, ayudar, problema, recuerdo, dejar, semiya",
+      "videos_titulos": "Noticiero en Directo 1 pm, 28 de Agosto…"
+    },
+    {
+      "comunidad": 14,
+      "nodos": 2,
+      "autores": 1,
+      "videos": 1,
+      "comentarios": 1,
+      "intensidad_comentarios_por_autor": 1.0,
+      "canales": "Quorum",
+      "categorias": "News & Politics",
+      "likes_totales": 0,
+      "respuestas_totales": 0,
+      "sent_medio": 0.718,
+      "pct_negativos": 0.0,
+      "pct_positivos": 100.0,
+      "temas_frecuentes": "woow",
+      "videos_titulos": "¿Quiénes pagan más en Centroamérica?"
+    },
+    {
+      "comunidad": 15,
+      "nodos": 2,
+      "autores": 1,
+      "videos": 1,
+      "comentarios": 1,
+      "intensidad_comentarios_por_autor": 1.0,
+      "canales": "Quorum",
+      "categorias": "News & Politics",
+      "likes_totales": 0,
+      "respuestas_totales": 0,
+      "sent_medio": -0.888,
+      "pct_negativos": 100.0,
+      "pct_positivos": 0.0,
+      "temas_frecuentes": "teléfono, subscribir, boletín, informativo, intentar, página, web, colocado",
+      "videos_titulos": "Cruzando la ciudad a puro Transmetro"
+    },
+    {
+      "comunidad": 16,
+      "nodos": 2,
+      "autores": 1,
+      "videos": 1,
+      "comentarios": 1,
+      "intensidad_comentarios_por_autor": 1.0,
+      "canales": "Quorum",
+      "categorias": "Nonprofits & Activism",
+      "likes_totales": 0,
+      "respuestas_totales": 0,
+      "sent_medio": 0.524,
+      "pct_negativos": 0.0,
+      "pct_positivos": 100.0,
+      "temas_frecuentes": "",
+      "videos_titulos": "Edén por Salud: empleo inclusivo para p…"
+    },
+    {
+      "comunidad": 17,
+      "nodos": 2,
+      "autores": 1,
+      "videos": 1,
+      "comentarios": 1,
+      "intensidad_comentarios_por_autor": 1.0,
+      "canales": "Quorum",
+      "categorias": "News & Politics",
+      "likes_totales": 2,
+      "respuestas_totales": 0,
+      "sent_medio": 0.972,
+      "pct_negativos": 0.0,
+      "pct_positivos": 100.0,
+      "temas_frecuentes": "gracias, video, importante, tipo, espacio",
+      "videos_titulos": "SHAI WA: la vecina queer de Casa Presid…"
+    }
+  ],
+  "robustez_video": [
+    {
+      "video": "Qué rico come tu diputado",
+      "comunidad_bipartita": 1,
+      "comunidad_proyeccion": 1,
+      "canal": "Quorum",
+      "comentarios": 161.0
+    },
+    {
+      "video": "La cooptación de Walter Mazariegos en la USAC",
+      "comunidad_bipartita": 2,
+      "comunidad_proyeccion": 1,
+      "canal": "Quorum",
+      "comentarios": 50.0
+    },
+    {
+      "video": "Arroz con pollo a la MONOPOLIO",
+      "comunidad_bipartita": 3,
+      "comunidad_proyeccion": 3,
+      "canal": "Quorum",
+      "comentarios": 16.0
+    },
+    {
+      "video": "Internet: escoger el menos malo",
+      "comunidad_bipartita": 3,
+      "comunidad_proyeccion": 3,
+      "canal": "Quorum",
+      "comentarios": 12.0
+    },
+    {
+      "video": "Caminar en una ciudad hecha para carros",
+      "comunidad_bipartita": 3,
+      "comunidad_proyeccion": 3,
+      "canal": "Quorum",
+      "comentarios": 6.0
+    },
+    {
+      "video": "Inician los trabajos de recuperación del Puente…",
+      "comunidad_bipartita": 4,
+      "comunidad_proyeccion": 2,
+      "canal": "Gobierno de la República de Guatemala",
+      "comentarios": 45.0
+    },
+    {
+      "video": "Plan 2032 Ciudad de Guatemala",
+      "comunidad_bipartita": 5,
+      "comunidad_proyeccion": 10,
+      "canal": "Municipalidad de Guatemala",
+      "comentarios": 25.0
+    },
+    {
+      "video": "EE.UU. envía a mexicanos deportados a Guatemala…",
+      "comunidad_bipartita": 6,
+      "comunidad_proyeccion": 6,
+      "canal": "Noticias Telemundo",
+      "comentarios": 25.0
+    },
+    {
+      "video": "Conferencia de Prensa del Gobierno de Guatemala…",
+      "comunidad_bipartita": 7,
+      "comunidad_proyeccion": 2,
+      "canal": "Gobierno de la República de Guatemala",
+      "comentarios": 25.0
+    },
+    {
+      "video": "Capturan a presuntos delincuentes disfrazados d…",
+      "comunidad_bipartita": 8,
+      "comunidad_proyeccion": 2,
+      "canal": "Noti7",
+      "comentarios": 14.0
+    },
+    {
+      "video": "Bloqueos en Guatemala este 31 de agosto por alz…",
+      "comunidad_bipartita": 9,
+      "comunidad_proyeccion": 1,
+      "canal": "PrensaLibreOficial",
+      "comentarios": 7.0
+    },
+    {
+      "video": "Capturan a ladrón que había quedado grabado mie…",
+      "comunidad_bipartita": 10,
+      "comunidad_proyeccion": 1,
+      "canal": "TN23 Guatemala",
+      "comentarios": 7.0
+    },
+    {
+      "video": "I’x K’at: el primer equipo guatemalteco de pelo…",
+      "comunidad_bipartita": 11,
+      "comunidad_proyeccion": 7,
+      "canal": "Quorum",
+      "comentarios": 4.0
+    },
+    {
+      "video": "10 Preguntas a un año del Paro Nacional",
+      "comunidad_bipartita": 12,
+      "comunidad_proyeccion": 5,
+      "canal": "Quorum",
+      "comentarios": 3.0
+    },
+    {
+      "video": "Noticiero en Directo 1 pm, 28 de Agosto de 2026",
+      "comunidad_bipartita": 13,
+      "comunidad_proyeccion": 4,
+      "canal": "Noticiero Guatevisión 13 Hrs.",
+      "comentarios": 2.0
+    },
+    {
+      "video": "¿Quiénes pagan más en Centroamérica?",
+      "comunidad_bipartita": 14,
+      "comunidad_proyeccion": 11,
+      "canal": "Quorum",
+      "comentarios": 1.0
+    },
+    {
+      "video": "Cruzando la ciudad a puro Transmetro",
+      "comunidad_bipartita": 15,
+      "comunidad_proyeccion": 9,
+      "canal": "Quorum",
+      "comentarios": 1.0
+    },
+    {
+      "video": "Edén por Salud: empleo inclusivo para personas …",
+      "comunidad_bipartita": 16,
+      "comunidad_proyeccion": 12,
+      "canal": "Quorum",
+      "comentarios": 1.0
+    },
+    {
+      "video": "SHAI WA: la vecina queer de Casa Presidencial",
+      "comunidad_bipartita": 17,
+      "comunidad_proyeccion": 8,
+      "canal": "Quorum",
+      "comentarios": 1.0
+    }
+  ],
+  "top_autores": [
+    {
+      "etiqueta": "@virgiliogarcia3039",
+      "diversidad": 2,
+      "recurrencia": 3,
+      "intermediacion": 0.23158,
+      "pagerank": 0.00304,
+      "sent_medio": -0.857
+    },
+    {
+      "etiqueta": "@inge_vergueta",
+      "diversidad": 3,
+      "recurrencia": 3,
+      "intermediacion": 0.21808,
+      "pagerank": 0.00332,
+      "sent_medio": -0.048
+    },
+    {
+      "etiqueta": "@josegil3813",
+      "diversidad": 2,
+      "recurrencia": 2,
+      "intermediacion": 0.17683,
+      "pagerank": 0.00208,
+      "sent_medio": -0.082
+    },
+    {
+      "etiqueta": "@Jel.Awesh.M",
+      "diversidad": 2,
+      "recurrencia": 3,
+      "intermediacion": 0.08915,
+      "pagerank": 0.00346,
+      "sent_medio": -0.673
+    },
+    {
+      "etiqueta": "@hashojea7348",
+      "diversidad": 3,
+      "recurrencia": 4,
+      "intermediacion": 0.05971,
+      "pagerank": 0.00454,
+      "sent_medio": 0.46
+    },
+    {
+      "etiqueta": "@franciscoflores3120",
+      "diversidad": 2,
+      "recurrencia": 2,
+      "intermediacion": 0.0579,
+      "pagerank": 0.00229,
+      "sent_medio": 0.099
+    },
+    {
+      "etiqueta": "@Alejandro00710",
+      "diversidad": 2,
+      "recurrencia": 2,
+      "intermediacion": 0.0323,
+      "pagerank": 0.00245,
+      "sent_medio": -0.98
+    },
+    {
+      "etiqueta": "@MarcosCarillo-b1r",
+      "diversidad": 2,
+      "recurrencia": 2,
+      "intermediacion": 0.03186,
+      "pagerank": 0.0027,
+      "sent_medio": -0.828
+    },
+    {
+      "etiqueta": "@moisesvaldez4043",
+      "diversidad": 2,
+      "recurrencia": 2,
+      "intermediacion": 0.03186,
+      "pagerank": 0.00248,
+      "sent_medio": -0.846
+    },
+    {
+      "etiqueta": "@eugeneramirez4405",
+      "diversidad": 1,
+      "recurrencia": 6,
+      "intermediacion": 0.0,
+      "pagerank": 0.00555,
+      "sent_medio": -0.481
+    }
+  ],
+  "top_videos_red": [
+    {
+      "etiqueta": "Qué rico come tu diputado",
+      "channel_name": "Quorum",
+      "grado": 128,
+      "fuerza": 161,
+      "intermediacion": 0.5657,
+      "pagerank": 0.16729
+    },
+    {
+      "etiqueta": "La cooptación de Walter Mazariegos en la USAC",
+      "channel_name": "Quorum",
+      "grado": 49,
+      "fuerza": 50,
+      "intermediacion": 0.22747,
+      "pagerank": 0.06319
+    },
+    {
+      "etiqueta": "Inician los trabajos de recuperación del Puente Belice II.",
+      "channel_name": "Gobierno de la República de Guatemala",
+      "grado": 32,
+      "fuerza": 45,
+      "intermediacion": 0.18762,
+      "pagerank": 0.04259
+    },
+    {
+      "etiqueta": "Plan 2032 Ciudad de Guatemala",
+      "channel_name": "Municipalidad de Guatemala",
+      "grado": 25,
+      "fuerza": 25,
+      "intermediacion": 0.00491,
+      "pagerank": 0.03427
+    },
+    {
+      "etiqueta": "EE.UU. envía a mexicanos deportados a Guatemala antes de su…",
+      "channel_name": "Noticias Telemundo",
+      "grado": 18,
+      "fuerza": 25,
+      "intermediacion": 0.00251,
+      "pagerank": 0.02511
+    },
+    {
+      "etiqueta": "Conferencia de Prensa del Gobierno de Guatemala. #LaRondaGt",
+      "channel_name": "Gobierno de la República de Guatemala",
+      "grado": 19,
+      "fuerza": 25,
+      "intermediacion": 0.24403,
+      "pagerank": 0.0249
+    },
+    {
+      "etiqueta": "Arroz con pollo a la MONOPOLIO",
+      "channel_name": "Quorum",
+      "grado": 16,
+      "fuerza": 16,
+      "intermediacion": 0.06367,
+      "pagerank": 0.02045
+    },
+    {
+      "etiqueta": "Capturan a presuntos delincuentes disfrazados de mujer seña…",
+      "channel_name": "Noti7",
+      "grado": 13,
+      "fuerza": 14,
+      "intermediacion": 0.05472,
+      "pagerank": 0.01751
+    },
+    {
+      "etiqueta": "Internet: escoger el menos malo",
+      "channel_name": "Quorum",
+      "grado": 10,
+      "fuerza": 12,
+      "intermediacion": 0.12829,
+      "pagerank": 0.01328
+    },
+    {
+      "etiqueta": "Capturan a ladrón que había quedado grabado mientras robaba…",
+      "channel_name": "TN23 Guatemala",
+      "grado": 7,
+      "fuerza": 7,
+      "intermediacion": 0.02765,
+      "pagerank": 0.00986
+    }
+  ],
+  "puentes": [
+    {
+      "autor": "@virgiliogarcia3039",
+      "videos_comentados": 2,
+      "comentarios": 3,
+      "intermediacion": 0.23158,
+      "comunidad": 1,
+      "componentes_antes": 10,
+      "componentes_despues": 11,
+      "videos_que_conecta": "Conferencia de Prensa del Gobiern… | Qué rico come tu diputado"
+    },
+    {
+      "autor": "@inge_vergueta",
+      "videos_comentados": 3,
+      "comentarios": 3,
+      "intermediacion": 0.21808,
+      "comunidad": 3,
+      "componentes_antes": 10,
+      "componentes_despues": 11,
+      "videos_que_conecta": "Internet: escoger el menos malo | La cooptación de Walter Mazariego… | Qué rico come tu diputado"
+    },
+    {
+      "autor": "@josegil3813",
+      "videos_comentados": 2,
+      "comentarios": 2,
+      "intermediacion": 0.17683,
+      "comunidad": 7,
+      "componentes_antes": 10,
+      "componentes_despues": 11,
+      "videos_que_conecta": "Conferencia de Prensa del Gobiern… | Inician los trabajos de recuperac…"
+    },
+    {
+      "autor": "@hashojea7348",
+      "videos_comentados": 3,
+      "comentarios": 4,
+      "intermediacion": 0.05971,
+      "comunidad": 3,
+      "componentes_antes": 10,
+      "componentes_despues": 11,
+      "videos_que_conecta": "Arroz con pollo a la MONOPOLIO | Caminar en una ciudad hecha para … | Internet: escoger el menos malo"
+    },
+    {
+      "autor": "@franciscoflores3120",
+      "videos_comentados": 2,
+      "comentarios": 2,
+      "intermediacion": 0.0579,
+      "comunidad": 8,
+      "componentes_antes": 10,
+      "componentes_despues": 11,
+      "videos_que_conecta": "Capturan a presuntos delincuentes… | Inician los trabajos de recuperac…"
+    },
+    {
+      "autor": "@MarcosCarillo-b1r",
+      "videos_comentados": 2,
+      "comentarios": 2,
+      "intermediacion": 0.03186,
+      "comunidad": 10,
+      "componentes_antes": 10,
+      "componentes_despues": 11,
+      "videos_que_conecta": "Capturan a ladrón que había queda… | La cooptación de Walter Mazariego…"
+    },
+    {
+      "autor": "@moisesvaldez4043",
+      "videos_comentados": 2,
+      "comentarios": 2,
+      "intermediacion": 0.03186,
+      "comunidad": 9,
+      "componentes_antes": 10,
+      "componentes_despues": 11,
+      "videos_que_conecta": "Bloqueos en Guatemala este 31 de … | Qué rico come tu diputado"
+    }
+  ],
+  "n_autores_puente": 7,
+  "articuladores_video": [
+    {
+      "video": "Qué rico come tu diputado",
+      "canal": "Quorum",
+      "comentaristas": 128,
+      "intermediacion": 0.5657,
+      "componentes_antes": 10,
+      "componentes_despues": 136
+    },
+    {
+      "video": "Conferencia de Prensa del Gobierno de Guatemala. #LaRondaGt",
+      "canal": "Gobierno de la República de Guatemala",
+      "comentaristas": 19,
+      "intermediacion": 0.24403,
+      "componentes_antes": 10,
+      "componentes_despues": 28
+    },
+    {
+      "video": "La cooptación de Walter Mazariegos en la USAC",
+      "canal": "Quorum",
+      "comentaristas": 49,
+      "intermediacion": 0.22747,
+      "componentes_antes": 10,
+      "componentes_despues": 57
+    },
+    {
+      "video": "Inician los trabajos de recuperación del Puente Belice II.",
+      "canal": "Gobierno de la República de Guatemala",
+      "comentaristas": 32,
+      "intermediacion": 0.18762,
+      "componentes_antes": 10,
+      "componentes_despues": 41
+    },
+    {
+      "video": "Internet: escoger el menos malo",
+      "canal": "Quorum",
+      "comentaristas": 10,
+      "intermediacion": 0.12829,
+      "componentes_antes": 10,
+      "componentes_despues": 18
+    },
+    {
+      "video": "Arroz con pollo a la MONOPOLIO",
+      "canal": "Quorum",
+      "comentaristas": 16,
+      "intermediacion": 0.06367,
+      "componentes_antes": 10,
+      "componentes_despues": 24
+    },
+    {
+      "video": "Capturan a presuntos delincuentes disfrazados de mujer seña…",
+      "canal": "Noti7",
+      "comentaristas": 13,
+      "intermediacion": 0.05472,
+      "componentes_antes": 10,
+      "componentes_despues": 22
+    },
+    {
+      "video": "Bloqueos en Guatemala este 31 de agosto por alza en combust…",
+      "canal": "PrensaLibreOficial",
+      "comentaristas": 7,
+      "intermediacion": 0.02765,
+      "componentes_antes": 10,
+      "componentes_despues": 16
+    },
+    {
+      "video": "Capturan a ladrón que había quedado grabado mientras robaba…",
+      "canal": "TN23 Guatemala",
+      "comentaristas": 7,
+      "intermediacion": 0.02765,
+      "componentes_antes": 10,
+      "componentes_despues": 16
+    },
+    {
+      "video": "Caminar en una ciudad hecha para carros",
+      "canal": "Quorum",
+      "comentaristas": 6,
+      "intermediacion": 0.02309,
+      "componentes_antes": 10,
+      "componentes_despues": 15
+    },
+    {
+      "video": "Plan 2032 Ciudad de Guatemala",
+      "canal": "Municipalidad de Guatemala",
+      "comentaristas": 25,
+      "intermediacion": 0.00491,
+      "componentes_antes": 10,
+      "componentes_despues": 34
+    },
+    {
+      "video": "EE.UU. envía a mexicanos deportados a Guatemala antes de su…",
+      "canal": "Noticias Telemundo",
+      "comentaristas": 18,
+      "intermediacion": 0.00251,
+      "componentes_antes": 10,
+      "componentes_despues": 27
+    },
+    {
+      "video": "I’x K’at: el primer equipo guatemalteco de pelota maya, con…",
+      "canal": "Quorum",
+      "comentaristas": 4,
+      "intermediacion": 0.0001,
+      "componentes_antes": 10,
+      "componentes_despues": 13
+    },
+    {
+      "video": "10 Preguntas a un año del Paro Nacional",
+      "canal": "Quorum",
+      "comentaristas": 3,
+      "intermediacion": 5e-05,
+      "componentes_antes": 10,
+      "componentes_despues": 12
+    },
+    {
+      "video": "Noticiero en Directo 1 pm, 28 de Agosto de 2026",
+      "canal": "Noticiero Guatevisión 13 Hrs.",
+      "comentaristas": 2,
+      "intermediacion": 2e-05,
+      "componentes_antes": 10,
+      "componentes_despues": 11
+    }
+  ],
+  "n_videos_articuladores": 15,
+  "n_recurrentes": 46,
+  "recurrentes_top": [
+    {
+      "etiqueta": "@eugeneramirez4405",
+      "diversidad": 1,
+      "recurrencia": 6,
+      "sent_medio": -0.481
+    },
+    {
+      "etiqueta": "@Murmullodelbarrio",
+      "diversidad": 1,
+      "recurrencia": 6,
+      "sent_medio": -0.314
+    },
+    {
+      "etiqueta": "@ManuelEdran",
+      "diversidad": 1,
+      "recurrencia": 5,
+      "sent_medio": -0.025
+    },
+    {
+      "etiqueta": "@albertoshernandez5251",
+      "diversidad": 1,
+      "recurrencia": 5,
+      "sent_medio": 0.389
+    },
+    {
+      "etiqueta": "@hashojea7348",
+      "diversidad": 3,
+      "recurrencia": 4,
+      "sent_medio": 0.46
+    },
+    {
+      "etiqueta": "@ErvinLeonardoCarreraLatín",
+      "diversidad": 1,
+      "recurrencia": 4,
+      "sent_medio": -0.85
+    },
+    {
+      "etiqueta": "@inge_vergueta",
+      "diversidad": 3,
+      "recurrencia": 3,
+      "sent_medio": -0.048
+    },
+    {
+      "etiqueta": "@virgiliogarcia3039",
+      "diversidad": 2,
+      "recurrencia": 3,
+      "sent_medio": -0.857
+    },
+    {
+      "etiqueta": "@Jel.Awesh.M",
+      "diversidad": 2,
+      "recurrencia": 3,
+      "sent_medio": -0.673
+    },
+    {
+      "etiqueta": "@marioajset4283",
+      "diversidad": 1,
+      "recurrencia": 3,
+      "sent_medio": -0.954
+    }
+  ],
   "figuras": [
     "01_top_participacion.png",
     "02_distribuciones_conteos.png",
@@ -2229,7 +3112,9 @@
     "07_categorias_y_fuentes.png",
     "08_red_bipartita.png",
     "09_proyecciones.png",
-    "10_distribucion_grados_componentes.png"
+    "10_distribucion_grados_componentes.png",
+    "11_comunidades.png",
+    "12_centralidad.png"
   ],
   "tablas": [
     "01_llaves_candidatas.csv",
@@ -2282,7 +3167,16 @@
     "48_distribucion_de_grados.csv",
     "49_resumen_grados_por_lado.csv",
     "50_componentes_conexas.csv",
-    "51_periferia_y_aislamiento.csv"
+    "51_periferia_y_aislamiento.csv",
+    "52_comparacion_algoritmos_comunidades.csv",
+    "53_perfil_de_comunidades.csv",
+    "54_comunidades_por_video.csv",
+    "55_centralidad_todos_los_nodos.csv",
+    "56_centralidad_autores.csv",
+    "57_centralidad_videos.csv",
+    "58_autores_puente_articuladores.csv",
+    "59_videos_articuladores.csv",
+    "60_autores_recurrentes.csv"
   ],
   "grafos": [
     "proyeccion_autor_autor.graphml",

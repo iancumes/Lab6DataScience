@@ -2096,6 +2096,366 @@ registrar("pct_componente_mayor", round(100 * len(componentes_obs[0]) / G_obs.nu
 periferia
 
 # %% [markdown]
+# ## 7. Comunidades
+#
+# ### 7.1 Selección de la red y justificación
+#
+# Se detectan comunidades sobre la **red bipartita observada** (351 nodos, 343 aristas), no sobre la
+# proyección autor–autor. Razones:
+#
+# 1. La proyección **inventa** 10 732 aristas a partir de 343 observaciones. Cualquier comunidad
+#    detectada allí reflejaría el artefacto de las camarillas, no la estructura de participación.
+# 2. La red bipartita conserva la unidad de observación real: *quién comentó dónde*. Una comunidad
+#    resulta ser un grupo de autores agrupados alrededor de uno o varios videos, que es exactamente
+#    el objeto de interés.
+# 3. Al mantener autores y videos como nodos, cada comunidad es **interpretable**: puede describirse
+#    por sus videos, su canal, sus temas y su sentimiento.
+#
+# Los **videos sin cobertura se excluyen** de la detección: son nodos de grado 0 y cada uno formaría
+# una comunidad trivial de tamaño 1, inflando artificialmente el número de comunidades. Se
+# contabilizan aparte como ausencia de datos.
+#
+# ### 7.2 Algoritmo, supuestos y tratamiento de los pesos
+#
+# **Algoritmo: Louvain con pesos** (`python-louvain`, semilla fija 42).
+#
+# - *Supuesto de modularidad*: una comunidad es un conjunto de nodos con más aristas internas de las
+#   que cabría esperar en un grafo aleatorio con la misma distribución de grados (modelo nulo de
+#   configuración).
+# - *Tratamiento de los pesos*: el peso de la arista es el número de comentarios del autor en ese
+#   video, de modo que un autor que comentó seis veces pesa más que uno que comentó una vez. Se
+#   reporta también la partición **sin pesos** para verificar que el resultado no depende de esa
+#   decisión.
+# - *Limitación conocida*: la modularidad clásica no está diseñada para redes bipartitas — el modelo
+#   nulo permite aristas autor–autor que aquí son imposibles, lo que **sobreestima** la modularidad.
+#   Por eso el valor se interpreta de forma comparativa, no como una medida absoluta de calidad, y se
+#   contrasta con dos algoritmos alternativos. La alternativa formal sería la modularidad bipartita
+#   de Barber; el resultado no cambiaría cualitativamente porque cada componente conexa ya separa
+#   grupos casi disjuntos.
+# - *Resolución límite*: Louvain no detecta comunidades más pequeñas que √(2m); con m = 343 el umbral
+#   es ≈ 26 nodos, lo que explica que las componentes pequeñas queden como comunidades completas.
+
+# %%
+import community as community_louvain
+
+particion_pesada = community_louvain.best_partition(G_obs, weight="weight", random_state=RANDOM_SEED)
+G_obs_unitaria = G_obs.copy()                       # misma estructura, todos los pesos en 1
+nx.set_edge_attributes(G_obs_unitaria, 1, "weight")
+particion_sin_peso = community_louvain.best_partition(
+    G_obs_unitaria, weight="weight", random_state=RANDOM_SEED)
+
+def a_conjuntos(particion: dict) -> list[set]:
+    """Agrupa la partición y la ordena por tamaño, desempatando por el nodo menor.
+
+    El desempate evita que dos comunidades del mismo tamaño intercambien su número entre
+    ejecuciones, lo que cambiaría las etiquetas C1…C17 de las tablas y figuras.
+    """
+    grupos: dict[int, set] = {}
+    for nodo, comunidad in particion.items():
+        grupos.setdefault(comunidad, set()).add(nodo)
+    return sorted(grupos.values(), key=lambda c: (-len(c), min(c)))
+
+
+comunidades = a_conjuntos(particion_pesada)
+mod_pesada = nx.community.modularity(G_obs, comunidades, weight="weight")
+mod_sin_peso = nx.community.modularity(G_obs, a_conjuntos(particion_sin_peso), weight=None)
+
+# Robustez: dos algoritmos alternativos sobre la misma red.
+com_nx = list(nx.community.louvain_communities(G_obs, weight="weight", seed=RANDOM_SEED))
+com_greedy = list(nx.community.greedy_modularity_communities(G_obs, weight="weight"))
+com_etiquetas = list(nx.community.asyn_lpa_communities(G_obs, weight="weight", seed=RANDOM_SEED))
+
+comparacion_algoritmos = pd.DataFrame([
+    ["Louvain con pesos (python-louvain)", len(comunidades), round(mod_pesada, 4),
+     max(len(c) for c in comunidades)],
+    ["Louvain sin pesos (python-louvain)", len(a_conjuntos(particion_sin_peso)), round(mod_sin_peso, 4),
+     max(len(c) for c in a_conjuntos(particion_sin_peso))],
+    ["Louvain (networkx)", len(com_nx), round(nx.community.modularity(G_obs, com_nx, weight="weight"), 4),
+     max(len(c) for c in com_nx)],
+    ["Modularidad voraz (CNM)", len(com_greedy),
+     round(nx.community.modularity(G_obs, com_greedy, weight="weight"), 4), max(len(c) for c in com_greedy)],
+    ["Propagación de etiquetas", len(list(com_etiquetas)),
+     round(nx.community.modularity(G_obs, com_etiquetas, weight="weight"), 4),
+     max(len(c) for c in com_etiquetas)],
+], columns=["algoritmo", "comunidades", "modularidad", "tamaño_mayor"])
+guardar_tabla(comparacion_algoritmos, "52_comparacion_algoritmos_comunidades")
+registrar("comparacion_algoritmos", comparacion_algoritmos.to_dict("records"))
+registrar("modularidad", round(mod_pesada, 4))
+registrar("n_comunidades", len(comunidades))
+comparacion_algoritmos
+
+# %% [markdown]
+# ### 7.3 – 7.5 Número, tamaño, calidad y caracterización de las comunidades
+
+# %%
+nodo_a_comunidad = {n: i + 1 for i, c in enumerate(comunidades) for n in c}
+nx.set_node_attributes(G_obs, nodo_a_comunidad, "comunidad")
+comentarios["comunidad"] = comentarios["video_id"].map(
+    lambda v: nodo_a_comunidad.get(f"video::{v}", np.nan))
+
+filas_comunidad = []
+for indice, miembros in enumerate(comunidades, start=1):
+    autores_c = sorted(n for n in miembros if G_obs.nodes[n]["tipo_nodo"] == "autor")
+    videos_c = sorted((n for n in miembros if G_obs.nodes[n]["tipo_nodo"] == "video"),
+                      key=lambda n: (-G_obs.degree(n), n))
+    ids_video = [n.split("::", 1)[1] for n in videos_c]
+    sub_com = comentarios[comentarios["video_id"].isin(ids_video)]
+    terminos = Counter(t for texto in sub_com["texto_limpio"] for t in str(texto).split())
+    filas_comunidad.append({
+        "comunidad": indice,
+        "nodos": len(miembros),
+        "autores": len(autores_c),
+        "videos": len(videos_c),
+        "comentarios": int(len(sub_com)),
+        "intensidad_comentarios_por_autor": round(len(sub_com) / max(len(autores_c), 1), 2),
+        "canales": " | ".join(sorted(sub_com["channel_name"].unique())),
+        "categorias": " | ".join(sorted(videos.loc[videos["video_id"].isin(ids_video), "category"].unique())),
+        "likes_totales": int(sub_com["like_count"].sum()),
+        "respuestas_totales": int(sub_com["reply_count"].sum()),
+        "sent_medio": round(float(sub_com["puntaje_sentimiento"].mean()), 3) if len(sub_com) else np.nan,
+        "pct_negativos": round(100 * (sub_com["sentimiento"] == "NEG").mean(), 1) if len(sub_com) else np.nan,
+        "pct_positivos": round(100 * (sub_com["sentimiento"] == "POS").mean(), 1) if len(sub_com) else np.nan,
+        "temas_frecuentes": ", ".join(t for t, _ in terminos.most_common(8)),
+        "videos_titulos": " | ".join(acortar(G_obs.nodes[n]["etiqueta"], 40) for n in videos_c),
+    })
+
+perfil_comunidades = pd.DataFrame(filas_comunidad)
+guardar_tabla(perfil_comunidades, "53_perfil_de_comunidades")
+registrar("perfil_comunidades", perfil_comunidades.to_dict("records"))
+print(perfil_comunidades[["comunidad", "nodos", "autores", "videos", "comentarios",
+                          "sent_medio", "pct_negativos"]].to_string(index=False))
+
+# %%
+# Comunidades sobre la proyección video–video: ¿el agrupamiento temático coincide?
+com_videos = list(nx.community.louvain_communities(P_videos, weight="weight", seed=RANDOM_SEED))
+mapa_videos = {n: i + 1 for i, c in enumerate(sorted(com_videos, key=len, reverse=True)) for n in c}
+robustez_video = pd.DataFrame([{
+    "video": acortar(G_obs.nodes[n]["etiqueta"], 48),
+    "comunidad_bipartita": nodo_a_comunidad[n],
+    "comunidad_proyeccion": mapa_videos[n],
+    "canal": G_obs.nodes[n]["channel_name"],
+    "comentarios": G_obs.nodes[n]["comentarios_recibidos"],
+} for n in VIDEOS_OBS]).sort_values(["comunidad_bipartita", "comentarios"], ascending=[True, False])
+guardar_tabla(robustez_video, "54_comunidades_por_video")
+registrar("robustez_video", robustez_video.to_dict("records"))
+print(robustez_video.to_string(index=False))
+
+# %% [markdown]
+# ### 7.4 Visualización de todas las comunidades
+
+# %%
+paleta_com = (PALETA * (len(comunidades) // len(PALETA) + 1))[:len(comunidades)]
+fig, ejes = plt.subplots(1, 2, figsize=(16, 8), gridspec_kw={"width_ratios": [1.45, 1]})
+
+pos_com = nx.spring_layout(G_obs, seed=RANDOM_SEED, k=0.32, iterations=500, weight="weight")
+nx.draw_networkx_edges(G_obs, pos_com, ax=ejes[0], edge_color=GRIS, alpha=0.35,
+                       width=[0.3 + 0.5 * (G_obs[u][v]["weight"] - 1) for u, v in G_obs.edges()])
+for indice, miembros in enumerate(comunidades, start=1):
+    color = paleta_com[indice - 1]
+    autores_c = sorted(n for n in miembros if G_obs.nodes[n]["tipo_nodo"] == "autor")
+    videos_c = sorted(n for n in miembros if G_obs.nodes[n]["tipo_nodo"] == "video")
+    nx.draw_networkx_nodes(G_obs, pos_com, nodelist=autores_c, ax=ejes[0], node_color=color,
+                           node_size=17, alpha=0.75)
+    nx.draw_networkx_nodes(G_obs, pos_com, nodelist=videos_c, ax=ejes[0], node_color=color,
+                           node_size=[80 + 4.2 * G_obs.nodes[n]["comentarios_recibidos"] for n in videos_c],
+                           edgecolors="black", linewidths=1.0, node_shape="s")
+etq = nx.draw_networkx_labels(
+    G_obs, {n: (x, y + 0.055) for n, (x, y) in pos_com.items()}, ax=ejes[0], font_size=6.8,
+    labels={n: f"C{nodo_a_comunidad[n]} · {acortar(G_obs.nodes[n]['etiqueta'], 22)}" for n in VIDEOS_OBS})
+for t in etq.values():
+    t.set_bbox(dict(facecolor="white", edgecolor="none", alpha=0.8, pad=0.5))
+ejes[0].set_title(f"{len(comunidades)} comunidades detectadas con Louvain ponderado "
+                  f"(modularidad = {mod_pesada:.3f})\nCuadrados = videos · círculos = autores")
+ejes[0].axis("off")
+
+orden = perfil_comunidades.sort_values("nodos")
+posiciones = np.arange(len(orden))
+ejes[1].barh(posiciones, orden["autores"], color=[paleta_com[c - 1] for c in orden["comunidad"]], label="Autores")
+ejes[1].barh(posiciones, orden["videos"], left=orden["autores"], color="black", alpha=0.75, label="Videos")
+ejes[1].set_yticks(posiciones)
+ejes[1].set_yticklabels([f"C{c} ({n} nodos)" for c, n in zip(orden["comunidad"], orden["nodos"])], fontsize=8.5)
+ejes[1].set(title="Tamaño y composición de cada comunidad", xlabel="Nodos")
+ejes[1].legend(loc="lower right")
+for y, (com, com_n, sent) in enumerate(zip(orden["comunidad"], orden["comentarios"], orden["sent_medio"])):
+    ejes[1].text(orden["nodos"].iloc[y] + 3, y, f"{com_n} com · sent {sent:+.2f}", va="center", fontsize=7.5)
+fig.suptitle("Comunidades: cada una se organiza alrededor de uno o pocos videos, no de conversaciones entre autores",
+             fontweight="bold")
+fig.tight_layout()
+guardar_figura("11_comunidades")
+print("Figura 11 generada.")
+
+# %% [markdown]
+# ## 8. Nodos centrales y participantes puente
+#
+# ### 8.1 Medidas de centralidad y justificación de su uso
+#
+# | Medida | Qué mide aquí | Por qué se usa |
+# |---|---|---|
+# | Grado bipartito | Videos comentados (autor) / comentaristas distintos (video) | Es la medida directa de alcance; se normaliza por el tamaño del **lado opuesto**, no por *n*, porque un autor sólo puede conectarse con videos. |
+# | Fuerza (grado ponderado) | Número total de comentarios del nodo | Distingue *amplitud* (muchos videos) de *intensidad* (muchos comentarios en uno). |
+# | Intermediación | Cuántos caminos más cortos pasan por el nodo | Es **la** medida de participante puente: identifica a quien conecta audiencias separadas. |
+# | Cercanía | Distancia media al resto de la componente | Indica qué tan integrado está un nodo; se calcula por componente (la red está fragmentada). |
+# | Vector propio | Conexión con nodos a su vez muy conectados | Mide estar en la zona densa de la red; en redes bipartitas se interpreta con cautela. |
+# | PageRank | Probabilidad estacionaria de un paseo aleatorio | Robusto ante fragmentación gracias al factor de amortiguación; útil para rankear videos. |
+#
+# La **intermediación no se calcula sobre la proyección autor–autor**: dentro de una camarilla todos
+# los caminos tienen longitud 1 y la intermediación colapsa a 0 salvo para los pocos autores que
+# unen camarillas, lo que exagera su importancia.
+
+# %%
+grado_bip = nx.bipartite.degree_centrality(G_obs, AUTORES_OBS)
+intermediacion = nx.betweenness_centrality(G_obs, weight=None, normalized=True, seed=RANDOM_SEED)
+cercania = nx.closeness_centrality(G_obs)
+pagerank = nx.pagerank(G_obs, weight="weight", alpha=0.85)
+try:
+    vector_propio = nx.eigenvector_centrality_numpy(G_obs, weight="weight")
+except Exception:
+    vector_propio = nx.eigenvector_centrality(G_obs, weight="weight", max_iter=2000, tol=1e-6)
+
+centralidad = pd.DataFrame([{
+    "node_id": n,
+    "tipo_nodo": G_obs.nodes[n]["tipo_nodo"],
+    "etiqueta": G_obs.nodes[n]["etiqueta"],
+    "comunidad": nodo_a_comunidad[n],
+    "componente": componente_de[n],
+    "grado": G_obs.degree(n),
+    "fuerza": G_obs.degree(n, weight="weight"),
+    "grado_bipartito": round(grado_bip[n], 4),
+    "intermediacion": round(intermediacion[n], 5),
+    "cercania": round(cercania[n], 4),
+    "pagerank": round(pagerank[n], 5),
+    "vector_propio": round(vector_propio[n], 5),
+} for n in G_obs.nodes])
+centralidad = centralidad.merge(
+    nodos[["node_id", "channel_name", "category", "view_count", "comentarios_recibidos", "sent_medio"]],
+    on="node_id", how="left")
+guardar_tabla(centralidad.sort_values("pagerank", ascending=False), "55_centralidad_todos_los_nodos")
+
+# %% [markdown]
+# ### 8.2 Interpretación separada: autores
+
+# %%
+centralidad_autores = centralidad.query("tipo_nodo == 'autor'").copy()
+centralidad_autores["recurrencia"] = centralidad_autores["fuerza"]        # comentarios totales
+centralidad_autores["diversidad"] = centralidad_autores["grado"]          # videos distintos
+top_autores = centralidad_autores.sort_values(
+    ["intermediacion", "diversidad", "recurrencia"], ascending=False).head(15)
+guardar_tabla(top_autores[["etiqueta", "comunidad", "componente", "diversidad", "recurrencia",
+                           "intermediacion", "cercania", "pagerank", "vector_propio", "sent_medio"]],
+              "56_centralidad_autores")
+registrar("top_autores", top_autores.head(10)[
+    ["etiqueta", "diversidad", "recurrencia", "intermediacion", "pagerank", "sent_medio"]].to_dict("records"))
+print(top_autores[["etiqueta", "diversidad", "recurrencia", "intermediacion", "cercania", "pagerank"]]
+      .to_string(index=False))
+
+# %% [markdown]
+# ### 8.2 Interpretación separada: videos
+
+# %%
+centralidad_videos = centralidad.query("tipo_nodo == 'video'").copy()
+top_videos_red = centralidad_videos.sort_values("pagerank", ascending=False)
+guardar_tabla(top_videos_red[["etiqueta", "channel_name", "category", "comunidad", "componente",
+                              "grado", "fuerza", "intermediacion", "cercania", "pagerank",
+                              "vector_propio", "view_count", "sent_medio"]],
+              "57_centralidad_videos")
+registrar("top_videos_red", top_videos_red.head(10)[
+    ["etiqueta", "channel_name", "grado", "fuerza", "intermediacion", "pagerank"]].to_dict("records"))
+print(top_videos_red[["etiqueta", "channel_name", "grado", "fuerza", "intermediacion", "pagerank"]]
+      .head(12).to_string(index=False))
+
+# %% [markdown]
+# ### 8.3 Participantes recurrentes, autores puente y videos articuladores
+#
+# Un nodo es **articulador** si eliminarlo desconecta su componente. Es la prueba estructural directa
+# que pide el enunciado: «si lo elimináramos de la red, ésta se segmenta».
+
+# %%
+articulacion = set(nx.articulation_points(G_obs))
+autores_articuladores = sorted(n for n in articulacion if G_obs.nodes[n]["tipo_nodo"] == "autor")
+videos_articuladores = sorted(n for n in articulacion if G_obs.nodes[n]["tipo_nodo"] == "video")
+
+
+def fragmentos_al_quitar(nodo: str) -> tuple[int, int]:
+    """Componentes antes y después de eliminar el nodo."""
+    antes = nx.number_connected_components(G_obs)
+    copia = G_obs.copy()
+    copia.remove_node(nodo)
+    return antes, nx.number_connected_components(copia)
+
+
+puentes = pd.DataFrame([{
+    "autor": G_obs.nodes[n]["etiqueta"],
+    "videos_comentados": G_obs.degree(n),
+    "comentarios": G_obs.degree(n, weight="weight"),
+    "intermediacion": round(intermediacion[n], 5),
+    "comunidad": nodo_a_comunidad[n],
+    "componentes_antes": fragmentos_al_quitar(n)[0],
+    "componentes_despues": fragmentos_al_quitar(n)[1],
+    "videos_que_conecta": " | ".join(sorted(acortar(G_obs.nodes[v]["etiqueta"], 34) for v in G_obs[n])),
+} for n in autores_articuladores]).sort_values("intermediacion", ascending=False)
+guardar_tabla(puentes, "58_autores_puente_articuladores")
+registrar("puentes", puentes.to_dict("records"))
+registrar("n_autores_puente", len(puentes))
+
+articuladores_video = pd.DataFrame([{
+    "video": G_obs.nodes[n]["etiqueta"],
+    "canal": G_obs.nodes[n]["channel_name"],
+    "comentaristas": G_obs.degree(n),
+    "intermediacion": round(intermediacion[n], 5),
+    "componentes_antes": fragmentos_al_quitar(n)[0],
+    "componentes_despues": fragmentos_al_quitar(n)[1],
+} for n in videos_articuladores]).sort_values("intermediacion", ascending=False)
+guardar_tabla(articuladores_video, "59_videos_articuladores")
+registrar("articuladores_video", articuladores_video.to_dict("records"))
+registrar("n_videos_articuladores", len(articuladores_video))
+print(puentes.to_string(index=False))
+print()
+print(articuladores_video.to_string(index=False))
+
+# %%
+# Participantes recurrentes: los que vuelven, con o sin efecto puente.
+recurrentes = centralidad_autores.query("recurrencia > 1").sort_values(
+    ["recurrencia", "diversidad"], ascending=False)
+guardar_tabla(recurrentes[["etiqueta", "comunidad", "diversidad", "recurrencia", "intermediacion", "sent_medio"]],
+              "60_autores_recurrentes")
+registrar("n_recurrentes", len(recurrentes))
+registrar("recurrentes_top", recurrentes.head(10)[
+    ["etiqueta", "diversidad", "recurrencia", "sent_medio"]].to_dict("records"))
+print(f"Autores con más de un comentario: {len(recurrentes)}")
+print(recurrentes.head(10)[["etiqueta", "diversidad", "recurrencia", "sent_medio"]].to_string(index=False))
+
+# %%
+fig, ejes = plt.subplots(1, 3, figsize=(16, 5.2))
+
+top_int = centralidad_autores.nlargest(12, "intermediacion").sort_values("intermediacion")
+ejes[0].barh([acortar(e, 24) for e in top_int["etiqueta"]], top_int["intermediacion"], color=ROJO)
+ejes[0].set(title="Autores por intermediación\n(capacidad de puente)", xlabel="Intermediación normalizada")
+
+top_pr = centralidad_videos.nlargest(12, "pagerank").sort_values("pagerank")
+ejes[1].barh([acortar(e, 24) for e in top_pr["etiqueta"]], top_pr["pagerank"], color=NARANJA)
+ejes[1].set(title="Videos por PageRank\n(alcance dentro de la red)", xlabel="PageRank")
+
+# Muchos autores comparten exactamente las mismas coordenadas: se agrupan y el tamaño indica cuántos.
+celdas = centralidad_autores.groupby(["diversidad", "recurrencia"]).agg(
+    autores=("node_id", "size"), intermediacion=("intermediacion", "max")).reset_index()
+dispersion = ejes[2].scatter(celdas["diversidad"], celdas["recurrencia"],
+                             s=45 + 45 * np.sqrt(celdas["autores"]),
+                             c=celdas["intermediacion"], cmap="YlOrRd", vmin=0,
+                             alpha=0.9, edgecolor=GRIS, lw=0.5)
+for _, celda in celdas.iterrows():
+    ejes[2].annotate(int(celda["autores"]), (celda["diversidad"], celda["recurrencia"]),
+                     fontsize=7, ha="center", va="center", color="black")
+ejes[2].set(title="Autores: amplitud vs intensidad\n(número = autores en esa celda; color = intermediación máxima)",
+            xlabel="Videos distintos comentados (diversidad)", ylabel="Comentarios totales (recurrencia)",
+            xticks=sorted(centralidad_autores["diversidad"].unique()))
+fig.colorbar(dispersion, ax=ejes[2], label="Intermediación", fraction=0.046, pad=0.03)
+fig.suptitle("Centralidad: los videos concentran alcance y unos pocos autores sostienen la conectividad",
+             fontweight="bold")
+fig.tight_layout()
+guardar_figura("12_centralidad")
+print("Figura 12 generada.")
+
+# %% [markdown]
 # ## 11. Exportación de datos procesados y de las métricas del informe
 
 # %%
