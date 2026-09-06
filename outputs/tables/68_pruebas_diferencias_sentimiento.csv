@@ -1,0 +1,3 @@
+﻿prueba,estadístico,p_valor,detalle
+Kruskal–Wallis: puntaje de sentimiento entre canales comparables,53.687,0.0,5 canales con ≥10 comentarios
+Chi-cuadrado: etiqueta de sentimiento × canal,82.11,0.0,8 grados de libertad
