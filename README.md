@@ -1,69 +1,60 @@
 # Laboratorio 6 — Análisis de redes sociales en YouTube
 
-Avance correspondiente a las actividades 1–4 del laboratorio de CC3084 Data Science.
+**Universidad del Valle de Guatemala · CC3084 Data Science · Semestre II, 2026**
 
-## Contenido
+Análisis sobre `youtube_videos.csv` (293 videos × 20 variables) y `youtube_comments.csv`
+(406 comentarios × 17 variables).
 
-- `notebooks/01_carga_integracion_y_calidad.ipynb`: carga, comprensión, integración y primera parte del diagnóstico de calidad.
-- `notebooks/02_preprocesamiento_y_eda.ipynb`: conserva el hito anterior y añade limpieza de texto y análisis exploratorio.
-- `notebooks/03_avance_actividades_1_a_4.ipynb`: versión canónica del avance; conserva lo anterior y añade la red bipartita autor–video.
-- `youtube_videos.csv` y `youtube_comments.csv`: datos originales. No son modificados por el análisis.
-- `data/processed`: copias procesadas generadas por los notebooks 02 y 03.
-- `outputs/tables`: diagnósticos y tablas reproducibles.
-- `outputs/figures`: figuras exportadas por los notebooks.
-- `outputs/graphs`: red exportada en GraphML para inspección opcional en Gephi.
+## Estado
 
-Los notebooks son acumulativos y autocontenidos: cada uno vuelve a leer los CSV originales y puede ejecutarse sin haber corrido los anteriores. El notebook 03 es la entrega completa del avance.
+El avance (actividades 1 a 4) se reconstruyó como un **pipeline reproducible único**,
+`scripts/lab6_analisis.py`, sobre el que se desarrollan las actividades 5 a 10. Los notebooks
+originales del avance se conservan en `notebooks/avance/`.
 
 ## Instalación
 
-Se recomienda Python 3.11 o superior y un entorno virtual.
+Requiere **Python 3.11 o superior**.
 
-```powershell
+```bash
 python -m venv .venv
-.\.venv\Scripts\Activate.ps1
+source .venv/bin/activate          # en Windows: .\.venv\Scripts\Activate.ps1
 python -m pip install --upgrade pip
 python -m pip install -r requirements.txt
 python -m spacy download es_core_news_sm
-python -m ipykernel install --user --name lab6 --display-name "Python (Lab 6)"
 ```
 
-El modelo `es_core_news_sm` se usa para tokenización, stopwords y lematización en español. Los notebooks apuntan al kernel `Python (Lab 6)` registrado en el último comando. Después de instalarlo, reinicie Jupyter si ya estaba abierto.
+`es_core_news_sm` se usa para tokenización, stopwords y lematización en español. La primera
+ejecución descarga además el modelo de sentimiento `robertuito-sentiment-analysis` (~450 MB) desde
+Hugging Face; si no hay conexión, el análisis continúa con un respaldo léxico en español y lo
+documenta en la variable `modelo_sentimiento`.
 
 ## Ejecución
 
-Desde la raíz del repositorio:
-
-```powershell
-python -m jupyter lab
+```bash
+python scripts/lab6_analisis.py
 ```
 
-Para validar un notebook de principio a fin:
+Ese único comando regenera todo el material derivado: `outputs/tables/`, `outputs/figures/`,
+`outputs/graphs/`, `data/processed/` y `outputs/resultados.json` con las métricas del análisis.
 
-```powershell
-python -m nbconvert --execute --to notebook --inplace notebooks/03_avance_actividades_1_a_4.ipynb --ExecutePreprocessor.timeout=600 --ExecutePreprocessor.kernel_name=lab6
-```
-
-También puede ejecutar los tres hitos en orden:
-
-```powershell
-python -m nbconvert --execute --to notebook --inplace notebooks/01_carga_integracion_y_calidad.ipynb --ExecutePreprocessor.timeout=600 --ExecutePreprocessor.kernel_name=lab6
-python -m nbconvert --execute --to notebook --inplace notebooks/02_preprocesamiento_y_eda.ipynb --ExecutePreprocessor.timeout=600 --ExecutePreprocessor.kernel_name=lab6
-python -m nbconvert --execute --to notebook --inplace notebooks/03_avance_actividades_1_a_4.ipynb --ExecutePreprocessor.timeout=600 --ExecutePreprocessor.kernel_name=lab6
-```
+El script está escrito en formato *percent* (`# %%`), de modo que el mismo archivo se ejecuta como
+script y se puede convertir a notebook. El análisis es determinista: todas las semillas están
+fijadas en 42 y las estructuras derivadas de conjuntos se recorren en orden canónico.
 
 ## Decisiones metodológicas principales
 
-- `video_id`, `channel_id`, `comment_id` y `author_channel_id` son los identificadores; los nombres y handles se conservan solo como etiquetas.
-- Un `like_count_text` vacío se interpreta como cero likes mostrados por YouTube. El texto crudo se conserva para auditoría.
-- Los comentarios duplicados no se eliminan si tienen IDs distintos; se marcan para revisión.
-- Una arista indica que un autor publicó al menos un comentario principal en un video. Su peso es el número de comentarios de ese autor en ese video.
-- `reply_count` no crea aristas entre autores porque los datos no identifican quién respondió.
-- Los videos sin comentarios recolectados se etiquetan como falta de cobertura y no como aislamiento social demostrado.
-- Comunidades y sentimiento se tratan solo de forma preliminar; los análisis formales corresponden a actividades posteriores.
-
-## Hitos sugeridos para commits
-
-1. `feat: cargar, integrar y diagnosticar datos de YouTube`
-2. `feat: completar limpieza textual y análisis exploratorio`
-3. `feat: construir red bipartita y cerrar avance 1-4`
+- **Los identificadores son la llave; los nombres son sólo etiquetas.** `video_id`, `channel_id`,
+  `comment_id` y `author_channel_id` construyen la red; `channel_name`, `author_name` y los
+  *handles* nunca sustituyen a un ID.
+- **Una arista significa una sola cosa:** ese autor publicó al menos un comentario principal en ese
+  video. Su peso es el número de comentarios. No implica amistad, conversación ni aprobación.
+- **`reply_count` nunca genera aristas entre usuarios.** Los datos indican cuántas respuestas
+  recibió un comentario, pero no quién las escribió.
+- **Un video sin comentarios no está aislado: no tiene datos.** 274 de los 293 videos carecen de
+  comentarios recolectados; se conservan en la red como falta de cobertura.
+- **Ningún comentario se elimina en la limpieza.** Cada uno es una arista; los que quedan sin
+  contenido léxico se marcan con `apto_para_texto`.
+- **Se conservan dos versiones del texto.** `texto_original` alimenta el sentimiento (necesita
+  negación, puntuación y emojis); `texto_limpio`, lematizado, alimenta frecuencias y temas.
+- **Un `like_count_text` en blanco significa cero.** YouTube oculta el contador cuando vale 0; la
+  imputación queda marcada en `like_count_imputado`.

@@ -1,0 +1,7 @@
+﻿archivo,llave_candidata,filas,valores_unicos,faltantes,es_llave_primaria
+youtube_videos.csv,video_id,293,293,0,True
+youtube_videos.csv,channel_id,293,97,0,False
+youtube_videos.csv,video_url,293,293,0,True
+youtube_comments.csv,comment_id,406,406,0,True
+youtube_comments.csv,video_id,406,19,0,False
+youtube_comments.csv,author_channel_id,406,332,0,False

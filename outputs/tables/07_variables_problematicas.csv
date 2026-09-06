@@ -1,0 +1,12 @@
+﻿variable,clasificación,problema_observado,tratamiento_justificado
+viewer_rating,Inutilizable,406/406 faltantes (100 %); varianza nula.,Se excluye de todo análisis. Se conserva en el archivo crudo para auditoría.
+is_pinned,Sin aporte,Constante en False para los 406 registros.,No se usa como variable explicativa; se documenta la ausencia de comentarios fijados.
+published_time / published_text,Precaución alta,Tiempo relativo ('hace 2 días') dependiente del momento de recolección.,No se convierte a fecha absoluta. Sólo se usa de forma ordinal y descriptiva.
+view_count_text,Redundante,Texto con separador de miles y la palabra 'vistas'; 13 faltantes.,Se usa view_count (entero) para todo cálculo; el texto queda como respaldo.
+like_count_text,Precaución,Almacenado como texto; 189 registros son espacio en blanco.,Se convierte a entero; el blanco se interpreta como 0 likes mostrados y se marca en like_count_imputado.
+reply_count,Precaución crítica,Cuenta respuestas pero no identifica a sus autores.,Nunca genera aristas entre usuarios. Se usa sólo como atributo de intensidad del comentario.
+channel_name / author_name / handles,No son identificadores,Pueden repetirse o cambiar en el tiempo.,Se conservan sólo como etiquetas; los IDs son la llave en toda la red.
+source_query / source_group,Sesgo de muestreo y homonimia,"Describen cómo se encontró el contenido, no su tema real. Además la variable existe en ambos archivos con el mismo nombre pero distinto significado y no coincide en 188 de 406 comentarios.",Se usan sólo para describir el procedimiento. Al unir los archivos se conserva el sufijo _video para no confundir la ruta de recolección del video con la de sus comentarios.
+description_snippet,Redundante e incompleta,Fragmento truncado de description; 25 faltantes.,Se prefiere description para el análisis de contenido.
+upload_date,Redundante,Idéntica a publish_date en el 100 % de los registros.,Se conserva una sola variable temporal (publish_date).
+dataset_sources,Procedencia,Lista de archivos originales separados por '|'.,"Se usa para auditar la integración, no como variable de análisis."

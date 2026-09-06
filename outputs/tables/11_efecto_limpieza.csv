@@ -1,0 +1,18 @@
+﻿métrica,valor
+Registros de entrada,406.0
+Registros conservados,406.0
+Registros eliminados,0.0
+Textos modificados por la limpieza,405.0
+Textos vacíos antes,0.0
+Textos vacíos después (quedan sin contenido léxico),10.0
+Filas en grupos de texto duplicado antes,4.0
+Filas en grupos de texto duplicado después,19.0
+Tokens totales antes de stopwords/lematización,9711.0
+Tokens totales después,3769.0
+Vocabulario (tipos) antes,2695.0
+Vocabulario (tipos) después,1834.0
+Reducción de tokens (%),61.2
+Comentarios con al menos un emoji,61.0
+Comentarios con al menos una URL,1.0
+Comentarios con al menos una mención,5.0
+Comentarios con al menos un hashtag,1.0

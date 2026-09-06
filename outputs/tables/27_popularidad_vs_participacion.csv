@@ -1,0 +1,5 @@
+﻿comparación,rho_spearman,p_valor,lectura
+Vistas vs comentarios — catálogo completo (n=293),0.08,0.1703,"Está dominada por los 274 videos con cero comentarios: mide cobertura, no comportamiento."
+Vistas vs comentarios — sólo videos con cobertura (n=19),0.811,0.0,"Es la comparación honesta, pero con n=19 la potencia estadística es baja."
+Vistas vs autores únicos — videos con cobertura (n=19),0.812,0.0,Controla que un solo autor infle el conteo de comentarios.
+Me gusta vs respuestas por comentario (n=406),0.251,0.0,Aprobación y conversación son señales distintas dentro del mismo comentario.

@@ -1,0 +1,8 @@
+﻿verificación,resultado
+¿Es bipartita?,True
+Aristas dentro del mismo tipo (deben ser 0),0
+Suma de pesos = número de comentarios,True
+Nodos totales (red completa),625
+Aristas totales,343
+Nodos en la subred observada,351
+Videos sin ninguna arista (falta de cobertura),274

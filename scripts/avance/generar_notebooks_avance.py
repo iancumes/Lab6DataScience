@@ -1,11 +1,16 @@
+"""Generador de los notebooks del AVANCE (actividades 1 a 4), entregado el 3 de septiembre.
+
+Se conserva como registro de la entrega parcial. El análisis definitivo de las actividades 1 a 10
+vive en scripts/lab6_analisis.py y en notebooks/Laboratorio6_completo.ipynb.
+"""
 from pathlib import Path
 from textwrap import dedent
 
 import nbformat as nbf
 
 
-ROOT = Path(__file__).resolve().parents[1]
-NOTEBOOK_DIR = ROOT / "notebooks"
+ROOT = Path(__file__).resolve().parents[2]
+NOTEBOOK_DIR = ROOT / "notebooks" / "avance"
 NOTEBOOK_DIR.mkdir(parents=True, exist_ok=True)
 
 

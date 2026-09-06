@@ -1,0 +1,1944 @@
+{
+  "n_videos": 293,
+  "n_comentarios": 406,
+  "n_vars_videos": 20,
+  "n_vars_comentarios": 17,
+  "llaves_candidatas": [
+    {
+      "archivo": "youtube_videos.csv",
+      "llave_candidata": "video_id",
+      "filas": 293,
+      "valores_unicos": 293,
+      "faltantes": 0,
+      "es_llave_primaria": true
+    },
+    {
+      "archivo": "youtube_videos.csv",
+      "llave_candidata": "channel_id",
+      "filas": 293,
+      "valores_unicos": 97,
+      "faltantes": 0,
+      "es_llave_primaria": false
+    },
+    {
+      "archivo": "youtube_videos.csv",
+      "llave_candidata": "video_url",
+      "filas": 293,
+      "valores_unicos": 293,
+      "faltantes": 0,
+      "es_llave_primaria": true
+    },
+    {
+      "archivo": "youtube_comments.csv",
+      "llave_candidata": "comment_id",
+      "filas": 406,
+      "valores_unicos": 406,
+      "faltantes": 0,
+      "es_llave_primaria": true
+    },
+    {
+      "archivo": "youtube_comments.csv",
+      "llave_candidata": "video_id",
+      "filas": 406,
+      "valores_unicos": 19,
+      "faltantes": 0,
+      "es_llave_primaria": false
+    },
+    {
+      "archivo": "youtube_comments.csv",
+      "llave_candidata": "author_channel_id",
+      "filas": 406,
+      "valores_unicos": 332,
+      "faltantes": 0,
+      "es_llave_primaria": false
+    }
+  ],
+  "videos_con_comentarios": 19,
+  "videos_sin_comentarios": 274,
+  "cobertura_videos_pct": 6.48,
+  "comentarios_asociados": 406,
+  "comentarios_huerfanos": 0,
+  "canales_videos": 97,
+  "canales_con_comentarios": 8,
+  "autores_unicos": 332,
+  "diagnostico_calidad": [
+    {
+      "archivo": "youtube_videos.csv",
+      "variable": "video_id",
+      "tipo_pandas": "string",
+      "faltantes": 0,
+      "faltantes_pct": 0.0,
+      "vacios_o_espacios": 0,
+      "valores_unicos": 293,
+      "es_constante": false,
+      "es_vacia": false,
+      "atipicos_iqr": null,
+      "ejemplo": "-5puKGEqcUc"
+    },
+    {
+      "archivo": "youtube_videos.csv",
+      "variable": "title",
+      "tipo_pandas": "str",
+      "faltantes": 0,
+      "faltantes_pct": 0.0,
+      "vacios_o_espacios": 0,
+      "valores_unicos": 274,
+      "es_constante": false,
+      "es_vacia": false,
+      "atipicos_iqr": null,
+      "ejemplo": "INSIVUMEH pronostica incremento de lluv…"
+    },
+    {
+      "archivo": "youtube_videos.csv",
+      "variable": "channel_name",
+      "tipo_pandas": "str",
+      "faltantes": 0,
+      "faltantes_pct": 0.0,
+      "vacios_o_espacios": 0,
+      "valores_unicos": 97,
+      "es_constante": false,
+      "es_vacia": false,
+      "atipicos_iqr": null,
+      "ejemplo": "T13 Noticias Guatemala"
+    },
+    {
+      "archivo": "youtube_videos.csv",
+      "variable": "channel_id",
+      "tipo_pandas": "string",
+      "faltantes": 0,
+      "faltantes_pct": 0.0,
+      "vacios_o_espacios": 0,
+      "valores_unicos": 97,
+      "es_constante": false,
+      "es_vacia": false,
+      "atipicos_iqr": null,
+      "ejemplo": "UCq0Cm-3SKthEySQc2JZBi1A"
+    },
+    {
+      "archivo": "youtube_videos.csv",
+      "variable": "source_query",
+      "tipo_pandas": "str",
+      "faltantes": 0,
+      "faltantes_pct": 0.0,
+      "vacios_o_espacios": 0,
+      "valores_unicos": 21,
+      "es_constante": false,
+      "es_vacia": false,
+      "atipicos_iqr": null,
+      "ejemplo": "guatemala lluvias"
+    },
+    {
+      "archivo": "youtube_videos.csv",
+      "variable": "source_group",
+      "tipo_pandas": "str",
+      "faltantes": 0,
+      "faltantes_pct": 0.0,
+      "vacios_o_espacios": 0,
+      "valores_unicos": 3,
+      "es_constante": false,
+      "es_vacia": false,
+      "atipicos_iqr": null,
+      "ejemplo": "topic"
+    },
+    {
+      "archivo": "youtube_videos.csv",
+      "variable": "dataset_sources",
+      "tipo_pandas": "str",
+      "faltantes": 0,
+      "faltantes_pct": 0.0,
+      "vacios_o_espacios": 0,
+      "valores_unicos": 23,
+      "es_constante": false,
+      "es_vacia": false,
+      "atipicos_iqr": null,
+      "ejemplo": "youtube_guatemala.csv | youtube_guatema…"
+    },
+    {
+      "archivo": "youtube_videos.csv",
+      "variable": "channel_handle",
+      "tipo_pandas": "string",
+      "faltantes": 0,
+      "faltantes_pct": 0.0,
+      "vacios_o_espacios": 0,
+      "valores_unicos": 97,
+      "es_constante": false,
+      "es_vacia": false,
+      "atipicos_iqr": null,
+      "ejemplo": "/@T13NoticiasGuatemala"
+    },
+    {
+      "archivo": "youtube_videos.csv",
+      "variable": "published_time",
+      "tipo_pandas": "str",
+      "faltantes": 13,
+      "faltantes_pct": 4.44,
+      "vacios_o_espacios": 13,
+      "valores_unicos": 80,
+      "es_constante": false,
+      "es_vacia": false,
+      "atipicos_iqr": null,
+      "ejemplo": "hace 2 días"
+    },
+    {
+      "archivo": "youtube_videos.csv",
+      "variable": "view_count_text",
+      "tipo_pandas": "str",
+      "faltantes": 13,
+      "faltantes_pct": 4.44,
+      "vacios_o_espacios": 13,
+      "valores_unicos": 259,
+      "es_constante": false,
+      "es_vacia": false,
+      "atipicos_iqr": null,
+      "ejemplo": "2,390 vistas"
+    },
+    {
+      "archivo": "youtube_videos.csv",
+      "variable": "description_snippet",
+      "tipo_pandas": "str",
+      "faltantes": 25,
+      "faltantes_pct": 8.53,
+      "vacios_o_espacios": 25,
+      "valores_unicos": 236,
+      "es_constante": false,
+      "es_vacia": false,
+      "atipicos_iqr": null,
+      "ejemplo": "El Departamento de Pronóstico de INSIVU…"
+    },
+    {
+      "archivo": "youtube_videos.csv",
+      "variable": "video_url",
+      "tipo_pandas": "str",
+      "faltantes": 0,
+      "faltantes_pct": 0.0,
+      "vacios_o_espacios": 0,
+      "valores_unicos": 293,
+      "es_constante": false,
+      "es_vacia": false,
+      "atipicos_iqr": null,
+      "ejemplo": "https://www.youtube.com/watch?v=-5puKGE…"
+    },
+    {
+      "archivo": "youtube_videos.csv",
+      "variable": "query_hits",
+      "tipo_pandas": "str",
+      "faltantes": 0,
+      "faltantes_pct": 0.0,
+      "vacios_o_espacios": 0,
+      "valores_unicos": 26,
+      "es_constante": false,
+      "es_vacia": false,
+      "atipicos_iqr": null,
+      "ejemplo": "[\"guatemala lluvias\"]"
+    },
+    {
+      "archivo": "youtube_videos.csv",
+      "variable": "keywords",
+      "tipo_pandas": "str",
+      "faltantes": 0,
+      "faltantes_pct": 0.0,
+      "vacios_o_espacios": 0,
+      "valores_unicos": 106,
+      "es_constante": false,
+      "es_vacia": false,
+      "atipicos_iqr": null,
+      "ejemplo": "[\"Canícula prolongada\", \"Chapin tv\", \"F…"
+    },
+    {
+      "archivo": "youtube_videos.csv",
+      "variable": "description",
+      "tipo_pandas": "str",
+      "faltantes": 26,
+      "faltantes_pct": 8.87,
+      "vacios_o_espacios": 26,
+      "valores_unicos": 234,
+      "es_constante": false,
+      "es_vacia": false,
+      "atipicos_iqr": null,
+      "ejemplo": "El Departamento de Pronóstico de INSIVU…"
+    },
+    {
+      "archivo": "youtube_videos.csv",
+      "variable": "view_count",
+      "tipo_pandas": "int64",
+      "faltantes": 0,
+      "faltantes_pct": 0.0,
+      "vacios_o_espacios": 0,
+      "valores_unicos": 267,
+      "es_constante": false,
+      "es_vacia": false,
+      "atipicos_iqr": 49,
+      "ejemplo": "2357"
+    },
+    {
+      "archivo": "youtube_videos.csv",
+      "variable": "publish_date",
+      "tipo_pandas": "str",
+      "faltantes": 0,
+      "faltantes_pct": 0.0,
+      "vacios_o_espacios": 0,
+      "valores_unicos": 293,
+      "es_constante": false,
+      "es_vacia": false,
+      "atipicos_iqr": null,
+      "ejemplo": "2026-08-28T22:00:20-07:00"
+    },
+    {
+      "archivo": "youtube_videos.csv",
+      "variable": "upload_date",
+      "tipo_pandas": "str",
+      "faltantes": 0,
+      "faltantes_pct": 0.0,
+      "vacios_o_espacios": 0,
+      "valores_unicos": 293,
+      "es_constante": false,
+      "es_vacia": false,
+      "atipicos_iqr": null,
+      "ejemplo": "2026-08-28T22:00:20-07:00"
+    },
+    {
+      "archivo": "youtube_videos.csv",
+      "variable": "category",
+      "tipo_pandas": "str",
+      "faltantes": 0,
+      "faltantes_pct": 0.0,
+      "vacios_o_espacios": 0,
+      "valores_unicos": 11,
+      "es_constante": false,
+      "es_vacia": false,
+      "atipicos_iqr": null,
+      "ejemplo": "News & Politics"
+    },
+    {
+      "archivo": "youtube_videos.csv",
+      "variable": "owner_handle",
+      "tipo_pandas": "string",
+      "faltantes": 0,
+      "faltantes_pct": 0.0,
+      "vacios_o_espacios": 0,
+      "valores_unicos": 97,
+      "es_constante": false,
+      "es_vacia": false,
+      "atipicos_iqr": null,
+      "ejemplo": "/@T13NoticiasGuatemala"
+    },
+    {
+      "archivo": "youtube_comments.csv",
+      "variable": "video_id",
+      "tipo_pandas": "string",
+      "faltantes": 0,
+      "faltantes_pct": 0.0,
+      "vacios_o_espacios": 0,
+      "valores_unicos": 19,
+      "es_constante": false,
+      "es_vacia": false,
+      "atipicos_iqr": null,
+      "ejemplo": "j43HgwYFKfk"
+    },
+    {
+      "archivo": "youtube_comments.csv",
+      "variable": "comment_id",
+      "tipo_pandas": "string",
+      "faltantes": 0,
+      "faltantes_pct": 0.0,
+      "vacios_o_espacios": 0,
+      "valores_unicos": 406,
+      "es_constante": false,
+      "es_vacia": false,
+      "atipicos_iqr": null,
+      "ejemplo": "Ugw-J65a1iYL9hqhELh4AaABAg"
+    },
+    {
+      "archivo": "youtube_comments.csv",
+      "variable": "video_title",
+      "tipo_pandas": "str",
+      "faltantes": 0,
+      "faltantes_pct": 0.0,
+      "vacios_o_espacios": 0,
+      "valores_unicos": 19,
+      "es_constante": false,
+      "es_vacia": false,
+      "atipicos_iqr": null,
+      "ejemplo": "La cooptación de Walter Mazariegos en l…"
+    },
+    {
+      "archivo": "youtube_comments.csv",
+      "variable": "channel_name",
+      "tipo_pandas": "str",
+      "faltantes": 0,
+      "faltantes_pct": 0.0,
+      "vacios_o_espacios": 0,
+      "valores_unicos": 8,
+      "es_constante": false,
+      "es_vacia": false,
+      "atipicos_iqr": null,
+      "ejemplo": "Quorum"
+    },
+    {
+      "archivo": "youtube_comments.csv",
+      "variable": "channel_id",
+      "tipo_pandas": "string",
+      "faltantes": 0,
+      "faltantes_pct": 0.0,
+      "vacios_o_espacios": 0,
+      "valores_unicos": 8,
+      "es_constante": false,
+      "es_vacia": false,
+      "atipicos_iqr": null,
+      "ejemplo": "UCE4rsXcgDb6e1-a9iTbWzfg"
+    },
+    {
+      "archivo": "youtube_comments.csv",
+      "variable": "author_name",
+      "tipo_pandas": "str",
+      "faltantes": 0,
+      "faltantes_pct": 0.0,
+      "vacios_o_espacios": 0,
+      "valores_unicos": 332,
+      "es_constante": false,
+      "es_vacia": false,
+      "atipicos_iqr": null,
+      "ejemplo": "@MarcosCarillo-b1r"
+    },
+    {
+      "archivo": "youtube_comments.csv",
+      "variable": "author_channel_id",
+      "tipo_pandas": "string",
+      "faltantes": 0,
+      "faltantes_pct": 0.0,
+      "vacios_o_espacios": 0,
+      "valores_unicos": 332,
+      "es_constante": false,
+      "es_vacia": false,
+      "atipicos_iqr": null,
+      "ejemplo": "UCdFlugHJJa4l3YqWuNRmvXw"
+    },
+    {
+      "archivo": "youtube_comments.csv",
+      "variable": "text",
+      "tipo_pandas": "str",
+      "faltantes": 0,
+      "faltantes_pct": 0.0,
+      "vacios_o_espacios": 0,
+      "valores_unicos": 404,
+      "es_constante": false,
+      "es_vacia": false,
+      "atipicos_iqr": null,
+      "ejemplo": "Ese corrupto amigo de la vieja fiscal l…"
+    },
+    {
+      "archivo": "youtube_comments.csv",
+      "variable": "source_query",
+      "tipo_pandas": "str",
+      "faltantes": 0,
+      "faltantes_pct": 0.0,
+      "vacios_o_espacios": 0,
+      "valores_unicos": 6,
+      "es_constante": false,
+      "es_vacia": false,
+      "atipicos_iqr": null,
+      "ejemplo": "@quorumgt"
+    },
+    {
+      "archivo": "youtube_comments.csv",
+      "variable": "source_group",
+      "tipo_pandas": "str",
+      "faltantes": 0,
+      "faltantes_pct": 0.0,
+      "vacios_o_espacios": 0,
+      "valores_unicos": 2,
+      "es_constante": false,
+      "es_vacia": false,
+      "atipicos_iqr": null,
+      "ejemplo": "topic"
+    },
+    {
+      "archivo": "youtube_comments.csv",
+      "variable": "dataset_sources",
+      "tipo_pandas": "str",
+      "faltantes": 0,
+      "faltantes_pct": 0.0,
+      "vacios_o_espacios": 0,
+      "valores_unicos": 8,
+      "es_constante": false,
+      "es_vacia": false,
+      "atipicos_iqr": null,
+      "ejemplo": "j43HgwYFKfk_out_comments.csv | quorum_c…"
+    },
+    {
+      "archivo": "youtube_comments.csv",
+      "variable": "author_handle",
+      "tipo_pandas": "string",
+      "faltantes": 0,
+      "faltantes_pct": 0.0,
+      "vacios_o_espacios": 0,
+      "valores_unicos": 332,
+      "es_constante": false,
+      "es_vacia": false,
+      "atipicos_iqr": null,
+      "ejemplo": "/@MarcosCarillo-b1r"
+    },
+    {
+      "archivo": "youtube_comments.csv",
+      "variable": "published_text",
+      "tipo_pandas": "str",
+      "faltantes": 0,
+      "faltantes_pct": 0.0,
+      "vacios_o_espacios": 0,
+      "valores_unicos": 39,
+      "es_constante": false,
+      "es_vacia": false,
+      "atipicos_iqr": null,
+      "ejemplo": "hace 6 meses"
+    },
+    {
+      "archivo": "youtube_comments.csv",
+      "variable": "like_count_text",
+      "tipo_pandas": "str",
+      "faltantes": 0,
+      "faltantes_pct": 0.0,
+      "vacios_o_espacios": 189,
+      "valores_unicos": 31,
+      "es_constante": false,
+      "es_vacia": false,
+      "atipicos_iqr": null,
+      "ejemplo": " "
+    },
+    {
+      "archivo": "youtube_comments.csv",
+      "variable": "reply_count",
+      "tipo_pandas": "int64",
+      "faltantes": 0,
+      "faltantes_pct": 0.0,
+      "vacios_o_espacios": 0,
+      "valores_unicos": 6,
+      "es_constante": false,
+      "es_vacia": false,
+      "atipicos_iqr": 0,
+      "ejemplo": "0"
+    },
+    {
+      "archivo": "youtube_comments.csv",
+      "variable": "is_pinned",
+      "tipo_pandas": "bool",
+      "faltantes": 0,
+      "faltantes_pct": 0.0,
+      "vacios_o_espacios": 0,
+      "valores_unicos": 1,
+      "es_constante": true,
+      "es_vacia": false,
+      "atipicos_iqr": null,
+      "ejemplo": "False"
+    },
+    {
+      "archivo": "youtube_comments.csv",
+      "variable": "viewer_rating",
+      "tipo_pandas": "float64",
+      "faltantes": 406,
+      "faltantes_pct": 100.0,
+      "vacios_o_espacios": 0,
+      "valores_unicos": 0,
+      "es_constante": false,
+      "es_vacia": true,
+      "atipicos_iqr": 0,
+      "ejemplo": ""
+    }
+  ],
+  "duplicados": [
+    {
+      "archivo": "youtube_videos.csv",
+      "chequeo": "Filas exactamente duplicadas",
+      "conteo": 0
+    },
+    {
+      "archivo": "youtube_videos.csv",
+      "chequeo": "video_id duplicado",
+      "conteo": 0
+    },
+    {
+      "archivo": "youtube_videos.csv",
+      "chequeo": "title duplicado (distinto video)",
+      "conteo": 19
+    },
+    {
+      "archivo": "youtube_comments.csv",
+      "chequeo": "Filas exactamente duplicadas",
+      "conteo": 0
+    },
+    {
+      "archivo": "youtube_comments.csv",
+      "chequeo": "comment_id duplicado",
+      "conteo": 0
+    },
+    {
+      "archivo": "youtube_comments.csv",
+      "chequeo": "texto duplicado (comment_id distinto)",
+      "conteo": 2
+    },
+    {
+      "archivo": "youtube_comments.csv",
+      "chequeo": "(video_id, author_channel_id, text) duplicado",
+      "conteo": 2
+    }
+  ],
+  "variables_constantes": [
+    {
+      "archivo": "youtube_comments.csv",
+      "variable": "is_pinned",
+      "valores_unicos": 1,
+      "faltantes": 0,
+      "es_constante": true,
+      "es_vacia": false
+    },
+    {
+      "archivo": "youtube_comments.csv",
+      "variable": "viewer_rating",
+      "valores_unicos": 0,
+      "faltantes": 406,
+      "es_constante": false,
+      "es_vacia": true
+    }
+  ],
+  "consistencia": [
+    {
+      "ámbito": "videos",
+      "regla": "channel_id → un solo channel_name",
+      "incumplimientos_o_conteo": 0
+    },
+    {
+      "ámbito": "videos",
+      "regla": "channel_name → un solo channel_id",
+      "incumplimientos_o_conteo": 0
+    },
+    {
+      "ámbito": "videos",
+      "regla": "channel_id → un solo channel_handle",
+      "incumplimientos_o_conteo": 0
+    },
+    {
+      "ámbito": "videos",
+      "regla": "channel_handle ≠ owner_handle",
+      "incumplimientos_o_conteo": 0
+    },
+    {
+      "ámbito": "videos",
+      "regla": "publish_date ≠ upload_date",
+      "incumplimientos_o_conteo": 0
+    },
+    {
+      "ámbito": "videos",
+      "regla": "video_url inconsistente con video_id",
+      "incumplimientos_o_conteo": 0
+    },
+    {
+      "ámbito": "comentarios",
+      "regla": "author_channel_id → un solo author_name",
+      "incumplimientos_o_conteo": 0
+    },
+    {
+      "ámbito": "comentarios",
+      "regla": "author_name → un solo author_channel_id",
+      "incumplimientos_o_conteo": 0
+    },
+    {
+      "ámbito": "comentarios",
+      "regla": "author_channel_id → un solo author_handle",
+      "incumplimientos_o_conteo": 0
+    },
+    {
+      "ámbito": "cruce",
+      "regla": "channel_id de comentarios presente en videos",
+      "incumplimientos_o_conteo": 406
+    },
+    {
+      "ámbito": "cruce",
+      "regla": "author_channel_id que también es channel_id de un video",
+      "incumplimientos_o_conteo": 0
+    },
+    {
+      "ámbito": "cruce",
+      "regla": "video_title de comentarios ≠ title del catálogo",
+      "incumplimientos_o_conteo": 0
+    },
+    {
+      "ámbito": "cruce",
+      "regla": "source_group del comentario ≠ source_group del video",
+      "incumplimientos_o_conteo": 188
+    },
+    {
+      "ámbito": "cruce",
+      "regla": "source_query del comentario ≠ source_query del video",
+      "incumplimientos_o_conteo": 188
+    }
+  ],
+  "likes_en_blanco": 189,
+  "variables_problematicas": [
+    {
+      "variable": "viewer_rating",
+      "clasificación": "Inutilizable",
+      "problema_observado": "406/406 faltantes (100 %); varianza nula.",
+      "tratamiento_justificado": "Se excluye de todo análisis. Se conserva en el archivo crudo para auditoría."
+    },
+    {
+      "variable": "is_pinned",
+      "clasificación": "Sin aporte",
+      "problema_observado": "Constante en False para los 406 registros.",
+      "tratamiento_justificado": "No se usa como variable explicativa; se documenta la ausencia de comentarios fijados."
+    },
+    {
+      "variable": "published_time / published_text",
+      "clasificación": "Precaución alta",
+      "problema_observado": "Tiempo relativo ('hace 2 días') dependiente del momento de recolección.",
+      "tratamiento_justificado": "No se convierte a fecha absoluta. Sólo se usa de forma ordinal y descriptiva."
+    },
+    {
+      "variable": "view_count_text",
+      "clasificación": "Redundante",
+      "problema_observado": "Texto con separador de miles y la palabra 'vistas'; 13 faltantes.",
+      "tratamiento_justificado": "Se usa view_count (entero) para todo cálculo; el texto queda como respaldo."
+    },
+    {
+      "variable": "like_count_text",
+      "clasificación": "Precaución",
+      "problema_observado": "Almacenado como texto; 189 registros son espacio en blanco.",
+      "tratamiento_justificado": "Se convierte a entero; el blanco se interpreta como 0 likes mostrados y se marca en like_count_imputado."
+    },
+    {
+      "variable": "reply_count",
+      "clasificación": "Precaución crítica",
+      "problema_observado": "Cuenta respuestas pero no identifica a sus autores.",
+      "tratamiento_justificado": "Nunca genera aristas entre usuarios. Se usa sólo como atributo de intensidad del comentario."
+    },
+    {
+      "variable": "channel_name / author_name / handles",
+      "clasificación": "No son identificadores",
+      "problema_observado": "Pueden repetirse o cambiar en el tiempo.",
+      "tratamiento_justificado": "Se conservan sólo como etiquetas; los IDs son la llave en toda la red."
+    },
+    {
+      "variable": "source_query / source_group",
+      "clasificación": "Sesgo de muestreo y homonimia",
+      "problema_observado": "Describen cómo se encontró el contenido, no su tema real. Además la variable existe en ambos archivos con el mismo nombre pero distinto significado y no coincide en 188 de 406 comentarios.",
+      "tratamiento_justificado": "Se usan sólo para describir el procedimiento. Al unir los archivos se conserva el sufijo _video para no confundir la ruta de recolección del video con la de sus comentarios."
+    },
+    {
+      "variable": "description_snippet",
+      "clasificación": "Redundante e incompleta",
+      "problema_observado": "Fragmento truncado de description; 25 faltantes.",
+      "tratamiento_justificado": "Se prefiere description para el análisis de contenido."
+    },
+    {
+      "variable": "upload_date",
+      "clasificación": "Redundante",
+      "problema_observado": "Idéntica a publish_date en el 100 % de los registros.",
+      "tratamiento_justificado": "Se conserva una sola variable temporal (publish_date)."
+    },
+    {
+      "variable": "dataset_sources",
+      "clasificación": "Procedencia",
+      "problema_observado": "Lista de archivos originales separados por '|'.",
+      "tratamiento_justificado": "Se usa para auditar la integración, no como variable de análisis."
+    }
+  ],
+  "handles_codificados": 27,
+  "verificacion_ids": [
+    {
+      "chequeo": "video_id únicos antes/después",
+      "antes": 293,
+      "después": 293
+    },
+    {
+      "chequeo": "channel_id únicos antes/después",
+      "antes": 97,
+      "después": 97
+    },
+    {
+      "chequeo": "comment_id únicos antes/después",
+      "antes": 406,
+      "después": 406
+    },
+    {
+      "chequeo": "author_channel_id únicos antes/después",
+      "antes": 332,
+      "después": 332
+    },
+    {
+      "chequeo": "Handles con porcentaje-encoding de URL",
+      "antes": 27,
+      "después": 0
+    }
+  ],
+  "view_dif_mediana": 4,
+  "view_dif_max": 3382,
+  "view_text_coinciden": 227,
+  "view_text_disponibles": 280,
+  "total_likes": 2325,
+  "total_respuestas": 51,
+  "total_vistas": 17706015,
+  "efecto_limpieza": [
+    {
+      "métrica": "Registros de entrada",
+      "valor": 406.0
+    },
+    {
+      "métrica": "Registros conservados",
+      "valor": 406.0
+    },
+    {
+      "métrica": "Registros eliminados",
+      "valor": 0.0
+    },
+    {
+      "métrica": "Textos modificados por la limpieza",
+      "valor": 405.0
+    },
+    {
+      "métrica": "Textos vacíos antes",
+      "valor": 0.0
+    },
+    {
+      "métrica": "Textos vacíos después (quedan sin contenido léxico)",
+      "valor": 10.0
+    },
+    {
+      "métrica": "Filas en grupos de texto duplicado antes",
+      "valor": 4.0
+    },
+    {
+      "métrica": "Filas en grupos de texto duplicado después",
+      "valor": 19.0
+    },
+    {
+      "métrica": "Tokens totales antes de stopwords/lematización",
+      "valor": 9711.0
+    },
+    {
+      "métrica": "Tokens totales después",
+      "valor": 3769.0
+    },
+    {
+      "métrica": "Vocabulario (tipos) antes",
+      "valor": 2695.0
+    },
+    {
+      "métrica": "Vocabulario (tipos) después",
+      "valor": 1834.0
+    },
+    {
+      "métrica": "Reducción de tokens (%)",
+      "valor": 61.2
+    },
+    {
+      "métrica": "Comentarios con al menos un emoji",
+      "valor": 61.0
+    },
+    {
+      "métrica": "Comentarios con al menos una URL",
+      "valor": 1.0
+    },
+    {
+      "métrica": "Comentarios con al menos una mención",
+      "valor": 5.0
+    },
+    {
+      "métrica": "Comentarios con al menos un hashtag",
+      "valor": 1.0
+    }
+  ],
+  "textos_vacios_despues": 10,
+  "reduccion_tokens_pct": 61.2,
+  "modelo_sentimiento": "pysentimiento / RoBERTuito (robertuito-sentiment-analysis, español)",
+  "sentimiento_global": {
+    "POS": 78,
+    "NEU": 79,
+    "NEG": 249
+  },
+  "sentimiento_medio": -0.379,
+  "descriptivos": [
+    {
+      "indicador": "Videos en el catálogo",
+      "valor": 293.0
+    },
+    {
+      "indicador": "Canales que publican videos",
+      "valor": 97.0
+    },
+    {
+      "indicador": "Comentarios principales",
+      "valor": 406.0
+    },
+    {
+      "indicador": "Autores únicos de comentarios",
+      "valor": 332.0
+    },
+    {
+      "indicador": "Videos con comentarios recolectados",
+      "valor": 19.0
+    },
+    {
+      "indicador": "Canales con comentarios recolectados",
+      "valor": 8.0
+    },
+    {
+      "indicador": "Videos por canal — media",
+      "valor": 3.02
+    },
+    {
+      "indicador": "Videos por canal — mediana",
+      "valor": 1.0
+    },
+    {
+      "indicador": "Videos por canal — máximo",
+      "valor": 32.0
+    },
+    {
+      "indicador": "Comentarios por video con cobertura — media",
+      "valor": 21.37
+    },
+    {
+      "indicador": "Comentarios por video con cobertura — mediana",
+      "valor": 7.0
+    },
+    {
+      "indicador": "Comentarios por video con cobertura — máximo",
+      "valor": 161.0
+    },
+    {
+      "indicador": "Autores únicos por video con cobertura — media",
+      "valor": 18.05
+    },
+    {
+      "indicador": "Autores únicos por video con cobertura — máximo",
+      "valor": 128.0
+    },
+    {
+      "indicador": "Comentarios por autor — media",
+      "valor": 1.22
+    },
+    {
+      "indicador": "Comentarios por autor — máximo",
+      "valor": 6.0
+    },
+    {
+      "indicador": "Visualizaciones — total",
+      "valor": 17706015.0
+    },
+    {
+      "indicador": "Visualizaciones — media",
+      "valor": 60430.1
+    },
+    {
+      "indicador": "Visualizaciones — mediana",
+      "valor": 1175.0
+    },
+    {
+      "indicador": "Visualizaciones — máximo",
+      "valor": 8190449.0
+    },
+    {
+      "indicador": "Respuestas (reply_count) — total",
+      "valor": 51.0
+    },
+    {
+      "indicador": "Comentarios con al menos una respuesta",
+      "valor": 30.0
+    },
+    {
+      "indicador": "Me gusta — total",
+      "valor": 2325.0
+    },
+    {
+      "indicador": "Me gusta — mediana",
+      "valor": 1.0
+    },
+    {
+      "indicador": "Me gusta — máximo",
+      "valor": 405.0
+    },
+    {
+      "indicador": "Categorías distintas",
+      "valor": 11.0
+    },
+    {
+      "indicador": "Consultas de búsqueda distintas (videos)",
+      "valor": 21.0
+    },
+    {
+      "indicador": "Consultas de búsqueda distintas (comentarios)",
+      "valor": 6.0
+    }
+  ],
+  "por_categoria": [
+    {
+      "category": "News & Politics",
+      "videos": 138,
+      "vistas_medianas": 1068.0,
+      "comentarios": 335,
+      "videos_con_cobertura": 16
+    },
+    {
+      "category": "People & Blogs",
+      "videos": 66,
+      "vistas_medianas": 488.5,
+      "comentarios": 0,
+      "videos_con_cobertura": 0
+    },
+    {
+      "category": "Entertainment",
+      "videos": 48,
+      "vistas_medianas": 1378.0,
+      "comentarios": 70,
+      "videos_con_cobertura": 2
+    },
+    {
+      "category": "Education",
+      "videos": 19,
+      "vistas_medianas": 521.0,
+      "comentarios": 0,
+      "videos_con_cobertura": 0
+    },
+    {
+      "category": "Travel & Events",
+      "videos": 8,
+      "vistas_medianas": 9579.5,
+      "comentarios": 0,
+      "videos_con_cobertura": 0
+    },
+    {
+      "category": "Science & Technology",
+      "videos": 6,
+      "vistas_medianas": 13251.5,
+      "comentarios": 0,
+      "videos_con_cobertura": 0
+    },
+    {
+      "category": "Nonprofits & Activism",
+      "videos": 3,
+      "vistas_medianas": 167.0,
+      "comentarios": 1,
+      "videos_con_cobertura": 1
+    },
+    {
+      "category": "Film & Animation",
+      "videos": 2,
+      "vistas_medianas": 1424.5,
+      "comentarios": 0,
+      "videos_con_cobertura": 0
+    },
+    {
+      "category": "Comedy",
+      "videos": 1,
+      "vistas_medianas": 8190449.0,
+      "comentarios": 0,
+      "videos_con_cobertura": 0
+    },
+    {
+      "category": "Music",
+      "videos": 1,
+      "vistas_medianas": 5262.0,
+      "comentarios": 0,
+      "videos_con_cobertura": 0
+    },
+    {
+      "category": "Sports",
+      "videos": 1,
+      "vistas_medianas": 3110.0,
+      "comentarios": 0,
+      "videos_con_cobertura": 0
+    }
+  ],
+  "palabras_comentarios": [
+    {
+      "termino": "pueblo",
+      "frecuencia": 56
+    },
+    {
+      "termino": "guatemala",
+      "frecuencia": 52
+    },
+    {
+      "termino": "diputado",
+      "frecuencia": 50
+    },
+    {
+      "termino": "pagar",
+      "frecuencia": 40
+    },
+    {
+      "termino": "dinero",
+      "frecuencia": 34
+    },
+    {
+      "termino": "presidente",
+      "frecuencia": 32
+    },
+    {
+      "termino": "corrupto",
+      "frecuencia": 30
+    },
+    {
+      "termino": "trabajo",
+      "frecuencia": 28
+    },
+    {
+      "termino": "seguir",
+      "frecuencia": 23
+    },
+    {
+      "termino": "excelente",
+      "frecuencia": 22
+    },
+    {
+      "termino": "trabajar",
+      "frecuencia": 21
+    },
+    {
+      "termino": "empresa",
+      "frecuencia": 20
+    },
+    {
+      "termino": "sueldo",
+      "frecuencia": 20
+    },
+    {
+      "termino": "proyecto",
+      "frecuencia": 19
+    },
+    {
+      "termino": "almuerzo",
+      "frecuencia": 17
+    }
+  ],
+  "bigramas_comentarios": [
+    {
+      "bigrama": "bernardo arévalo",
+      "frecuencia": 10
+    },
+    {
+      "bigrama": "presidente bernardo",
+      "frecuencia": 9
+    },
+    {
+      "bigrama": "morir hambre",
+      "frecuencia": 7
+    },
+    {
+      "bigrama": "pagar sueldo",
+      "frecuencia": 6
+    },
+    {
+      "bigrama": "ciudad guatemala",
+      "frecuencia": 6
+    },
+    {
+      "bigrama": "nery roda",
+      "frecuencia": 5
+    },
+    {
+      "bigrama": "pueblo pagar",
+      "frecuencia": 5
+    },
+    {
+      "bigrama": "bla bla",
+      "frecuencia": 5
+    },
+    {
+      "bigrama": "pacto corrupto",
+      "frecuencia": 5
+    },
+    {
+      "bigrama": "buscar trabajo",
+      "frecuencia": 4
+    }
+  ],
+  "hashtags_videos": [
+    {
+      "hashtag": "guatemala",
+      "frecuencia": 48
+    },
+    {
+      "hashtag": "larondagt",
+      "frecuencia": 29
+    },
+    {
+      "hashtag": "noticias",
+      "frecuencia": 14
+    },
+    {
+      "hashtag": "envivodca",
+      "frecuencia": 12
+    },
+    {
+      "hashtag": "nacionales",
+      "frecuencia": 7
+    },
+    {
+      "hashtag": "like",
+      "frecuencia": 7
+    },
+    {
+      "hashtag": "comenta",
+      "frecuencia": 7
+    },
+    {
+      "hashtag": "comparte",
+      "frecuencia": 7
+    },
+    {
+      "hashtag": "siguenos",
+      "frecuencia": 7
+    },
+    {
+      "hashtag": "protegeryservir",
+      "frecuencia": 6
+    }
+  ],
+  "n_hashtags_videos": 588,
+  "emojis_top": [
+    {
+      "emoji": "😂",
+      "frecuencia": 29
+    },
+    {
+      "emoji": "🇬",
+      "frecuencia": 19
+    },
+    {
+      "emoji": "🇹",
+      "frecuencia": 19
+    },
+    {
+      "emoji": "👏",
+      "frecuencia": 19
+    },
+    {
+      "emoji": "🎉",
+      "frecuencia": 15
+    },
+    {
+      "emoji": "👍",
+      "frecuencia": 14
+    },
+    {
+      "emoji": "️",
+      "frecuencia": 9
+    },
+    {
+      "emoji": "😡",
+      "frecuencia": 8
+    }
+  ],
+  "concentracion": [
+    {
+      "entidad": "Videos con cobertura",
+      "universo": 19,
+      "top_n": 1,
+      "comentarios": 161,
+      "cuota_acumulada_pct": 39.66
+    },
+    {
+      "entidad": "Videos con cobertura",
+      "universo": 19,
+      "top_n": 3,
+      "comentarios": 256,
+      "cuota_acumulada_pct": 63.05
+    },
+    {
+      "entidad": "Videos con cobertura",
+      "universo": 19,
+      "top_n": 5,
+      "comentarios": 306,
+      "cuota_acumulada_pct": 75.37
+    },
+    {
+      "entidad": "Videos con cobertura",
+      "universo": 19,
+      "top_n": 10,
+      "comentarios": 380,
+      "cuota_acumulada_pct": 93.6
+    },
+    {
+      "entidad": "Canales con cobertura",
+      "universo": 8,
+      "top_n": 1,
+      "comentarios": 256,
+      "cuota_acumulada_pct": 63.05
+    },
+    {
+      "entidad": "Canales con cobertura",
+      "universo": 8,
+      "top_n": 3,
+      "comentarios": 351,
+      "cuota_acumulada_pct": 86.45
+    },
+    {
+      "entidad": "Canales con cobertura",
+      "universo": 8,
+      "top_n": 5,
+      "comentarios": 390,
+      "cuota_acumulada_pct": 96.06
+    },
+    {
+      "entidad": "Autores",
+      "universo": 332,
+      "top_n": 1,
+      "comentarios": 6,
+      "cuota_acumulada_pct": 1.48
+    },
+    {
+      "entidad": "Autores",
+      "universo": 332,
+      "top_n": 3,
+      "comentarios": 17,
+      "cuota_acumulada_pct": 4.19
+    },
+    {
+      "entidad": "Autores",
+      "universo": 332,
+      "top_n": 5,
+      "comentarios": 26,
+      "cuota_acumulada_pct": 6.4
+    },
+    {
+      "entidad": "Autores",
+      "universo": 332,
+      "top_n": 10,
+      "comentarios": 42,
+      "cuota_acumulada_pct": 10.34
+    },
+    {
+      "entidad": "Autores",
+      "universo": 332,
+      "top_n": 20,
+      "comentarios": 68,
+      "cuota_acumulada_pct": 16.75
+    }
+  ],
+  "desigualdad": [
+    {
+      "distribución": "Comentarios por video (sólo videos con cobertura)",
+      "gini": 0.66,
+      "hhi_normalizado": 0.156
+    },
+    {
+      "distribución": "Comentarios por video (catálogo completo)",
+      "gini": 0.978,
+      "hhi_normalizado": 0.198
+    },
+    {
+      "distribución": "Comentarios por canal (canales con cobertura)",
+      "gini": 0.664,
+      "hhi_normalizado": 0.356
+    },
+    {
+      "distribución": "Comentarios por autor",
+      "gini": 0.164,
+      "hhi_normalizado": 0.001
+    },
+    {
+      "distribución": "Visualizaciones por video",
+      "gini": 0.949,
+      "hhi_normalizado": 0.249
+    }
+  ],
+  "video_top_titulo": "Qué rico come tu diputado",
+  "video_top_canal": "Quorum",
+  "video_top_comentarios": 161,
+  "video_top_pct": 39.7,
+  "canal_top_nombre": "Quorum",
+  "canal_top_comentarios": 256,
+  "canal_top_pct": 63.1,
+  "gini_autores": 0.164,
+  "gini_videos_cobertura": 0.66,
+  "popularidad": [
+    {
+      "comparación": "Vistas vs comentarios — catálogo completo (n=293)",
+      "rho_spearman": 0.08,
+      "p_valor": 0.1703,
+      "lectura": "Está dominada por los 274 videos con cero comentarios: mide cobertura, no comportamiento."
+    },
+    {
+      "comparación": "Vistas vs comentarios — sólo videos con cobertura (n=19)",
+      "rho_spearman": 0.811,
+      "p_valor": 0.0,
+      "lectura": "Es la comparación honesta, pero con n=19 la potencia estadística es baja."
+    },
+    {
+      "comparación": "Vistas vs autores únicos — videos con cobertura (n=19)",
+      "rho_spearman": 0.812,
+      "p_valor": 0.0,
+      "lectura": "Controla que un solo autor infle el conteo de comentarios."
+    },
+    {
+      "comparación": "Me gusta vs respuestas por comentario (n=406)",
+      "rho_spearman": 0.251,
+      "p_valor": 0.0,
+      "lectura": "Aprobación y conversación son señales distintas dentro del mismo comentario."
+    }
+  ],
+  "rho_vistas_comentarios_cobertura": 0.811,
+  "p_vistas_comentarios_cobertura": 0.0,
+  "rho_vistas_comentarios_todos": 0.08,
+  "resumen_fuente": [
+    {
+      "source_group": "channel",
+      "videos": 11,
+      "comentarios": 43,
+      "con_cobertura": 7
+    },
+    {
+      "source_group": "official_gov",
+      "videos": 105,
+      "comentarios": 0,
+      "con_cobertura": 0
+    },
+    {
+      "source_group": "topic",
+      "videos": 177,
+      "comentarios": 363,
+      "con_cobertura": 12
+    }
+  ],
+  "p1_videos": [
+    {
+      "title": "Qué rico come tu diputado",
+      "channel_name": "Quorum",
+      "category": "News & Politics",
+      "view_count": 11775,
+      "comentarios_obs": 161,
+      "autores_unicos": 128,
+      "likes": 358,
+      "cuota_pct": 39.7
+    },
+    {
+      "title": "La cooptación de Walter Mazariegos en la USAC",
+      "channel_name": "Quorum",
+      "category": "News & Politics",
+      "view_count": 10156,
+      "comentarios_obs": 50,
+      "autores_unicos": 49,
+      "likes": 91,
+      "cuota_pct": 12.3
+    },
+    {
+      "title": "Inician los trabajos de recuperación del Puente Belice II.",
+      "channel_name": "Gobierno de la República de Guatemala",
+      "category": "Entertainment",
+      "view_count": 11670,
+      "comentarios_obs": 45,
+      "autores_unicos": 32,
+      "likes": 90,
+      "cuota_pct": 11.1
+    },
+    {
+      "title": "EE.UU. envía a mexicanos deportados a Guatemala antes de su regreso a México | Noticias Telemundo",
+      "channel_name": "Noticias Telemundo",
+      "category": "News & Politics",
+      "view_count": 14200,
+      "comentarios_obs": 25,
+      "autores_unicos": 18,
+      "likes": 25,
+      "cuota_pct": 6.2
+    },
+    {
+      "title": "Conferencia de Prensa del Gobierno de Guatemala. #LaRondaGt",
+      "channel_name": "Gobierno de la República de Guatemala",
+      "category": "Entertainment",
+      "view_count": 3628,
+      "comentarios_obs": 25,
+      "autores_unicos": 19,
+      "likes": 20,
+      "cuota_pct": 6.2
+    }
+  ],
+  "p1_canales": [
+    {
+      "channel_name": "Quorum",
+      "videos": 18,
+      "videos_con_comentarios": 11,
+      "comentarios": 256,
+      "autores": 214,
+      "cuota_pct": 63.1
+    },
+    {
+      "channel_name": "Gobierno de la República de Guatemala",
+      "videos": 32,
+      "videos_con_comentarios": 2,
+      "comentarios": 70,
+      "autores": 50,
+      "cuota_pct": 17.2
+    },
+    {
+      "channel_name": "Noticias Telemundo",
+      "videos": 2,
+      "videos_con_comentarios": 1,
+      "comentarios": 25,
+      "autores": 18,
+      "cuota_pct": 6.2
+    },
+    {
+      "channel_name": "Municipalidad de Guatemala",
+      "videos": 27,
+      "videos_con_comentarios": 1,
+      "comentarios": 25,
+      "autores": 25,
+      "cuota_pct": 6.2
+    },
+    {
+      "channel_name": "Noti7",
+      "videos": 3,
+      "videos_con_comentarios": 1,
+      "comentarios": 14,
+      "autores": 13,
+      "cuota_pct": 3.4
+    }
+  ],
+  "audiencia_compartida": [
+    {
+      "indicador": "Autores que comentan en más de un video",
+      "autores": 9,
+      "porcentaje_del_total": 2.71
+    },
+    {
+      "indicador": "Autores que comentan en más de un canal",
+      "autores": 4,
+      "porcentaje_del_total": 1.2
+    },
+    {
+      "indicador": "Autores exclusivos de un solo video",
+      "autores": 323,
+      "porcentaje_del_total": 97.29
+    }
+  ],
+  "autores_multivideo_n": 9,
+  "autores_multicanal_n": 4,
+  "puentes_preliminares": [
+    {
+      "author_channel_id": "UCHTGCgY2l-DQJIvlA_cpa_Q",
+      "author_handle": "@virgiliogarcia3039",
+      "comentarios": 3,
+      "videos": 2,
+      "canales_x": 2,
+      "likes": 14,
+      "respuestas": 0,
+      "videos_ids": "PjmxCj-a9Hg | n8iP75gIpmw",
+      "canales_y": "Gobierno de la República de Guatemala | Quorum"
+    },
+    {
+      "author_channel_id": "UCdFlugHJJa4l3YqWuNRmvXw",
+      "author_handle": "@MarcosCarillo-b1r",
+      "comentarios": 2,
+      "videos": 2,
+      "canales_x": 2,
+      "likes": 0,
+      "respuestas": 1,
+      "videos_ids": "is3Mk5oC19g | j43HgwYFKfk",
+      "canales_y": "Quorum | TN23 Guatemala"
+    },
+    {
+      "author_channel_id": "UCjZgFEowMBrsjodqfovzdKw",
+      "author_handle": "@franciscoflores3120",
+      "comentarios": 2,
+      "videos": 2,
+      "canales_x": 2,
+      "likes": 0,
+      "respuestas": 0,
+      "videos_ids": "06mFNPU0aB8 | 6W4u8sGEnGM",
+      "canales_y": "Gobierno de la República de Guatemala | Noti7"
+    },
+    {
+      "author_channel_id": "UCsUCN0Yq_UyTvKjOJLmNrnQ",
+      "author_handle": "@moisesvaldez4043",
+      "comentarios": 2,
+      "videos": 2,
+      "canales_x": 2,
+      "likes": 0,
+      "respuestas": 0,
+      "videos_ids": "b_Hkrkl3adA | n8iP75gIpmw",
+      "canales_y": "PrensaLibreOficial | Quorum"
+    },
+    {
+      "author_channel_id": "UCvcu1kR8xMYy_I1Ty-2mV2Q",
+      "author_handle": "@hashojea7348",
+      "comentarios": 4,
+      "videos": 3,
+      "canales_x": 1,
+      "likes": 0,
+      "respuestas": 0,
+      "videos_ids": "WIUZtitfLRw | ndAZjHqzzT8 | yLZS3JiEBg8",
+      "canales_y": "Quorum"
+    },
+    {
+      "author_channel_id": "UCpsKOkt5iWTbenzeuq7dsmQ",
+      "author_handle": "@inge_vergueta",
+      "comentarios": 3,
+      "videos": 3,
+      "canales_x": 1,
+      "likes": 4,
+      "respuestas": 0,
+      "videos_ids": "j43HgwYFKfk | n8iP75gIpmw | ndAZjHqzzT8",
+      "canales_y": "Quorum"
+    },
+    {
+      "author_channel_id": "UCylqlpsh8ENNM1LqgQ1KbxA",
+      "author_handle": "@Jel.Awesh.M",
+      "comentarios": 3,
+      "videos": 2,
+      "canales_x": 1,
+      "likes": 1,
+      "respuestas": 0,
+      "videos_ids": "j43HgwYFKfk | n8iP75gIpmw",
+      "canales_y": "Quorum"
+    },
+    {
+      "author_channel_id": "UCbrtvygfRT6QXqWDNrOf-cA",
+      "author_handle": "@Alejandro00710",
+      "comentarios": 2,
+      "videos": 2,
+      "canales_x": 1,
+      "likes": 0,
+      "respuestas": 0,
+      "videos_ids": "ndAZjHqzzT8 | yLZS3JiEBg8",
+      "canales_y": "Quorum"
+    },
+    {
+      "author_channel_id": "UCzZ6dDCEsLMXbc5pCFXIprw",
+      "author_handle": "@josegil3813",
+      "comentarios": 2,
+      "videos": 2,
+      "canales_x": 1,
+      "likes": 0,
+      "respuestas": 0,
+      "videos_ids": "6W4u8sGEnGM | PjmxCj-a9Hg",
+      "canales_y": "Gobierno de la República de Guatemala"
+    }
+  ],
+  "perfil_videos": [
+    {
+      "title": "Qué rico come tu diputado",
+      "channel_name": "Quorum",
+      "comentarios_obs": 161,
+      "sent_medio": -0.671,
+      "pct_neg": 80.7,
+      "pct_pos": 5.6,
+      "terminos": "pueblo, diputado, pagar, dinero, trabajo, sueldo"
+    },
+    {
+      "title": "La cooptación de Walter Mazariegos en la USAC",
+      "channel_name": "Quorum",
+      "comentarios_obs": 50,
+      "sent_medio": -0.342,
+      "pct_neg": 58.0,
+      "pct_pos": 20.0,
+      "terminos": "corrupto, usac, estudiante, universidad, excelente, información"
+    },
+    {
+      "title": "Inician los trabajos de recuperación del Puente Belice II.",
+      "channel_name": "Gobierno de la República de Guatemala",
+      "comentarios_obs": 45,
+      "sent_medio": -0.109,
+      "pct_neg": 40.0,
+      "pct_pos": 28.9,
+      "terminos": "presidente, guatemala, proyecto, arévalo, terminar, bernardo"
+    },
+    {
+      "title": "EE.UU. envía a mexicanos deportados a Guatemala antes de su regreso a México | Noticias Telemundo",
+      "channel_name": "Noticias Telemundo",
+      "comentarios_obs": 25,
+      "sent_medio": -0.473,
+      "pct_neg": 64.0,
+      "pct_pos": 8.0,
+      "terminos": "you, deportar, entrar, méxico, persona, pasar"
+    },
+    {
+      "title": "Conferencia de Prensa del Gobierno de Guatemala. #LaRondaGt",
+      "channel_name": "Gobierno de la República de Guatemala",
+      "comentarios_obs": 25,
+      "sent_medio": -0.422,
+      "pct_neg": 68.0,
+      "pct_pos": 16.0,
+      "terminos": "guatemala, gobierno, presidente, bla, persona, maya"
+    },
+    {
+      "title": "Plan 2032 Ciudad de Guatemala",
+      "channel_name": "Municipalidad de Guatemala",
+      "comentarios_obs": 25,
+      "sent_medio": 0.609,
+      "pct_neg": 8.0,
+      "pct_pos": 80.0,
+      "terminos": "guatemala, ciudad, saludo, proyecto, vivir, tiempo"
+    },
+    {
+      "title": "Arroz con pollo a la MONOPOLIO",
+      "channel_name": "Quorum",
+      "comentarios_obs": 16,
+      "sent_medio": -0.236,
+      "pct_neg": 56.2,
+      "pct_pos": 31.2,
+      "terminos": "ley, libre, vender, empresa, hand, purple"
+    },
+    {
+      "title": "Capturan a presuntos delincuentes disfrazados de mujer señalados de cometer asalto",
+      "channel_name": "Noti7",
+      "comentarios_obs": 14,
+      "sent_medio": -0.177,
+      "pct_neg": 28.6,
+      "pct_pos": 21.4,
+      "terminos": "trabajo, mujer, faltar, cara, joven, buscar"
+    }
+  ],
+  "ranking_visibilidad": [
+    {
+      "title": "Qué rico come tu diputado",
+      "view_count": 11775,
+      "comentarios_obs": 161,
+      "rank_vistas": 3,
+      "rank_comentarios": 1,
+      "comentarios_por_10k_vistas": 136.73
+    },
+    {
+      "title": "La cooptación de Walter Mazariegos en la USAC",
+      "view_count": 10156,
+      "comentarios_obs": 50,
+      "rank_vistas": 5,
+      "rank_comentarios": 2,
+      "comentarios_por_10k_vistas": 49.23
+    },
+    {
+      "title": "Inician los trabajos de recuperación del Puente Belice II.",
+      "view_count": 11670,
+      "comentarios_obs": 45,
+      "rank_vistas": 4,
+      "rank_comentarios": 3,
+      "comentarios_por_10k_vistas": 38.56
+    },
+    {
+      "title": "EE.UU. envía a mexicanos deportados a Guatemala antes de su regreso a México | Noticias Telemundo",
+      "view_count": 14200,
+      "comentarios_obs": 25,
+      "rank_vistas": 2,
+      "rank_comentarios": 4,
+      "comentarios_por_10k_vistas": 17.61
+    },
+    {
+      "title": "Conferencia de Prensa del Gobierno de Guatemala. #LaRondaGt",
+      "view_count": 3628,
+      "comentarios_obs": 25,
+      "rank_vistas": 9,
+      "rank_comentarios": 4,
+      "comentarios_por_10k_vistas": 68.91
+    },
+    {
+      "title": "Plan 2032 Ciudad de Guatemala",
+      "view_count": 304089,
+      "comentarios_obs": 25,
+      "rank_vistas": 1,
+      "rank_comentarios": 4,
+      "comentarios_por_10k_vistas": 0.82
+    },
+    {
+      "title": "Arroz con pollo a la MONOPOLIO",
+      "view_count": 1954,
+      "comentarios_obs": 16,
+      "rank_vistas": 10,
+      "rank_comentarios": 7,
+      "comentarios_por_10k_vistas": 81.88
+    },
+    {
+      "title": "Capturan a presuntos delincuentes disfrazados de mujer señalados de cometer asalto",
+      "view_count": 6692,
+      "comentarios_obs": 14,
+      "rank_vistas": 6,
+      "rank_comentarios": 8,
+      "comentarios_por_10k_vistas": 20.92
+    },
+    {
+      "title": "Internet: escoger el menos malo",
+      "view_count": 717,
+      "comentarios_obs": 12,
+      "rank_vistas": 14,
+      "rank_comentarios": 9,
+      "comentarios_por_10k_vistas": 167.36
+    },
+    {
+      "title": "Bloqueos en Guatemala este 31 de agosto por alza en combustibles afectan rutas principales",
+      "view_count": 5469,
+      "comentarios_obs": 7,
+      "rank_vistas": 7,
+      "rank_comentarios": 10,
+      "comentarios_por_10k_vistas": 12.8
+    }
+  ],
+  "desfase_max": 5,
+  "cobertura_por_fuente": [
+    {
+      "source_group": "channel",
+      "videos": 11,
+      "con_comentarios": 7,
+      "comentarios": 43,
+      "vistas_medianas": 673.0,
+      "cobertura_pct": 63.6
+    },
+    {
+      "source_group": "official_gov",
+      "videos": 105,
+      "con_comentarios": 0,
+      "comentarios": 0,
+      "vistas_medianas": 521.0,
+      "cobertura_pct": 0.0
+    },
+    {
+      "source_group": "topic",
+      "videos": 177,
+      "con_comentarios": 12,
+      "comentarios": 363,
+      "vistas_medianas": 2214.0,
+      "cobertura_pct": 6.8
+    }
+  ],
+  "intensidad": [
+    {
+      "perfil": "Autores con 1 comentario en 1 video",
+      "autores": 286
+    },
+    {
+      "perfil": "Autores con varios comentarios en un solo video (intensidad)",
+      "autores": 37
+    },
+    {
+      "perfil": "Autores presentes en varios videos (amplitud)",
+      "autores": 9
+    },
+    {
+      "perfil": "Máximo de comentarios de un autor en un mismo video",
+      "autores": 6
+    }
+  ],
+  "rho_intensidad_amplitud": 0.42,
+  "likes_sentimiento": [
+    {
+      "tramo_likes": "0",
+      "comentarios_n": 189,
+      "sent_medio": -0.529,
+      "pct_negativos": 69.8,
+      "likes_medianos": 0.0
+    },
+    {
+      "tramo_likes": "1–2",
+      "comentarios_n": 126,
+      "sent_medio": -0.348,
+      "pct_negativos": 57.1,
+      "likes_medianos": 1.0
+    },
+    {
+      "tramo_likes": "3–10",
+      "comentarios_n": 63,
+      "sent_medio": -0.241,
+      "pct_negativos": 57.1,
+      "likes_medianos": 4.0
+    },
+    {
+      "tramo_likes": "11–50",
+      "comentarios_n": 19,
+      "sent_medio": -0.07,
+      "pct_negativos": 47.4,
+      "likes_medianos": 15.0
+    },
+    {
+      "tramo_likes": ">50",
+      "comentarios_n": 9,
+      "sent_medio": 0.729,
+      "pct_negativos": 0.0,
+      "likes_medianos": 113.0
+    }
+  ],
+  "rho_likes_sentimiento": 0.234,
+  "p_likes_sentimiento": 0.0,
+  "perfil_fuente": [
+    {
+      "source_group": "channel",
+      "comentarios_n": 231,
+      "autores": 192,
+      "videos": 11,
+      "likes_medianos": 1.0,
+      "sent_medio": -0.543,
+      "pct_negativos": 71.9,
+      "terminos": "pueblo, diputado, pagar, dinero, trabajo, sueldo"
+    },
+    {
+      "source_group": "topic",
+      "comentarios_n": 175,
+      "autores": 144,
+      "videos": 9,
+      "likes_medianos": 1.0,
+      "sent_medio": -0.162,
+      "pct_negativos": 47.4,
+      "terminos": "guatemala, presidente, proyecto, arévalo, gobierno, saludo"
+    }
+  ],
+  "red_nodos_total": 625,
+  "red_aristas_total": 343,
+  "red_obs_nodos": 351,
+  "red_obs_autores": 332,
+  "red_obs_videos": 19,
+  "peso_total": 406,
+  "peso_max": 6,
+  "figuras": [
+    "01_top_participacion.png",
+    "02_distribuciones_conteos.png",
+    "03_concentracion_pareto.png",
+    "04_visualizaciones_vs_comentarios.png",
+    "05_frecuencias_texto.png",
+    "06_nube_de_palabras.png",
+    "07_categorias_y_fuentes.png",
+    "08_red_bipartita.png"
+  ],
+  "tablas": [
+    "01_llaves_candidatas.csv",
+    "02_relaciones_entre_entidades.csv",
+    "03_integracion_y_cobertura.csv",
+    "04_diagnostico_calidad.csv",
+    "05_duplicados.csv",
+    "06_consistencia_identificadores.csv",
+    "07_variables_problematicas.csv",
+    "08_verificacion_normalizacion_ids.csv",
+    "09_pruebas_conversion_conteos.csv",
+    "10_conversion_conteos.csv",
+    "11_efecto_limpieza.csv",
+    "12_resumen_por_video.csv",
+    "13_resumen_por_canal.csv",
+    "14_resumen_por_autor.csv",
+    "15_descriptivos_generales.csv",
+    "16_videos_por_categoria.csv",
+    "17_videos_por_consulta.csv",
+    "18_palabras_comentarios.csv",
+    "19_bigramas_comentarios.csv",
+    "20_palabras_videos.csv",
+    "21_hashtags_videos.csv",
+    "22_hashtags_comentarios.csv",
+    "23_keywords_videos.csv",
+    "24_emojis_comentarios.csv",
+    "25_concentracion_participacion.csv",
+    "26_indices_desigualdad.csv",
+    "27_popularidad_vs_participacion.csv",
+    "28_p1_videos_que_concentran.csv",
+    "29_p1_canales_que_concentran.csv",
+    "30_p2_autores_en_varios_videos.csv",
+    "31_p2_detalle_audiencia_compartida.csv",
+    "32_p2_audiencia_compartida_resumen.csv",
+    "33_p3_autores_puente_preliminares.csv",
+    "34_p4_perfil_tematico_y_sentimiento_por_video.csv",
+    "35_p5_visibilidad_vs_participacion.csv",
+    "36_p6_cobertura_por_estrategia.csv",
+    "37_extra1_intensidad_vs_amplitud.csv",
+    "38_extra2_likes_vs_sentimiento.csv",
+    "39_extra3_perfil_por_estrategia.csv",
+    "40_nodos_red_bipartita.csv",
+    "41_aristas_red_bipartita.csv",
+    "42_validacion_red_bipartita.csv"
+  ],
+  "grafos": [
+    "red_bipartita_autor_video.graphml",
+    "red_bipartita_observada.graphml"
+  ]
+}
