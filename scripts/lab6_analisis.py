@@ -2456,6 +2456,300 @@ guardar_figura("12_centralidad")
 print("Figura 12 generada.")
 
 # %% [markdown]
+# ## 9. Análisis de contenido y sentimiento
+#
+# ### 9.1 Herramienta, justificación y resultados globales
+#
+# El modelo y su justificación se detallaron en la sección 2.8. Se recuerda lo esencial: se usa
+# `pysentimiento` (RoBERTuito), un transformer entrenado **en español** con texto de redes sociales,
+# aplicado sobre `texto_original` para conservar negación, puntuación y emojis.
+
+# %%
+print(f"Modelo utilizado: {MODELO_SENTIMIENTO}")
+
+resumen_sentimiento = comentarios["sentimiento"].value_counts().reindex(["POS", "NEU", "NEG"]).fillna(0).astype(int)
+tabla_sentimiento = pd.DataFrame({
+    "etiqueta": ["Positivo", "Neutro", "Negativo"],
+    "comentarios": resumen_sentimiento.values,
+    "porcentaje": (100 * resumen_sentimiento.values / len(comentarios)).round(1),
+})
+tabla_sentimiento["confianza_media"] = [
+    round(float(comentarios.loc[comentarios["sentimiento"] == e, "confianza_sentimiento"].mean()), 3)
+    for e in ["POS", "NEU", "NEG"]]
+guardar_tabla(tabla_sentimiento, "61_sentimiento_global")
+registrar("tabla_sentimiento", tabla_sentimiento.to_dict("records"))
+registrar("pct_negativo_global", float(tabla_sentimiento.loc[2, "porcentaje"]))
+print(tabla_sentimiento.to_string(index=False))
+
+ejemplos = pd.concat([
+    comentarios.nlargest(3, "prob_pos")[["texto_original", "sentimiento", "confianza_sentimiento"]],
+    comentarios.nlargest(3, "prob_neg")[["texto_original", "sentimiento", "confianza_sentimiento"]],
+    comentarios.nlargest(3, "prob_neu")[["texto_original", "sentimiento", "confianza_sentimiento"]],
+])
+ejemplos["texto_original"] = ejemplos["texto_original"].map(lambda t: acortar(t, 95))
+guardar_tabla(ejemplos, "62_ejemplos_sentimiento")
+print()
+print(ejemplos.to_string(index=False))
+
+# %% [markdown]
+# ### 9.2 Sentimiento por video, canal, tema y comunidad
+#
+# Se aplica un **umbral mínimo de 10 comentarios** para comparar grupos: por debajo, la proporción de
+# negativos tiene un error estándar mayor a 15 puntos porcentuales y cualquier diferencia sería ruido.
+# Los grupos por debajo del umbral se reportan pero se marcan como no comparables.
+
+# %%
+UMBRAL = 10
+
+
+def resumen_sentimiento_por(columna: str, etiqueta: str) -> pd.DataFrame:
+    agregado = comentarios.groupby(columna).agg(
+        comentarios=("comment_id", "size"),
+        autores=("author_channel_id", "nunique"),
+        sent_medio=("puntaje_sentimiento", "mean"),
+        pct_neg=("sentimiento", lambda s: round(100 * (s == "NEG").mean(), 1)),
+        pct_neu=("sentimiento", lambda s: round(100 * (s == "NEU").mean(), 1)),
+        pct_pos=("sentimiento", lambda s: round(100 * (s == "POS").mean(), 1)),
+        likes=("like_count", "sum"),
+    ).reset_index()
+    agregado["sent_medio"] = agregado["sent_medio"].round(3)
+    agregado["comparable"] = agregado["comentarios"] >= UMBRAL
+    agregado.insert(0, "dimension", etiqueta)
+    return agregado.sort_values("comentarios", ascending=False)
+
+
+sent_por_canal = resumen_sentimiento_por("channel_name", "Canal")
+sent_por_comunidad = resumen_sentimiento_por("comunidad", "Comunidad")
+sent_por_categoria = resumen_sentimiento_por("source_group", "Estrategia de muestreo")
+
+sent_por_video = comentarios.merge(videos[["video_id", "title", "category"]], on="video_id", how="left")
+sent_por_video = sent_por_video.groupby(["video_id", "title", "category"]).agg(
+    comentarios=("comment_id", "size"),
+    autores=("author_channel_id", "nunique"),
+    sent_medio=("puntaje_sentimiento", "mean"),
+    pct_neg=("sentimiento", lambda s: round(100 * (s == "NEG").mean(), 1)),
+    pct_pos=("sentimiento", lambda s: round(100 * (s == "POS").mean(), 1)),
+).reset_index()
+sent_por_video["sent_medio"] = sent_por_video["sent_medio"].round(3)
+sent_por_video["comparable"] = sent_por_video["comentarios"] >= UMBRAL
+sent_por_video = sent_por_video.sort_values("sent_medio")
+
+sent_por_tema = comentarios.merge(videos[["video_id", "category"]], on="video_id", how="left")
+sent_por_tema = sent_por_tema.groupby("category").agg(
+    comentarios=("comment_id", "size"),
+    videos=("video_id", "nunique"),
+    sent_medio=("puntaje_sentimiento", "mean"),
+    pct_neg=("sentimiento", lambda s: round(100 * (s == "NEG").mean(), 1)),
+).reset_index()
+sent_por_tema["sent_medio"] = sent_por_tema["sent_medio"].round(3)
+sent_por_tema["comparable"] = sent_por_tema["comentarios"] >= UMBRAL
+sent_por_tema = sent_por_tema.sort_values("comentarios", ascending=False)
+
+for frame, nombre in [(sent_por_video, "63_sentimiento_por_video"), (sent_por_canal, "64_sentimiento_por_canal"),
+                      (sent_por_tema, "65_sentimiento_por_categoria"), (sent_por_comunidad, "66_sentimiento_por_comunidad"),
+                      (sent_por_categoria, "67_sentimiento_por_estrategia")]:
+    guardar_tabla(frame, nombre)
+
+registrar("sent_por_canal", sent_por_canal.to_dict("records"))
+registrar("sent_por_video", sent_por_video.to_dict("records"))
+registrar("sent_por_tema", sent_por_tema.to_dict("records"))
+registrar("sent_por_comunidad", sent_por_comunidad.head(8).to_dict("records"))
+print(sent_por_canal[["channel_name", "comentarios", "autores", "sent_medio", "pct_neg", "pct_pos", "comparable"]]
+      .to_string(index=False))
+print()
+print(sent_por_tema.to_string(index=False))
+
+# %%
+# Prueba de que las diferencias entre los grupos comparables no son casuales.
+grupos_comparables = [g["puntaje_sentimiento"].values
+                      for _, g in comentarios.groupby("channel_name") if len(g) >= UMBRAL]
+h_stat, p_kruskal = stats.kruskal(*grupos_comparables) if len(grupos_comparables) > 1 else (np.nan, np.nan)
+contingencia = pd.crosstab(comentarios["channel_name"], comentarios["sentimiento"])
+contingencia = contingencia.loc[contingencia.sum(axis=1) >= UMBRAL]
+chi2, p_chi2, gl, _ = stats.chi2_contingency(contingencia)
+
+pruebas = pd.DataFrame([
+    ["Kruskal–Wallis: puntaje de sentimiento entre canales comparables", round(float(h_stat), 3), round(float(p_kruskal), 6),
+     f"{len(grupos_comparables)} canales con ≥{UMBRAL} comentarios"],
+    ["Chi-cuadrado: etiqueta de sentimiento × canal", round(float(chi2), 3), round(float(p_chi2), 6),
+     f"{gl} grados de libertad"],
+], columns=["prueba", "estadístico", "p_valor", "detalle"])
+guardar_tabla(pruebas, "68_pruebas_diferencias_sentimiento")
+registrar("pruebas_sentimiento", pruebas.to_dict("records"))
+pruebas
+
+# %%
+fig, ejes = plt.subplots(2, 2, figsize=(15.5, 10))
+
+ejes[0, 0].bar(tabla_sentimiento["etiqueta"], tabla_sentimiento["comentarios"], color=[VERDE, GRIS, ROJO])
+ejes[0, 0].set(title=f"Distribución global del sentimiento (n={len(comentarios)})", ylabel="Comentarios")
+for x, (v, p) in enumerate(zip(tabla_sentimiento["comentarios"], tabla_sentimiento["porcentaje"])):
+    ejes[0, 0].text(x, v + 3, f"{v} ({p} %)", ha="center", fontsize=9)
+
+canales_cmp = sent_por_canal.query("comparable").sort_values("sent_medio")
+colores = [ROJO if s < 0 else VERDE for s in canales_cmp["sent_medio"]]
+ejes[0, 1].barh([acortar(c, 28) for c in canales_cmp["channel_name"]], canales_cmp["sent_medio"], color=colores)
+ejes[0, 1].axvline(0, color="black", lw=0.8)
+ejes[0, 1].set(title=f"Sentimiento medio por canal (≥{UMBRAL} comentarios)", xlabel="Puntaje medio (P(pos) − P(neg))")
+def anotar_n(eje, valores, conteos):
+    """Escribe el tamaño de muestra dentro de la barra, junto al cero, para no chocar con las etiquetas."""
+    for y, (valor, n) in enumerate(zip(valores, conteos)):
+        eje.text(-0.015 if valor < 0 else 0.015, y, f"n={n}", va="center",
+                 ha="right" if valor < 0 else "left", fontsize=7.5, color="white", fontweight="bold")
+
+
+anotar_n(ejes[0, 1], canales_cmp["sent_medio"], canales_cmp["comentarios"])
+
+videos_cmp = sent_por_video.query("comparable")
+ejes[1, 0].barh([acortar(t, 30) for t in videos_cmp["title"]], videos_cmp["sent_medio"],
+                color=[ROJO if s < 0 else VERDE for s in videos_cmp["sent_medio"]])
+ejes[1, 0].axvline(0, color="black", lw=0.8)
+ejes[1, 0].set(title=f"Sentimiento medio por video (≥{UMBRAL} comentarios)", xlabel="Puntaje medio")
+anotar_n(ejes[1, 0], videos_cmp["sent_medio"], videos_cmp["comentarios"])
+
+com_cmp = sent_por_comunidad.query("comparable").sort_values("sent_medio")
+ejes[1, 1].barh([f"C{int(c)}" for c in com_cmp["comunidad"]], com_cmp["sent_medio"],
+                color=[ROJO if s < 0 else VERDE for s in com_cmp["sent_medio"]])
+ejes[1, 1].axvline(0, color="black", lw=0.8)
+ejes[1, 1].set(title=f"Sentimiento medio por comunidad (≥{UMBRAL} comentarios)", xlabel="Puntaje medio")
+anotar_n(ejes[1, 1], com_cmp["sent_medio"], com_cmp["comentarios"])
+fig.suptitle("El tono predominante es negativo, pero varía de forma sistemática entre canales y comunidades",
+             fontweight="bold")
+fig.tight_layout()
+guardar_figura("13_sentimiento")
+print("Figura 13 generada.")
+
+# %% [markdown]
+# ## 10. Interpretación, limitaciones y conclusiones
+#
+# ### 10.2 Limitaciones (se declaran antes de interpretar)
+
+# %%
+limitaciones = pd.DataFrame([
+    ["Cobertura de comentarios",
+     f"Sólo {videos_con_comentarios} de {len(videos_raw)} videos ({round(100 * videos_con_comentarios / len(videos_raw), 1)} %) "
+     f"tienen comentarios recolectados; {videos_sin_comentarios} tienen cero.",
+     "Los 274 videos sin comentarios NO son videos sin participación: son videos sin datos. "
+     "Todo resultado de red describe la subred observada, no YouTube Guatemala."],
+    ["Selección por consultas",
+     f"Los videos se encontraron con {videos_raw['source_query'].nunique()} consultas de búsqueda y tres estrategias "
+     f"(topic, official_gov, channel); {int((videos_eda['source_group'] == 'official_gov').sum())} videos oficiales "
+     "no aportaron ni un comentario.",
+     "La muestra no es aleatoria ni representativa. Sobrerrepresenta noticias y política "
+     f"({int(por_categoria.iloc[0]['videos'])} de {len(videos_raw)} videos) y excluye por diseño lo que no aparece en esas consultas."],
+    ["Fechas relativas",
+     "published_time y published_text son textos como «hace 2 días», dependientes del instante de recolección.",
+     "No se puede construir una línea temporal fiable ni analizar la evolución de la conversación."],
+    ["Conteos observados en el momento de recolección",
+     f"view_count_text y view_count difieren en {disponibles - coinciden} de {disponibles} videos "
+     f"(diferencia mediana de {dif_mediana} vistas): fueron capturados en instantes distintos.",
+     "Las visualizaciones y los «me gusta» son fotografías, no valores definitivos; los rankings son aproximados."],
+    ["Ausencia de relaciones explícitas entre autores",
+     "reply_count indica cuántas respuestas recibió un comentario pero no quién las escribió; "
+     "no se recolectaron los comentarios de respuesta.",
+     "Es imposible construir una red de conversación. Toda relación autor–autor de este informe es "
+     "CO-PARTICIPACIÓN derivada, nunca interacción observada."],
+    ["Concentración en pocos videos",
+     f"Un solo video reúne {int(video_top['comentarios_obs'])} de {len(comentarios)} comentarios "
+     f"({round(100 * video_top['comentarios_obs'] / len(comentarios), 1)} %) y un solo canal el "
+     f"{round(100 * canal_top['comentarios'] / len(comentarios), 1)} %.",
+     "Los promedios globales están dominados por ese contenido. Cualquier afirmación sobre «los "
+     "comentarios en general» es en realidad una afirmación sobre ese video."],
+    ["Sólo comentarios principales",
+     "El archivo contiene 406 comentarios de primer nivel; las respuestas anidadas no se recolectaron.",
+     "Se subestima la actividad de quienes participan sobre todo respondiendo a otros."],
+    ["Sentimiento automático",
+     "El modelo alcanza en promedio ~0.80 de confianza, pero fue entrenado con tuits, no con "
+     "comentarios de YouTube guatemaltecos, y no está calibrado para ironía ni modismos locales.",
+     "Las etiquetas son una aproximación agregada útil, no un juicio fiable comentario a comentario."],
+    ["Identidad de los autores",
+     "author_channel_id identifica cuentas, no personas.",
+     "Una persona con varias cuentas aparece como varios nodos, y una cuenta compartida como uno solo."],
+], columns=["limitación", "evidencia_cuantitativa", "consecuencia_para_la_interpretación"])
+guardar_tabla(limitaciones, "69_limitaciones")
+registrar("limitaciones", limitaciones.to_dict("records"))
+limitaciones
+
+# %% [markdown]
+# ### 10.3 Descripción, asociación e inferencia
+
+# %%
+niveles = pd.DataFrame([
+    ["DESCRIPCIÓN (válida)",
+     f"En la muestra, {len(comentarios)} comentarios de {int(comentarios['author_channel_id'].nunique())} autores "
+     f"se reparten en {videos_con_comentarios} videos; el {round(100 * (grados_autor == 1).mean(), 1)} % de los autores "
+     "aparece en un solo video.",
+     "Es un conteo directo sobre los datos entregados. No requiere supuestos."],
+    ["ASOCIACIÓN (válida con reservas)",
+     f"Entre los {len(sub)} videos con cobertura, visualizaciones y comentarios covarían (ρ = {rho_cob:.3f}); "
+     f"los comentarios con más «me gusta» tienden a ser menos negativos (ρ = {rho_ls:.3f}).",
+     "Son correlaciones sobre muestras pequeñas y seleccionadas. No implican causalidad: "
+     "no puede afirmarse que más vistas *causen* más comentarios."],
+    ["INFERENCIA (NO válida aquí)",
+     "«Los guatemaltecos son negativos en YouTube» o «este canal genera más rechazo que los demás».",
+     "La muestra no es probabilística, cubre el 6.5 % de los videos y está dominada por un canal. "
+     "No permite generalizar a la población de usuarios ni a YouTube Guatemala."],
+], columns=["nivel", "ejemplo_extraído_de_este_análisis", "por_qué"])
+guardar_tabla(niveles, "70_descripcion_asociacion_inferencia")
+registrar("niveles", niveles.to_dict("records"))
+niveles
+
+# %% [markdown]
+# ### 10.1 y 10.4 Hallazgos integrados
+
+# %%
+hallazgos = pd.DataFrame([
+    ["Estructura", "La red es una constelación de estrellas, no una conversación",
+     f"{G_obs.number_of_nodes()} nodos y {G_obs.number_of_edges()} aristas; grado medio de los autores "
+     f"{grados_autor.mean():.2f} frente a {grados_video.mean():.1f} de los videos; "
+     f"{round(100 * (grados_autor == 1).mean(), 1)} % de los autores tiene grado 1.",
+     "La participación se organiza alrededor del contenido, no de vínculos entre personas: "
+     "casi todos comentan una vez, en un único video, y no vuelven."],
+    ["Fragmentación", "Un núcleo grande y nueve islas",
+     f"{len(componentes_obs)} componentes; la mayor reúne {len(componentes_obs[0])} nodos "
+     f"({round(100 * len(componentes_obs[0]) / G_obs.number_of_nodes(), 1)} %); diámetro 12.",
+     "El núcleo se sostiene por muy pocos autores; las islas son videos cuya audiencia no coincide "
+     "con ninguna otra dentro de la muestra."],
+    ["Puentes", "Siete personas sostienen la conectividad",
+     f"{len(puentes)} autores son puntos de articulación de {len(por_autor)} ({round(100 * len(puentes) / len(por_autor), 1)} %); "
+     f"el de mayor intermediación alcanza {puentes['intermediacion'].max():.3f}.",
+     "Eliminar a esos siete autores fragmenta la componente principal. Son estructuralmente "
+     "críticos, aunque sólo aportan entre 2 y 4 comentarios cada uno."],
+    ["Comunidades", "Las comunidades son videos, no grupos sociales",
+     f"{len(comunidades)} comunidades con modularidad {mod_pesada:.3f}; "
+     f"{int((perfil_comunidades['videos'] == 1).sum())} de ellas contienen un solo video.",
+     "La modularidad alta no revela tribus de usuarios: refleja que cada video captura una audiencia "
+     "propia que no se solapa con las demás."],
+    ["Concentración", "Un video y un canal dominan la muestra",
+     f"El video líder reúne {round(100 * video_top['comentarios_obs'] / len(comentarios), 1)} % de los comentarios y "
+     f"el canal líder {round(100 * canal_top['comentarios'] / len(comentarios), 1)} %; Gini de comentarios por video "
+     f"{gini(por_video['comentarios_obs'].values):.3f}.",
+     "La participación observada es extremadamente desigual; los promedios globales describen "
+     "sobre todo a ese contenido."],
+    ["Popularidad ≠ participación", "Ser visto y ser comentado no es lo mismo",
+     f"«{acortar(str(ranking.iloc[0]['title']), 40)}» ocupa el puesto {int(ranking.iloc[0]['rank_comentarios'])} en comentarios "
+     f"y el {int(ranking.iloc[0]['rank_vistas'])} en vistas; el video más visto (304 089 vistas) genera "
+     f"{ranking.query('rank_vistas == 1')['comentarios_por_10k_vistas'].iloc[0]:.2f} comentarios por cada 10 000 vistas, "
+     f"frente a {ranking['comentarios_por_10k_vistas'].max():.0f} del más participativo.",
+     "La visibilidad no predice la participación: los videos que activan a la audiencia son los que "
+     "tocan un nervio, no los más vistos."],
+    ["Contenido y tono", "Participar es sobre todo criticar",
+     f"{int(tabla_sentimiento.loc[2, 'comentarios'])} de {len(comentarios)} comentarios son negativos "
+     f"({tabla_sentimiento.loc[2, 'porcentaje']} %); el vocabulario dominante es «pueblo», «diputado», «pagar», «dinero».",
+     "El tono negativo no es uniforme: varía de forma significativa entre canales "
+     f"(Kruskal–Wallis, {'p < 0.001' if p_kruskal < 0.001 else f'p = {p_kruskal:.3f}'}), "
+     "del −0.50 de Quorum al +0.61 de la Municipalidad."],
+    ["Cobertura", "El hallazgo metodológico principal",
+     f"{videos_sin_comentarios} de {len(videos_raw)} videos sin comentarios; "
+     f"0 de {int((videos_eda['source_group'] == 'official_gov').sum())} videos de la estrategia official_gov aportó datos.",
+     "La forma de la red está determinada tanto por el comportamiento de los usuarios como por el "
+     "procedimiento de recolección. Ignorarlo llevaría a confundir ausencia de datos con silencio social."],
+], columns=["eje", "hallazgo", "evidencia", "interpretación"])
+guardar_tabla(hallazgos, "71_hallazgos_integrados")
+registrar("hallazgos", hallazgos.to_dict("records"))
+hallazgos
+
+# %% [markdown]
 # ## 11. Exportación de datos procesados y de las métricas del informe
 
 # %%

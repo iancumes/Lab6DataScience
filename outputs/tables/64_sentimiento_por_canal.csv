@@ -1,0 +1,9 @@
+﻿dimension,channel_name,comentarios,autores,sent_medio,pct_neg,pct_neu,pct_pos,likes,comparable
+Canal,Quorum,256,214,-0.502,69.9,16.0,14.1,480,True
+Canal,Gobierno de la República de Guatemala,70,50,-0.221,50.0,25.7,24.3,110,True
+Canal,Municipalidad de Guatemala,25,25,0.609,8.0,12.0,80.0,1697,True
+Canal,Noticias Telemundo,25,18,-0.473,64.0,28.0,8.0,25,True
+Canal,Noti7,14,13,-0.177,28.6,50.0,21.4,12,True
+Canal,PrensaLibreOficial,7,7,-0.759,85.7,14.3,0.0,1,False
+Canal,TN23 Guatemala,7,7,-0.622,85.7,14.3,0.0,0,False
+Canal,Noticiero Guatevisión 13 Hrs.,2,2,-0.519,50.0,50.0,0.0,0,False

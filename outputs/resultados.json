@@ -3102,6 +3102,588 @@
       "sent_medio": -0.954
     }
   ],
+  "tabla_sentimiento": [
+    {
+      "etiqueta": "Positivo",
+      "comentarios": 78,
+      "porcentaje": 19.2,
+      "confianza_media": 0.813
+    },
+    {
+      "etiqueta": "Neutro",
+      "comentarios": 79,
+      "porcentaje": 19.5,
+      "confianza_media": 0.625
+    },
+    {
+      "etiqueta": "Negativo",
+      "comentarios": 249,
+      "porcentaje": 61.3,
+      "confianza_media": 0.871
+    }
+  ],
+  "pct_negativo_global": 61.3,
+  "sent_por_canal": [
+    {
+      "dimension": "Canal",
+      "channel_name": "Quorum",
+      "comentarios": 256,
+      "autores": 214,
+      "sent_medio": -0.502,
+      "pct_neg": 69.9,
+      "pct_neu": 16.0,
+      "pct_pos": 14.1,
+      "likes": 480,
+      "comparable": true
+    },
+    {
+      "dimension": "Canal",
+      "channel_name": "Gobierno de la República de Guatemala",
+      "comentarios": 70,
+      "autores": 50,
+      "sent_medio": -0.221,
+      "pct_neg": 50.0,
+      "pct_neu": 25.7,
+      "pct_pos": 24.3,
+      "likes": 110,
+      "comparable": true
+    },
+    {
+      "dimension": "Canal",
+      "channel_name": "Municipalidad de Guatemala",
+      "comentarios": 25,
+      "autores": 25,
+      "sent_medio": 0.609,
+      "pct_neg": 8.0,
+      "pct_neu": 12.0,
+      "pct_pos": 80.0,
+      "likes": 1697,
+      "comparable": true
+    },
+    {
+      "dimension": "Canal",
+      "channel_name": "Noticias Telemundo",
+      "comentarios": 25,
+      "autores": 18,
+      "sent_medio": -0.473,
+      "pct_neg": 64.0,
+      "pct_neu": 28.0,
+      "pct_pos": 8.0,
+      "likes": 25,
+      "comparable": true
+    },
+    {
+      "dimension": "Canal",
+      "channel_name": "Noti7",
+      "comentarios": 14,
+      "autores": 13,
+      "sent_medio": -0.177,
+      "pct_neg": 28.6,
+      "pct_neu": 50.0,
+      "pct_pos": 21.4,
+      "likes": 12,
+      "comparable": true
+    },
+    {
+      "dimension": "Canal",
+      "channel_name": "PrensaLibreOficial",
+      "comentarios": 7,
+      "autores": 7,
+      "sent_medio": -0.759,
+      "pct_neg": 85.7,
+      "pct_neu": 14.3,
+      "pct_pos": 0.0,
+      "likes": 1,
+      "comparable": false
+    },
+    {
+      "dimension": "Canal",
+      "channel_name": "TN23 Guatemala",
+      "comentarios": 7,
+      "autores": 7,
+      "sent_medio": -0.622,
+      "pct_neg": 85.7,
+      "pct_neu": 14.3,
+      "pct_pos": 0.0,
+      "likes": 0,
+      "comparable": false
+    },
+    {
+      "dimension": "Canal",
+      "channel_name": "Noticiero Guatevisión 13 Hrs.",
+      "comentarios": 2,
+      "autores": 2,
+      "sent_medio": -0.519,
+      "pct_neg": 50.0,
+      "pct_neu": 50.0,
+      "pct_pos": 0.0,
+      "likes": 0,
+      "comparable": false
+    }
+  ],
+  "sent_por_video": [
+    {
+      "video_id": "X_FAIef8qlE",
+      "title": "Cruzando la ciudad a puro Transmetro",
+      "category": "News & Politics",
+      "comentarios": 1,
+      "autores": 1,
+      "sent_medio": -0.888,
+      "pct_neg": 100.0,
+      "pct_pos": 0.0,
+      "comparable": false
+    },
+    {
+      "video_id": "b_Hkrkl3adA",
+      "title": "Bloqueos en Guatemala este 31 de agosto por alza en combustibles afectan rutas principales",
+      "category": "News & Politics",
+      "comentarios": 7,
+      "autores": 7,
+      "sent_medio": -0.759,
+      "pct_neg": 85.7,
+      "pct_pos": 0.0,
+      "comparable": false
+    },
+    {
+      "video_id": "n8iP75gIpmw",
+      "title": "Qué rico come tu diputado",
+      "category": "News & Politics",
+      "comentarios": 161,
+      "autores": 128,
+      "sent_medio": -0.671,
+      "pct_neg": 80.7,
+      "pct_pos": 5.6,
+      "comparable": true
+    },
+    {
+      "video_id": "is3Mk5oC19g",
+      "title": "Capturan a ladrón que había quedado grabado mientras robaba en una parroquia de Retalhuleu",
+      "category": "News & Politics",
+      "comentarios": 7,
+      "autores": 7,
+      "sent_medio": -0.622,
+      "pct_neg": 85.7,
+      "pct_pos": 0.0,
+      "comparable": false
+    },
+    {
+      "video_id": "WIUZtitfLRw",
+      "title": "Caminar en una ciudad hecha para carros",
+      "category": "News & Politics",
+      "comentarios": 6,
+      "autores": 6,
+      "sent_medio": -0.56,
+      "pct_neg": 66.7,
+      "pct_pos": 0.0,
+      "comparable": false
+    },
+    {
+      "video_id": "3Nfp9h5avBI",
+      "title": "Noticiero en Directo 1 pm, 28 de Agosto de 2026",
+      "category": "News & Politics",
+      "comentarios": 2,
+      "autores": 2,
+      "sent_medio": -0.519,
+      "pct_neg": 50.0,
+      "pct_pos": 0.0,
+      "comparable": false
+    },
+    {
+      "video_id": "OkXlHx0hx-8",
+      "title": "EE.UU. envía a mexicanos deportados a Guatemala antes de su regreso a México | Noticias Telemundo",
+      "category": "News & Politics",
+      "comentarios": 25,
+      "autores": 18,
+      "sent_medio": -0.473,
+      "pct_neg": 64.0,
+      "pct_pos": 8.0,
+      "comparable": true
+    },
+    {
+      "video_id": "PjmxCj-a9Hg",
+      "title": "Conferencia de Prensa del Gobierno de Guatemala. #LaRondaGt",
+      "category": "Entertainment",
+      "comentarios": 25,
+      "autores": 19,
+      "sent_medio": -0.422,
+      "pct_neg": 68.0,
+      "pct_pos": 16.0,
+      "comparable": true
+    },
+    {
+      "video_id": "j43HgwYFKfk",
+      "title": "La cooptación de Walter Mazariegos en la USAC",
+      "category": "News & Politics",
+      "comentarios": 50,
+      "autores": 49,
+      "sent_medio": -0.342,
+      "pct_neg": 58.0,
+      "pct_pos": 20.0,
+      "comparable": true
+    },
+    {
+      "video_id": "yLZS3JiEBg8",
+      "title": "Arroz con pollo a la MONOPOLIO",
+      "category": "News & Politics",
+      "comentarios": 16,
+      "autores": 16,
+      "sent_medio": -0.236,
+      "pct_neg": 56.2,
+      "pct_pos": 31.2,
+      "comparable": true
+    },
+    {
+      "video_id": "06mFNPU0aB8",
+      "title": "Capturan a presuntos delincuentes disfrazados de mujer señalados de cometer asalto",
+      "category": "News & Politics",
+      "comentarios": 14,
+      "autores": 13,
+      "sent_medio": -0.177,
+      "pct_neg": 28.6,
+      "pct_pos": 21.4,
+      "comparable": true
+    },
+    {
+      "video_id": "6W4u8sGEnGM",
+      "title": "Inician los trabajos de recuperación del Puente Belice II.",
+      "category": "Entertainment",
+      "comentarios": 45,
+      "autores": 32,
+      "sent_medio": -0.109,
+      "pct_neg": 40.0,
+      "pct_pos": 28.9,
+      "comparable": true
+    },
+    {
+      "video_id": "ndAZjHqzzT8",
+      "title": "Internet: escoger el menos malo",
+      "category": "News & Politics",
+      "comentarios": 12,
+      "autores": 10,
+      "sent_medio": 0.002,
+      "pct_neg": 33.3,
+      "pct_pos": 33.3,
+      "comparable": true
+    },
+    {
+      "video_id": "JkpVO1hx2f8",
+      "title": "10 Preguntas a un año del Paro Nacional",
+      "category": "News & Politics",
+      "comentarios": 3,
+      "autores": 3,
+      "sent_medio": 0.157,
+      "pct_neg": 33.3,
+      "pct_pos": 66.7,
+      "comparable": false
+    },
+    {
+      "video_id": "TT4qJ5FXHYE",
+      "title": "I’x K’at: el primer equipo guatemalteco de pelota maya, conformado únicamente por mujeres.",
+      "category": "News & Politics",
+      "comentarios": 4,
+      "autores": 4,
+      "sent_medio": 0.467,
+      "pct_neg": 25.0,
+      "pct_pos": 75.0,
+      "comparable": false
+    },
+    {
+      "video_id": "zweosulrwA8",
+      "title": "Edén por Salud: empleo inclusivo para personas con discapacidad en Antigua | Super - Episodio 2",
+      "category": "Nonprofits & Activism",
+      "comentarios": 1,
+      "autores": 1,
+      "sent_medio": 0.524,
+      "pct_neg": 0.0,
+      "pct_pos": 100.0,
+      "comparable": false
+    },
+    {
+      "video_id": "lj983NWyAQY",
+      "title": "Plan 2032 Ciudad de Guatemala",
+      "category": "News & Politics",
+      "comentarios": 25,
+      "autores": 25,
+      "sent_medio": 0.609,
+      "pct_neg": 8.0,
+      "pct_pos": 80.0,
+      "comparable": true
+    },
+    {
+      "video_id": "s0eco-BofOs",
+      "title": "¿Quiénes pagan más en Centroamérica?",
+      "category": "News & Politics",
+      "comentarios": 1,
+      "autores": 1,
+      "sent_medio": 0.718,
+      "pct_neg": 0.0,
+      "pct_pos": 100.0,
+      "comparable": false
+    },
+    {
+      "video_id": "UhL9y3KUl8E",
+      "title": "SHAI WA: la vecina queer de Casa Presidencial",
+      "category": "News & Politics",
+      "comentarios": 1,
+      "autores": 1,
+      "sent_medio": 0.972,
+      "pct_neg": 0.0,
+      "pct_pos": 100.0,
+      "comparable": false
+    }
+  ],
+  "sent_por_tema": [
+    {
+      "category": "News & Politics",
+      "comentarios": 335,
+      "videos": 16,
+      "sent_medio": -0.414,
+      "pct_neg": 63.9,
+      "comparable": true
+    },
+    {
+      "category": "Entertainment",
+      "comentarios": 70,
+      "videos": 2,
+      "sent_medio": -0.221,
+      "pct_neg": 50.0,
+      "comparable": true
+    },
+    {
+      "category": "Nonprofits & Activism",
+      "comentarios": 1,
+      "videos": 1,
+      "sent_medio": 0.524,
+      "pct_neg": 0.0,
+      "comparable": false
+    }
+  ],
+  "sent_por_comunidad": [
+    {
+      "dimension": "Comunidad",
+      "comunidad": 1,
+      "comentarios": 161,
+      "autores": 128,
+      "sent_medio": -0.671,
+      "pct_neg": 80.7,
+      "pct_neu": 13.7,
+      "pct_pos": 5.6,
+      "likes": 358,
+      "comparable": true
+    },
+    {
+      "dimension": "Comunidad",
+      "comunidad": 2,
+      "comentarios": 50,
+      "autores": 49,
+      "sent_medio": -0.342,
+      "pct_neg": 58.0,
+      "pct_neu": 22.0,
+      "pct_pos": 20.0,
+      "likes": 91,
+      "comparable": true
+    },
+    {
+      "dimension": "Comunidad",
+      "comunidad": 4,
+      "comentarios": 45,
+      "autores": 32,
+      "sent_medio": -0.109,
+      "pct_neg": 40.0,
+      "pct_neu": 31.1,
+      "pct_pos": 28.9,
+      "likes": 90,
+      "comparable": true
+    },
+    {
+      "dimension": "Comunidad",
+      "comunidad": 3,
+      "comentarios": 34,
+      "autores": 29,
+      "sent_medio": -0.209,
+      "pct_neg": 50.0,
+      "pct_neu": 23.5,
+      "pct_pos": 26.5,
+      "likes": 17,
+      "comparable": true
+    },
+    {
+      "dimension": "Comunidad",
+      "comunidad": 5,
+      "comentarios": 25,
+      "autores": 25,
+      "sent_medio": 0.609,
+      "pct_neg": 8.0,
+      "pct_neu": 12.0,
+      "pct_pos": 80.0,
+      "likes": 1697,
+      "comparable": true
+    },
+    {
+      "dimension": "Comunidad",
+      "comunidad": 6,
+      "comentarios": 25,
+      "autores": 18,
+      "sent_medio": -0.473,
+      "pct_neg": 64.0,
+      "pct_neu": 28.0,
+      "pct_pos": 8.0,
+      "likes": 25,
+      "comparable": true
+    },
+    {
+      "dimension": "Comunidad",
+      "comunidad": 7,
+      "comentarios": 25,
+      "autores": 19,
+      "sent_medio": -0.422,
+      "pct_neg": 68.0,
+      "pct_neu": 16.0,
+      "pct_pos": 16.0,
+      "likes": 20,
+      "comparable": true
+    },
+    {
+      "dimension": "Comunidad",
+      "comunidad": 8,
+      "comentarios": 14,
+      "autores": 13,
+      "sent_medio": -0.177,
+      "pct_neg": 28.6,
+      "pct_neu": 50.0,
+      "pct_pos": 21.4,
+      "likes": 12,
+      "comparable": true
+    }
+  ],
+  "pruebas_sentimiento": [
+    {
+      "prueba": "Kruskal–Wallis: puntaje de sentimiento entre canales comparables",
+      "estadístico": 53.687,
+      "p_valor": 0.0,
+      "detalle": "5 canales con ≥10 comentarios"
+    },
+    {
+      "prueba": "Chi-cuadrado: etiqueta de sentimiento × canal",
+      "estadístico": 82.11,
+      "p_valor": 0.0,
+      "detalle": "8 grados de libertad"
+    }
+  ],
+  "limitaciones": [
+    {
+      "limitación": "Cobertura de comentarios",
+      "evidencia_cuantitativa": "Sólo 19 de 293 videos (6.5 %) tienen comentarios recolectados; 274 tienen cero.",
+      "consecuencia_para_la_interpretación": "Los 274 videos sin comentarios NO son videos sin participación: son videos sin datos. Todo resultado de red describe la subred observada, no YouTube Guatemala."
+    },
+    {
+      "limitación": "Selección por consultas",
+      "evidencia_cuantitativa": "Los videos se encontraron con 21 consultas de búsqueda y tres estrategias (topic, official_gov, channel); 105 videos oficiales no aportaron ni un comentario.",
+      "consecuencia_para_la_interpretación": "La muestra no es aleatoria ni representativa. Sobrerrepresenta noticias y política (138 de 293 videos) y excluye por diseño lo que no aparece en esas consultas."
+    },
+    {
+      "limitación": "Fechas relativas",
+      "evidencia_cuantitativa": "published_time y published_text son textos como «hace 2 días», dependientes del instante de recolección.",
+      "consecuencia_para_la_interpretación": "No se puede construir una línea temporal fiable ni analizar la evolución de la conversación."
+    },
+    {
+      "limitación": "Conteos observados en el momento de recolección",
+      "evidencia_cuantitativa": "view_count_text y view_count difieren en 53 de 280 videos (diferencia mediana de 4 vistas): fueron capturados en instantes distintos.",
+      "consecuencia_para_la_interpretación": "Las visualizaciones y los «me gusta» son fotografías, no valores definitivos; los rankings son aproximados."
+    },
+    {
+      "limitación": "Ausencia de relaciones explícitas entre autores",
+      "evidencia_cuantitativa": "reply_count indica cuántas respuestas recibió un comentario pero no quién las escribió; no se recolectaron los comentarios de respuesta.",
+      "consecuencia_para_la_interpretación": "Es imposible construir una red de conversación. Toda relación autor–autor de este informe es CO-PARTICIPACIÓN derivada, nunca interacción observada."
+    },
+    {
+      "limitación": "Concentración en pocos videos",
+      "evidencia_cuantitativa": "Un solo video reúne 161 de 406 comentarios (39.7 %) y un solo canal el 63.1 %.",
+      "consecuencia_para_la_interpretación": "Los promedios globales están dominados por ese contenido. Cualquier afirmación sobre «los comentarios en general» es en realidad una afirmación sobre ese video."
+    },
+    {
+      "limitación": "Sólo comentarios principales",
+      "evidencia_cuantitativa": "El archivo contiene 406 comentarios de primer nivel; las respuestas anidadas no se recolectaron.",
+      "consecuencia_para_la_interpretación": "Se subestima la actividad de quienes participan sobre todo respondiendo a otros."
+    },
+    {
+      "limitación": "Sentimiento automático",
+      "evidencia_cuantitativa": "El modelo alcanza en promedio ~0.80 de confianza, pero fue entrenado con tuits, no con comentarios de YouTube guatemaltecos, y no está calibrado para ironía ni modismos locales.",
+      "consecuencia_para_la_interpretación": "Las etiquetas son una aproximación agregada útil, no un juicio fiable comentario a comentario."
+    },
+    {
+      "limitación": "Identidad de los autores",
+      "evidencia_cuantitativa": "author_channel_id identifica cuentas, no personas.",
+      "consecuencia_para_la_interpretación": "Una persona con varias cuentas aparece como varios nodos, y una cuenta compartida como uno solo."
+    }
+  ],
+  "niveles": [
+    {
+      "nivel": "DESCRIPCIÓN (válida)",
+      "ejemplo_extraído_de_este_análisis": "En la muestra, 406 comentarios de 332 autores se reparten en 19 videos; el 97.3 % de los autores aparece en un solo video.",
+      "por_qué": "Es un conteo directo sobre los datos entregados. No requiere supuestos."
+    },
+    {
+      "nivel": "ASOCIACIÓN (válida con reservas)",
+      "ejemplo_extraído_de_este_análisis": "Entre los 19 videos con cobertura, visualizaciones y comentarios covarían (ρ = 0.811); los comentarios con más «me gusta» tienden a ser menos negativos (ρ = 0.234).",
+      "por_qué": "Son correlaciones sobre muestras pequeñas y seleccionadas. No implican causalidad: no puede afirmarse que más vistas *causen* más comentarios."
+    },
+    {
+      "nivel": "INFERENCIA (NO válida aquí)",
+      "ejemplo_extraído_de_este_análisis": "«Los guatemaltecos son negativos en YouTube» o «este canal genera más rechazo que los demás».",
+      "por_qué": "La muestra no es probabilística, cubre el 6.5 % de los videos y está dominada por un canal. No permite generalizar a la población de usuarios ni a YouTube Guatemala."
+    }
+  ],
+  "hallazgos": [
+    {
+      "eje": "Estructura",
+      "hallazgo": "La red es una constelación de estrellas, no una conversación",
+      "evidencia": "351 nodos y 343 aristas; grado medio de los autores 1.03 frente a 18.1 de los videos; 97.3 % de los autores tiene grado 1.",
+      "interpretación": "La participación se organiza alrededor del contenido, no de vínculos entre personas: casi todos comentan una vez, en un único video, y no vuelven."
+    },
+    {
+      "eje": "Fragmentación",
+      "hallazgo": "Un núcleo grande y nueve islas",
+      "evidencia": "10 componentes; la mayor reúne 286 nodos (81.5 %); diámetro 12.",
+      "interpretación": "El núcleo se sostiene por muy pocos autores; las islas son videos cuya audiencia no coincide con ninguna otra dentro de la muestra."
+    },
+    {
+      "eje": "Puentes",
+      "hallazgo": "Siete personas sostienen la conectividad",
+      "evidencia": "7 autores son puntos de articulación de 332 (2.1 %); el de mayor intermediación alcanza 0.232.",
+      "interpretación": "Eliminar a esos siete autores fragmenta la componente principal. Son estructuralmente críticos, aunque sólo aportan entre 2 y 4 comentarios cada uno."
+    },
+    {
+      "eje": "Comunidades",
+      "hallazgo": "Las comunidades son videos, no grupos sociales",
+      "evidencia": "17 comunidades con modularidad 0.777; 16 de ellas contienen un solo video.",
+      "interpretación": "La modularidad alta no revela tribus de usuarios: refleja que cada video captura una audiencia propia que no se solapa con las demás."
+    },
+    {
+      "eje": "Concentración",
+      "hallazgo": "Un video y un canal dominan la muestra",
+      "evidencia": "El video líder reúne 39.7 % de los comentarios y el canal líder 63.1 %; Gini de comentarios por video 0.660.",
+      "interpretación": "La participación observada es extremadamente desigual; los promedios globales describen sobre todo a ese contenido."
+    },
+    {
+      "eje": "Popularidad ≠ participación",
+      "hallazgo": "Ser visto y ser comentado no es lo mismo",
+      "evidencia": "«Qué rico come tu diputado» ocupa el puesto 1 en comentarios y el 3 en vistas; el video más visto (304 089 vistas) genera 0.82 comentarios por cada 10 000 vistas, frente a 192 del más participativo.",
+      "interpretación": "La visibilidad no predice la participación: los videos que activan a la audiencia son los que tocan un nervio, no los más vistos."
+    },
+    {
+      "eje": "Contenido y tono",
+      "hallazgo": "Participar es sobre todo criticar",
+      "evidencia": "249 de 406 comentarios son negativos (61.3 %); el vocabulario dominante es «pueblo», «diputado», «pagar», «dinero».",
+      "interpretación": "El tono negativo no es uniforme: varía de forma significativa entre canales (Kruskal–Wallis, p < 0.001), del −0.50 de Quorum al +0.61 de la Municipalidad."
+    },
+    {
+      "eje": "Cobertura",
+      "hallazgo": "El hallazgo metodológico principal",
+      "evidencia": "274 de 293 videos sin comentarios; 0 de 105 videos de la estrategia official_gov aportó datos.",
+      "interpretación": "La forma de la red está determinada tanto por el comportamiento de los usuarios como por el procedimiento de recolección. Ignorarlo llevaría a confundir ausencia de datos con silencio social."
+    }
+  ],
   "figuras": [
     "01_top_participacion.png",
     "02_distribuciones_conteos.png",
@@ -3114,7 +3696,8 @@
     "09_proyecciones.png",
     "10_distribucion_grados_componentes.png",
     "11_comunidades.png",
-    "12_centralidad.png"
+    "12_centralidad.png",
+    "13_sentimiento.png"
   ],
   "tablas": [
     "01_llaves_candidatas.csv",
@@ -3176,7 +3759,18 @@
     "57_centralidad_videos.csv",
     "58_autores_puente_articuladores.csv",
     "59_videos_articuladores.csv",
-    "60_autores_recurrentes.csv"
+    "60_autores_recurrentes.csv",
+    "61_sentimiento_global.csv",
+    "62_ejemplos_sentimiento.csv",
+    "63_sentimiento_por_video.csv",
+    "64_sentimiento_por_canal.csv",
+    "65_sentimiento_por_categoria.csv",
+    "66_sentimiento_por_comunidad.csv",
+    "67_sentimiento_por_estrategia.csv",
+    "68_pruebas_diferencias_sentimiento.csv",
+    "69_limitaciones.csv",
+    "70_descripcion_asociacion_inferencia.csv",
+    "71_hallazgos_integrados.csv"
   ],
   "grafos": [
     "proyeccion_autor_autor.graphml",

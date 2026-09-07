@@ -1,0 +1,4 @@
+﻿nivel,ejemplo_extraído_de_este_análisis,por_qué
+DESCRIPCIÓN (válida),"En la muestra, 406 comentarios de 332 autores se reparten en 19 videos; el 97.3 % de los autores aparece en un solo video.",Es un conteo directo sobre los datos entregados. No requiere supuestos.
+ASOCIACIÓN (válida con reservas),"Entre los 19 videos con cobertura, visualizaciones y comentarios covarían (ρ = 0.811); los comentarios con más «me gusta» tienden a ser menos negativos (ρ = 0.234).",Son correlaciones sobre muestras pequeñas y seleccionadas. No implican causalidad: no puede afirmarse que más vistas *causen* más comentarios.
+INFERENCIA (NO válida aquí),«Los guatemaltecos son negativos en YouTube» o «este canal genera más rechazo que los demás».,"La muestra no es probabilística, cubre el 6.5 % de los videos y está dominada por un canal. No permite generalizar a la población de usuarios ni a YouTube Guatemala."
