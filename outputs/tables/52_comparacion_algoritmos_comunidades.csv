@@ -1,0 +1,6 @@
+﻿algoritmo,comunidades,modularidad,tamaño_mayor
+Louvain con pesos (python-louvain),17,0.7774,126
+Louvain sin pesos (python-louvain),17,0.7901,125
+Louvain (networkx),17,0.7774,126
+Modularidad voraz (CNM),17,0.7774,126
+Propagación de etiquetas,19,0.7712,127

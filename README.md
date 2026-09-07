@@ -8,8 +8,8 @@ Análisis sobre `youtube_videos.csv` (293 videos × 20 variables) y `youtube_com
 ## Estado
 
 El avance (actividades 1 a 4) se reconstruyó como un **pipeline reproducible único**,
-`scripts/lab6_analisis.py`, y sobre él se desarrollaron las **actividades 5 y 6**: proyecciones de
-la red y análisis de topología y fragmentación. Los notebooks originales del avance se conservan en
+`scripts/lab6_analisis.py`, y sobre él se desarrollaron las **actividades 5 a 8**: proyecciones de
+la red, topología y fragmentación, detección de comunidades y análisis de nodos centrales. Los notebooks originales del avance se conservan en
 `notebooks/avance/`.
 
 ## Instalación
