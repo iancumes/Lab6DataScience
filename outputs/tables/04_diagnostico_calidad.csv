@@ -1,0 +1,38 @@
+﻿archivo,variable,tipo_pandas,faltantes,faltantes_pct,vacios_o_espacios,valores_unicos,es_constante,es_vacia,atipicos_iqr,ejemplo
+youtube_videos.csv,video_id,string,0,0.0,0,293,False,False,,-5puKGEqcUc
+youtube_videos.csv,title,str,0,0.0,0,274,False,False,,INSIVUMEH pronostica incremento de lluv…
+youtube_videos.csv,channel_name,str,0,0.0,0,97,False,False,,T13 Noticias Guatemala
+youtube_videos.csv,channel_id,string,0,0.0,0,97,False,False,,UCq0Cm-3SKthEySQc2JZBi1A
+youtube_videos.csv,source_query,str,0,0.0,0,21,False,False,,guatemala lluvias
+youtube_videos.csv,source_group,str,0,0.0,0,3,False,False,,topic
+youtube_videos.csv,dataset_sources,str,0,0.0,0,23,False,False,,youtube_guatemala.csv | youtube_guatema…
+youtube_videos.csv,channel_handle,string,0,0.0,0,97,False,False,,/@T13NoticiasGuatemala
+youtube_videos.csv,published_time,str,13,4.44,13,80,False,False,,hace 2 días
+youtube_videos.csv,view_count_text,str,13,4.44,13,259,False,False,,"2,390 vistas"
+youtube_videos.csv,description_snippet,str,25,8.53,25,236,False,False,,El Departamento de Pronóstico de INSIVU…
+youtube_videos.csv,video_url,str,0,0.0,0,293,False,False,,https://www.youtube.com/watch?v=-5puKGE…
+youtube_videos.csv,query_hits,str,0,0.0,0,26,False,False,,"[""guatemala lluvias""]"
+youtube_videos.csv,keywords,str,0,0.0,0,106,False,False,,"[""Canícula prolongada"", ""Chapin tv"", ""F…"
+youtube_videos.csv,description,str,26,8.87,26,234,False,False,,El Departamento de Pronóstico de INSIVU…
+youtube_videos.csv,view_count,int64,0,0.0,0,267,False,False,49,2357
+youtube_videos.csv,publish_date,str,0,0.0,0,293,False,False,,2026-08-28T22:00:20-07:00
+youtube_videos.csv,upload_date,str,0,0.0,0,293,False,False,,2026-08-28T22:00:20-07:00
+youtube_videos.csv,category,str,0,0.0,0,11,False,False,,News & Politics
+youtube_videos.csv,owner_handle,string,0,0.0,0,97,False,False,,/@T13NoticiasGuatemala
+youtube_comments.csv,video_id,string,0,0.0,0,19,False,False,,j43HgwYFKfk
+youtube_comments.csv,comment_id,string,0,0.0,0,406,False,False,,Ugw-J65a1iYL9hqhELh4AaABAg
+youtube_comments.csv,video_title,str,0,0.0,0,19,False,False,,La cooptación de Walter Mazariegos en l…
+youtube_comments.csv,channel_name,str,0,0.0,0,8,False,False,,Quorum
+youtube_comments.csv,channel_id,string,0,0.0,0,8,False,False,,UCE4rsXcgDb6e1-a9iTbWzfg
+youtube_comments.csv,author_name,str,0,0.0,0,332,False,False,,@MarcosCarillo-b1r
+youtube_comments.csv,author_channel_id,string,0,0.0,0,332,False,False,,UCdFlugHJJa4l3YqWuNRmvXw
+youtube_comments.csv,text,str,0,0.0,0,404,False,False,,Ese corrupto amigo de la vieja fiscal l…
+youtube_comments.csv,source_query,str,0,0.0,0,6,False,False,,@quorumgt
+youtube_comments.csv,source_group,str,0,0.0,0,2,False,False,,topic
+youtube_comments.csv,dataset_sources,str,0,0.0,0,8,False,False,,j43HgwYFKfk_out_comments.csv | quorum_c…
+youtube_comments.csv,author_handle,string,0,0.0,0,332,False,False,,/@MarcosCarillo-b1r
+youtube_comments.csv,published_text,str,0,0.0,0,39,False,False,,hace 6 meses
+youtube_comments.csv,like_count_text,str,0,0.0,189,31,False,False,, 
+youtube_comments.csv,reply_count,int64,0,0.0,0,6,False,False,0,0
+youtube_comments.csv,is_pinned,bool,0,0.0,0,1,True,False,,False
+youtube_comments.csv,viewer_rating,float64,406,100.0,0,0,False,True,0,

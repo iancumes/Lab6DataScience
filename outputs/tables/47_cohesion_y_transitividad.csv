@@ -1,0 +1,8 @@
+﻿medida,valor,interpretación
+Transitividad clásica (bipartita observada),0.0,Vale 0 por construcción: una red bipartita no admite triángulos.
+Clustering bipartito de Latapy — autores,0.94227,Solapamiento medio de vecindarios entre autores.
+Clustering bipartito de Latapy — videos,0.01438,Solapamiento medio de audiencias entre videos.
+Redundancia media (24 nodos con grado ≥ 2),0.11242,Fracción de pares de vecinos que seguirían conectados por otro camino si el nodo desapareciera.
+Transitividad — proyección autor–autor,0.98403,Cercana a 1 porque cada video genera una camarilla completa; es un artefacto de la proyección.
+Transitividad — proyección video–video,0.31579,Baja: los solapamientos de audiencia rara vez cierran triángulos.
+Densidad — bipartita observada,0.05438,"Se calcula sobre el producto de los dos lados, no sobre n(n-1)/2."

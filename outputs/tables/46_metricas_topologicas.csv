@@ -1,0 +1,5 @@
+﻿red,nodos,aristas,densidad,grado_medio,grado_mediano,grado_max,grado_min,componentes,tam_componente_mayor,pct_en_componente_mayor,aislados,transitividad,clustering_medio,diametro_componente_mayor,camino_medio_componente_mayor
+Bipartita completa (293 videos + 332 autores),625,343,0.00353,1.098,1.0,128,0,284,286,45.76,274,0.0,0.0,12,4.715
+Bipartita observada (19 videos + 332 autores),351,343,0.05438,1.954,1.0,128,1,10,286,81.48,0,0.0,0.0,12,4.715
+Proyección autor–autor,332,10732,0.19532,64.651,48.0,183,0,10,276,83.13,4,0.98403,0.97205,6,2.356
+Proyección video–video,19,11,0.06433,1.158,1.0,4,0,10,10,52.63,9,0.31579,0.14912,5,2.489

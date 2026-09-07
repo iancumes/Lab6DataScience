@@ -1,0 +1,8 @@
+﻿archivo,chequeo,conteo
+youtube_videos.csv,Filas exactamente duplicadas,0
+youtube_videos.csv,video_id duplicado,0
+youtube_videos.csv,title duplicado (distinto video),19
+youtube_comments.csv,Filas exactamente duplicadas,0
+youtube_comments.csv,comment_id duplicado,0
+youtube_comments.csv,texto duplicado (comment_id distinto),2
+youtube_comments.csv,"(video_id, author_channel_id, text) duplicado",2

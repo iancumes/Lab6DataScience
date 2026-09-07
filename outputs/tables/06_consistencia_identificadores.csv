@@ -1,0 +1,15 @@
+﻿ámbito,regla,incumplimientos_o_conteo
+videos,channel_id → un solo channel_name,0
+videos,channel_name → un solo channel_id,0
+videos,channel_id → un solo channel_handle,0
+videos,channel_handle ≠ owner_handle,0
+videos,publish_date ≠ upload_date,0
+videos,video_url inconsistente con video_id,0
+comentarios,author_channel_id → un solo author_name,0
+comentarios,author_name → un solo author_channel_id,0
+comentarios,author_channel_id → un solo author_handle,0
+cruce,channel_id de comentarios presente en videos,406
+cruce,author_channel_id que también es channel_id de un video,0
+cruce,video_title de comentarios ≠ title del catálogo,0
+cruce,source_group del comentario ≠ source_group del video,188
+cruce,source_query del comentario ≠ source_query del video,188

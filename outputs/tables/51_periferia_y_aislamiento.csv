@@ -1,0 +1,8 @@
+﻿grupo,conteo,lectura
+Videos sin ninguna arista,274,AUSENCIA DE DATOS. No se recolectaron comentarios para ellos; no puede afirmarse que nadie comentó.
+Videos con cobertura y grado 1,4,AISLAMIENTO OBSERVADO PARCIAL. Recibieron un solo comentarista dentro de la muestra.
+Autores con grado 1 (un solo video),323,PERIFERIA OBSERVADA. Participación de una sola vez en la muestra; pueden ser activos fuera de ella.
+Autores con grado ≥ 2,9,NÚCLEO CONECTOR. Son los únicos nodos capaces de unir videos distintos.
+Autores aislados en la proyección autor–autor,4,Comentaron en un video donde nadie más de la muestra comentó.
+Videos aislados en la proyección video–video,9,No comparten ningún comentarista con otro video de la muestra.
+Componentes conexas de la subred observada,10,La mayor reúne 286 nodos (81.5 % de la subred).

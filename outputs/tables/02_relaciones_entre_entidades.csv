@@ -1,0 +1,7 @@
+﻿origen,destino,cardinalidad,llave,evidencia
+canal,video,1:N,channel_id → video_id,97 canales publican 293 videos
+video,comentario,1:N,video_id → comment_id,19 videos concentran 406 comentarios
+autor,comentario,1:N,author_channel_id → comment_id,332 autores escriben 406 comentarios
+video,categoría,N:1,video_id → category,11 categorías distintas
+consulta,video,N:M,source_query / query_hits,21 consultas; un video puede aparecer en varias
+autor,autor,no observable,—,reply_count no identifica a quién respondió cada usuario

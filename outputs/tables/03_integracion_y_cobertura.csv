@@ -1,0 +1,9 @@
+﻿indicador,valor
+Comentarios en el archivo,406.0
+Comentarios que sí se asociaron a un video,406.0
+Comentarios huérfanos (video_id sin catálogo),0.0
+Filas resultantes de la unión,406.0
+Videos del catálogo,293.0
+Videos con al menos un comentario,19.0
+Videos sin comentarios recolectados,274.0
+Cobertura de videos (%),6.48
